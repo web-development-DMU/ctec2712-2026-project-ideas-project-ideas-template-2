@@ -4,23 +4,83 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Nishal</title>
+
+        <style>
+            body {
+                margin: 0;
+
+                header,
+                main {
+                    font-family: monospace;
+                    font-size: 1.2em;
+                    padding-inline: 2rem;
+                }
+
+                header {
+                    display: flex;
+                    align-items: end;
+                    justify-content: space-between;
+                    background: #aaa;
+                    nav {
+                        display: flex;
+                        gap: 1rem;
+                        a {
+                            font-size: 1.4em;
+                            padding: 0.25em 0.5em;
+                            backdrop-filter: brightness(1.4);
+                            text-decoration: none;
+                            transition: backdrop-filter 200ms ease-in-out;
+                            border-top-left-radius: 1ch;
+                            border-top-right-radius: 1ch;
+                            &:hover {
+                                backdrop-filter: brightness(1.2);
+                                
+                            }
+                        }
+                    }
+                }
+                main {
+                    p {
+                        max-width: 70ch;
+                        line-height: 1.4;
+                    }
+                }
+            }
+    </style>
     </head>
     <body>
-        <p><a href="/people">back</a></p>
-        <h1>Nishal</h1>
-        <p>I'm a second year computer science student at De Montfort University with hands-on experience in HTML, CSS, PHP and SQL etc which was gained during T-Level course at the college. As part of my final-year project, I developed a weather application which allowed me to apply core web-development concepts in a practical, real-world project.</p>
-        <h4>Project Ideas</h4>
-        <ul>
-            <li>e-commerce Website</li>
-            <li>Gym Programme Planner</li>
-            <li>Meals and Nutrition Tracker</li>
-            <li>BMI Calcultor</li>
-        </ul>
+        <header>
+            <h1>Group 03</h1>
+            <nav>
+                <a href="/">home</a>
+                <a href="/people">people</a>
+                <a href="/proposals">proposals</a>
+                <a href="/teams">teams</a>
+            </nav>
+        </header>
+        
+        <main>
+            <section>
+                <h1>Nishal</h1>
+                <p>I'm a second year computer science student at De Montfort University with hands-on experience in HTML, CSS, PHP and SQL etc which was gained during T-Level course at the college. As part of my final-year project, I developed a weather application which allowed me to apply core web-development concepts in a practical, real-world project.</p>
+            </section>
+            
+            <section>
+                <h4>Project Ideas</h4>
+                <ul>
+                    <li>e-commerce Website</li>
+                    <li>Gym Programme Planner</li>
+                    <li>Meals and Nutrition Tracker</li>
+                    <li>BMI Calcultor</li>
+                </ul>
+            </section>
+        </main>
     </body>
 
-    <style>
-        body {
-            padding: 50px;
-        }
-    </style>
+    <footer>
+        <a href="p2796728.html">previous</a>
+        <a href="gbcusnir.html">next</a>
+    </footer>
+
+    
 </html>
