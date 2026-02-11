@@ -4,9 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alfie Tones</title>
+    <style>
+        body {
+            font-family: "comic sans ms", cursive, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            padding-inline: 20px;
+
+            header {
+                display: flex;
+                align-items: end;
+                justify-content: space-between;
+                background: #921a96;
+                nav {
+                    display: flex;
+                    gap: 1rem;
+                    a {
+                        font-size: 1.4em;
+                        padding: 0.25em 0.5em;
+                        backdrop-filter: brightness(1.4);
+                        text-decoration: none;
+                        transition: backdrop-filter 200ms ease-in-out;
+                        border-top-left-radius: 1ch;
+                        border-top-right-radius: 1ch;
+                        &:hover {
+                            backdrop-filter: brightness(1.2);
+                            
+                        }
+                    }
+                }
+            }
+        }
+        body {
+            background-color: #f392fc;
+        }
+        h1 {
+            color: #8f4848;
+            font-size: 2em;
+        }
+        h2 {
+            color: #71ff64;
+            font-size: 2em;
+        }
+        p1 {
+            color: #000000;
+            padding-right: 10px;
+
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        nav a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Alfie Tones</h1>
+    <header>
+        <nav>  
+            <a href="/">home</a>
+            <a href="/people/">Back</a>
+            <a href="/proposals/">Proposals</a>
+            <a href="/teams/">Teams</a>
+        </nav>
+    </header>
+    <h2>Alfie Tones</h2>
     <p>
         I am Alfie, studying Computer Science. I have a keen interest in web development and software engineering. I've built multiple projects that involve user-friendly interfaces and backend systems. I've made a gym tracking app and an expenses tracker, I also have experience with databases. I like working on projects that have real-world applications and that help me in my daily life! 
     </p>
