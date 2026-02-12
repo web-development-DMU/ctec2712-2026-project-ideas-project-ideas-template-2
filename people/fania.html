@@ -22,7 +22,8 @@
                 display: flex;
                 align-items: end;
                 justify-content: space-between;
-                background: #aaa;
+                background: linear-gradient(to right, #004837, #03fbc1);
+                color: #ffffff;
                 nav {
                     display: flex;
                     gap: 1rem;
@@ -32,8 +33,6 @@
                         backdrop-filter: brightness(1.4);
                         text-decoration: none;
                         transition: backdrop-filter 200ms ease-in-out;
-                        border-top-left-radius: 1ch;
-                        border-top-right-radius: 1ch;
                         &:hover {
                             backdrop-filter: brightness(1.2);
                             
@@ -42,9 +41,23 @@
                 }
             }
             main {
+                display: flex;
+                justify-content: space-between;
+
                 p {
                     max-width: 70ch;
                     line-height: 1.4;
+                }
+                img {
+                    width: 300px;
+                    border-radius: 50%;
+                    aspect-ratio: 1;
+                    object-fit: cover;
+                }
+                h2 {
+                    text-decoration: underline;
+                    font-family: cursive;
+                    color: #477bf3;
                 }
             }
         }
