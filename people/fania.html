@@ -17,6 +17,9 @@
             color: #FFF;
             padding: 0 0 0 1em;
         }
+        header h1 {
+            display: none;
+        }
         header div {
             display: flex;
             align-items: center;
@@ -50,13 +53,14 @@
         }
 
         section {
-            margin: 2em;
+            margin: 0;
         }
 
         img {
             border-radius: 50%;
             aspect-ratio: 1;
             object-fit: cover;
+            width: 200px;
         }
 
         main > section:last-of-type {
@@ -69,6 +73,23 @@
         }
         main > section:last-of-type img {
             border-radius: 0;
+            width: 100px;
+        }
+
+
+        @media (min-width: 500px) {
+            section {
+                margin: 2em;
+            }
+            img {
+                width: 100%;
+            }
+            header h1 {
+                display: block;
+            }
+            main > section:last-of-type img {
+                width: 200px;
+            }
         }
 
     </style>
