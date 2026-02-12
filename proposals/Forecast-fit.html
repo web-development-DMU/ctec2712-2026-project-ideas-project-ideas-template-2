@@ -3,10 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ForecastFit - Proposal</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .banner {
+            background: linear-gradient(135deg, #1b3a5c 0%, #2c6fad 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .banner p {
+            color: rgba(255,255,255,0.75);
+            font-style: italic;
+            margin-top: 0.5rem;
+            max-width: 55ch;
+        }
+
+        .banner h2 {
+            color: white;
+            margin-bottom: 0.25rem;
+            font-size: 2rem;
+        }
+
+        .banner .meta {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            margin-top: 1rem;
+        }
+
+        .banner .meta a {
+            color: #f5a623;
+        }
+
+        main section {
+            margin-bottom: 2.5rem;
+        }
+
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin: 1.25rem 0;
+        }
+
+        .img-grid figure {
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .img-grid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-grid figcaption {
+            font-size: 0.75rem;
+            color: #666;
+            padding: 0.4rem 0.6rem;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .pill {
+            border: 1.5px solid #ccc;
+            color: #333;
+            font-size: 0.82rem;
+            padding: 0.25rem 0.85rem;
+            border-radius: 100px;
+            background: #fff;
+        }
+
+        .pill.chosen {
+            background: #1b3a5c;
+            color: #f5a623;
+            border-color: #1b3a5c;
+            font-weight: bold;
+        }
+
+
+        .user-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .user-card {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 1rem 1.1rem;
+            background: #fff;
+        }
+
+        .user-card .icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+
+        .user-card h4 {
+            margin: 0 0 0.4rem;
+            font-size: 0.95rem;
+            color: #1b3a5c;
+        }
+
+        .user-card p {
+            font-size: 0.85rem;
+            color: #555;
+            margin: 0;
+            max-width: none;
+        }
+
+        .story-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .story-list li {
+            border-left: 3px solid #f5a623;
+            padding: 0.5rem 0.85rem;
+            background: #fffdf7;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .db-block {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 0.75rem;
+            background: #fff;
+        }
+
+        .db-block h4 {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #1b3a5c;
+            margin: 0 0 0.6rem;
+        }
+
+        .db-block ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .db-block ul li {
+            background: #ddeeff;
+            color: #1b3a5c;
+            font-size: 0.78rem;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .challenge-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 0.75rem;
+        }
+
+        .challenge {
+            display: flex;
+            gap: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0.85rem 1rem;
+            background: #fff;
+        }
+
+        .ch-num {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ddd;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .challenge h4 {
+            margin: 0 0 0.2rem;
+            font-size: 0.9rem;
+            color: #1b3a5c;
+        }
+
+        .challenge p {
+            margin: 0;
+            font-size: 0.86rem;
+            color: #555;
+            max-width: none;
+        }
+
+        .author-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            padding: 0;
+            list-style: none;
+        }
+
+        .author-list li a {
+            display: inline-block;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0.4rem 1rem;
+            font-size: 0.88rem;
+            background: #fff;
+            text-decoration: none;
+            color: #1b3a5c;
+        }
+
+        .author-list li a:hover {
+            background: #ddeeff;
+        }
+
+        @media (max-width: 600px) {
+            .img-grid { grid-template-columns: 1fr; }
+            .user-cards { grid-template-columns: 1fr; }
+            .banner { padding: 1.5rem; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Group 07</h1>
+    <header>
+        <h1>Group 07</h1>
         <nav>
             <a href="/">home</a>
             <a href="/people">people</a>
@@ -16,35 +254,234 @@
     </header>
 
     <main>
-        <section>
+
+        <div class="banner">
             <h2>ForecastFit</h2>
+            <p>Dress for the weather you actually have — smart outfit recommendations powered by real-time forecasts.</p>
+            <p class="meta">Proposed by: <a href="/people/P2850615.html">Aayush</a> &nbsp;·&nbsp; CTEC2712 &nbsp;·&nbsp; Group 07</p>
+        </div>
+
+        <section id="description">
+            <h2>Description</h2>
             <p>
-                Proposed by: <a href="/people/P2850615.html">Aayush</a>
+                ForecastFit is a weather-aware outfit recommendation web application. Users enter their
+                location — or let the app detect it automatically — and ForecastFit retrieves the current
+                weather forecast. Based on temperature, rain, wind and other conditions, it then suggests
+                what to wear.
             </p>
-            <h3>Description</h3>
-            <p>This weather app does exactly what it says on its title.
-                Shows the users the weather and gives out a outfit recommendation going off of the weather.
-                Users can browse through days of the current week and check out the weather.
-                They will be able to plan and get an idea of what their outfit should be depending on what it recommends.
-
-                It will need an administrator who checks the website api daily and updates it daily. They will also approve the stylists decision.
-                Guest users who are first time users and can view todays weather and get basic outfit recommendations.
-                What they won't be able to do is save outfits.
-                Regular users which will be most users, they can save their outfits and create a profile.
-                They will also be able to plan their outfits as they will be able to check the current weeks instead of just 1 day.
-                Stylist or fashion creators will also be needed to give out outfit recommendations based on the weather.
+            <p>
+                The idea is to bridge the gap between weather apps and daily wardrobe decisions. Most
+                weather apps tell you it will be 9°C and cloudy but leave it to you to figure out what
+                to wear. ForecastFit closes that loop with simple, practical clothing guidance.
             </p>
-            <h3>Resources</h3>
-            <ul>
-               <li>Weather data APIs</li>
-               <li>Clothing data</li>
-               <li>Location services</li>
-               <li>Design tools</li>
-               <li>User interface</li>
-            </ul>
-        
+            <p>
+                Registered users can build a virtual wardrobe, log the items they own, set style
+                preferences (casual, formal, sporty etc.) and receive outfit suggestions based on what
+                they actually own. The app can also learn from feedback like "too warm" or "too casual"
+                to improve future suggestions.
+            </p>
 
+            <div class="img-grid">
+                <figure>
+                    <img
+                        src="https://i.pinimg.com/736x/b0/ce/02/b0ce0214740d4fdb8d033340fccf75af.jpg"
+                    />
+                    <figcaption>Cold weather — layered outfits</figcaption>
+                </figure>
+                <figure>
+                    <img
+                        src="https://i.pinimg.com/736x/1b/ab/d5/1babd5e65d8ea83fa51e27bd0052bca9.jpg"
+                    />
+                    <figcaption>Sunny days — light &amp; casual</figcaption>
+                </figure>
+                <figure>
+                    <img
+                        src="https://i.pinimg.com/736x/4b/94/cf/4b94cfb0b033de14c4cb673b1694f8d9.jpg"
+                    />
+                    <figcaption>Rainy conditions — waterproofs &amp; layers</figcaption>
+                </figure>
+            </div>
         </section>
+
+        <section id="names">
+            <h2>Possible Names</h2>
+            <p>The following names were considered. <strong>ForecastFit</strong> is the current working title.</p>
+            <div class="pill-row">
+                <span class="pill chosen">ForecastFit ✓</span>
+                <span class="pill">WearCast</span>
+                <span class="pill">DressedForIt</span>
+                <span class="pill">ClimaCloset</span>
+                <span class="pill">OutfitCast</span>
+                <span class="pill">WeatherWardrobe</span>
+                <span class="pill">SkyStyle</span>
+                <span class="pill">LayerUp</span>
+                <span class="pill">ClothCast</span>
+                <span class="pill">TodayThreads</span>
+            </div>
+        </section>
+
+        <section id="users">
+            <h2>User Types</h2>
+            <div class="user-cards">
+                <div class="user-card">
+                    <div class="icon">🧑</div>
+                    <h4>Guest User</h4>
+                    <p>Can enter a location or allow geolocation to get a weather forecast and a generic outfit recommendation. No account needed. Cannot save preferences or build a wardrobe.</p>
+                </div>
+                <div class="user-card">
+                    <div class="icon">👤</div>
+                    <h4>Registered User</h4>
+                    <p>Can set style preferences, build a virtual wardrobe, rate suggestions, view outfit history and access a 7-day outfit plan. Can also opt in to morning notifications.</p>
+                </div>
+                <div class="user-card">
+                    <div class="icon">🔧</div>
+                    <h4>Administrator</h4>
+                    <p>Manages the clothing rule engine, views usage statistics and manages user accounts. Can add, edit or remove weather-to-clothing rules and categories.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="stories">
+            <h2>User Stories</h2>
+
+            <h3>Guest</h3>
+            <ul class="story-list">
+                <li>As a <strong>guest</strong>, I want to enter my city so I can see today's weather and a suggested outfit without an account.</li>
+                <li>As a <strong>guest</strong>, I want the app to detect my location automatically so I don't have to type it in.</li>
+            </ul>
+
+            <h3>Registered User</h3>
+            <ul class="story-list">
+                <li>As a <strong>registered user</strong>, I want to create an account so my preferences are saved between sessions.</li>
+                <li>As a <strong>registered user</strong>, I want to set my style preference (casual, sporty, formal) so suggestions match my taste.</li>
+                <li>As a <strong>registered user</strong>, I want to add clothing items to my wardrobe so suggestions are based on what I own.</li>
+                <li>As a <strong>registered user</strong>, I want to give feedback on a suggestion so future suggestions improve.</li>
+                <li>As a <strong>registered user</strong>, I want to view a 7-day outfit plan so I can prepare outfits in advance.</li>
+                <li>As a <strong>registered user</strong>, I want a morning notification with today's outfit suggestion before I leave home.</li>
+            </ul>
+
+            <h3>Administrator</h3>
+            <ul class="story-list">
+                <li>As an <strong>administrator</strong>, I want to add and edit weather thresholds so the recommendation engine stays accurate.</li>
+                <li>As an <strong>administrator</strong>, I want to manage user accounts to maintain platform safety.</li>
+                <li>As an <strong>administrator</strong>, I want to see usage statistics such as daily active users and popular locations.</li>
+            </ul>
+        </section>
+
+        <section id="database">
+            <h2>Database Structure (Draft)</h2>
+            <p>A rough outline of the tables and fields needed. These will be refined during development.</p>
+
+            <div class="db-block">
+                <h4>users</h4>
+                <ul>
+                    <li>user_id PK</li><li>username</li><li>email</li><li>password_hash</li>
+                    <li>role</li><li>style_preference</li><li>default_location</li>
+                    <li>notifications_enabled</li><li>created_at</li>
+                </ul>
+            </div>
+            <div class="db-block">
+                <h4>wardrobe_items</h4>
+                <ul>
+                    <li>item_id PK</li><li>user_id FK</li><li>name</li><li>category_id FK</li>
+                    <li>warmth_rating 1–5</li><li>formality</li><li>image_url</li>
+                </ul>
+            </div>
+            <div class="db-block">
+                <h4>clothing_categories</h4>
+                <ul>
+                    <li>category_id PK</li><li>name</li><li>layer_order</li>
+                </ul>
+            </div>
+            <div class="db-block">
+                <h4>outfit_recommendations</h4>
+                <ul>
+                    <li>rec_id PK</li><li>user_id FK</li><li>location</li>
+                    <li>weather_snapshot JSON</li><li>recommended_items JSON</li>
+                    <li>feedback</li><li>created_at</li>
+                </ul>
+            </div>
+            <div class="db-block">
+                <h4>weather_rules</h4>
+                <ul>
+                    <li>rule_id PK</li><li>condition_key</li><li>threshold_value</li>
+                    <li>required_category_id FK</li><li>advice_text</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="challenges">
+            <h2>Biggest Challenges</h2>
+            <div class="challenge-list">
+                <div class="challenge">
+                    <div class="ch-num">01</div>
+                    <div>
+                        <h4>Recommendation Engine</h4>
+                        <p>Mapping weather conditions to outfit choices needs a flexible, admin-configurable rule set that handles edge cases such as warm but raining.</p>
+                    </div>
+                </div>
+                <div class="challenge">
+                    <div class="ch-num">02</div>
+                    <div>
+                        <h4>Weather API Integration</h4>
+                        <p>Third-party APIs have rate limits. We will need caching to avoid repeated calls for the same location and handle API failures gracefully.</p>
+                    </div>
+                </div>
+                <div class="challenge">
+                    <div class="ch-num">03</div>
+                    <div>
+                        <h4>Cold Start Personalisation</h4>
+                        <p>New users have no wardrobe or feedback history. An onboarding questionnaire may be needed so first-time recommendations are still useful.</p>
+                    </div>
+                </div>
+                <div class="challenge">
+                    <div class="ch-num">04</div>
+                    <div>
+                        <h4>Geolocation &amp; Privacy</h4>
+                        <p>The Geolocation API requires user permission and HTTPS. Location data must be handled in line with GDPR.</p>
+                    </div>
+                </div>
+                <div class="challenge">
+                    <div class="ch-num">05</div>
+                    <div>
+                        <h4>Team Coordination</h4>
+                        <p>Working on shared files risks merge conflicts. We will agree on a page structure early, use feature branches and make regular pull requests.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data">
+            <h2>Data Requirements</h2>
+            <p>
+                The app will use a third-party weather API (e.g. OpenWeatherMap or WeatherAPI.com) for
+                temperature, precipitation, wind, humidity, UV index and a 7-day forecast.
+                User profile data, wardrobe inventory and feedback must be stored securely with hashed
+                passwords, in line with GDPR. API keys must stay server-side only and never be exposed
+                to the client.
+            </p>
+        </section>
+
+        <section id="links">
+            <h2>Relevant Links</h2>
+            <ul>
+                <li><a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap API Documentation</a></li>
+                <li><a href="https://www.weatherapi.com/docs/" target="_blank">WeatherAPI.com Documentation</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API" target="_blank">MDN: Geolocation API</a></li>
+                <li><a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/" target="_blank">ICO: UK GDPR Guidance</a></li>
+                <li><a href="https://www.bbc.co.uk/weather" target="_blank">BBC Weather — UI inspiration</a></li>
+            </ul>
+        </section>
+
+        <section id="authors">
+            <h2>Authors</h2>
+            <p>This proposal was written collaboratively by the following group members:</p>
+            <ul class="author-list">
+                <li><a href="/people/P2850615.html">Author</a></li>
+
+            </ul>
+        </section>
+
     </main>
 </body>
 </html>
