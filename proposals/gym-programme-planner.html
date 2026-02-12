@@ -1,83 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Group 07</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css" />
 
     <style>
-        main {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
-            gap: 1rem;
-        }
+      main {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
+        gap: 1rem;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1>Group 03</h1>
-        <nav>
-            <a href="/">home</a>
-            <a href="/people">people</a>
-            <a href="/proposals">proposals</a>
-            <a href="/teams">teams</a>
-        </nav>
+      <h1>Group 03</h1>
+      <nav>
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+      </nav>
     </header>
 
     <main>
-        <section>
-            <h2>Student course hub</h2>
-            <p>
-                Proposed by: <a href="/people/P2520642.html">Vicky Narotamo</a>,
-                <a href="/people/p2788921.html">Peter</a>,
-                <a href="/people/p2796728.html">Aryan Bhavsar</a>,
-                <a href="/people/P2798866.html">Nishal valji</a>,
-                <a href="/people/gbcusnir.html">Gabriel Cusnir</a> 
-            </p>
-            <h3>Description</h3>
-            <p>
-                
-            </p>
-            <p>
-                
-            </p>
-            <h3>Functionalities</h3>
-            <ul>
-                <li>User
-                    <ul>
-                        <li>Register</li>
-                        <li>Login</li>
-                        <li>Create Plans</li>
-                        <li>Create Schedules</li>
-                        <li>Track exercises</li>
-                    </ul>
-                </li>
-                <li>Coach/Staff page</li>
-                <li>Admin page</li>
-                <li>Programme page</li>
-                <li>
-                    Admin dashboard?
-                    <ul>
-                        <li>Create/edit/delete Coach/Staff</li>
-                        <li>Create/edit/delete Users</li>
-                        <li>Create/edit/delete Programmes</li>
-                        <li>Create/edit/delete Meal Plans</li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-        <section>
-            <h2>Teams building this</h2>
-            <p></p>
-            <p></p>
-            <ul>
-                <li><a href="../teams/fake-team.html">Fake team</a> is working on this. We need help with CSS</li>
-            </ul>
-        </section>
-    </main>
-</body>
+      <section>
+        <h2>Gym Programme Planner</h2>
+        <p>
+          Proposed by:
+          <a href="/people/P2520642.html">Vicky Narotamo</a>,
+          <a href="/people/p2788921.html">Peter</a>,
+          <a href="/people/p2796728.html">Aryan Bhavsar</a>,
+          <a href="/people/P2798866.html">Nishal Valji</a>,
+          <a href="/people/gbcusnir.html">Gabriel Cusnir</a>
+        </p>
+      </section>
 
+      <section>
+        <h3>Description</h3>
+        <p>
+          So the idea is that it's a website for a gym. It allows gym members to
+          create and manage their own workout programmes. Members can register
+          for an account and build personalised training plans by selecting
+          exercises from a predefined exercise library. Users can organise
+          exercises into structured routines and update sets and repetitions
+          when needed. The system stores user accounts, exercises and workout
+          programmes in a database.
+        </p>
+        <p>
+          It needs an admin system so administrators can manage the exercise
+          records and categories. Administrators can create, update and delete
+          exercises to ensure the library remains accurate and organised.
+        </p>
+
+        <p>
+          This web application will be intended for gym members who want
+          structured planning, as it will help maintain consistency and
+          progression, replacing paper notes and memory-based planning. It keeps
+          workouts organised and accessible.
+        </p>
+      </section>
+
+      <section>
+        <h3>User Roles</h3>
+        <ul>
+          <li>
+            <strong>Gym Member:</strong> creates programmes, logs workouts
+          </li>
+
+          <li>
+            <strong>Administrator:</strong> manages exercises and categories
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Core Functionalities</h3>
+        <ul>
+          <li>Register and login</li>
+          <li>Create workout programmes</li>
+          <li>Add exercises to programmes</li>
+          <li>Edit sets and repetitions</li>
+          <li>Delete exercises from a programme</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>User Requirements</h3>
+        <ul>
+          <li>
+            As a gym member, I want to register so that I can save my
+            programmes.
+          </li>
+          <li>
+            As a gym member, I want to create a workout programme so that I can
+            organise my training.
+          </li>
+          <li>
+            As a gym member, I want to add an exercise to a programme with sets
+            and reps so that I can follow a structured routine.
+          </li>
+          <li>
+            As an administrator, I want to create exercises so that users have
+            access to structured exercise data.
+          </li>
+          <li>
+            As an administrator, I want to manage exercise categories so that
+            the exercise library stays organised.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Database Relationships</h3>
+        <p>
+          One gym member (user) can create many workout programmes, but each
+          programme belongs to one user. This is a one-to-many relationship
+          between Users and Programmes.
+        </p>
+        <p>
+          A programme can contain many exercises, and the same exercise can
+          appear in many programmes. This creates a many-to-many relationship
+          between Programmes and Exercises, which is resolved using the
+          Programme_Exercises junction table.
+        </p>
+      </section>
+
+      <section>
+        <h3>Draft Database Structure</h3>
+
+        <h4>Users</h4>
+        <ul>
+          <li>user_id (Primary key)</li>
+          <li>name</li>
+          <li>email</li>
+          <li>password</li>
+        </ul>
+
+        <h4>Programmes</h4>
+        <ul>
+          <li>programme_id (Primary key)</li>
+          <li>user_id (Foreign key)</li>
+          <li>programme_name</li>
+        </ul>
+
+        <h4>Exercises</h4>
+        <ul>
+          <li>exercise_id (Primary key)</li>
+          <li>exercise_name</li>
+          <li>category</li>
+        </ul>
+
+        <h4>Programme_Exercises</h4>
+        <p>
+          This is a junction table used to link Programmes and Exercises. It
+          stores which exercises are included in each programme, as well as
+          programme specific details such as sets and reps.
+        </p>
+        <ul>
+          <li>programme_id (Foreign key)</li>
+          <li>exercise_id (Foreign key)</li>
+          <li>sets</li>
+          <li>reps</li>
+          <li>exercise_order</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Team</h2>
+        <p>
+          This proposal is being developed by Group 03 members: Vicky Narotamo,
+          Nishal Valji, Gabriel Cusnir, Aryan Bhavsar, Peter.
+        </p>
+        <p></p>
+        <ul>
+          <li>
+            <a href="../teams/fake-team.html">Fake team</a> is working on this.
+            We need help with CSS
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
 </html>
