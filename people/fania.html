@@ -15,7 +15,19 @@
             align-items: center;
             background: #57026c;
             color: #FFF;
-            padding: 0 0 0 .5em;
+            padding: 0 0 0 1em;
+        }
+        header div {
+            display: flex;
+            align-items: center;
+            gap: 2em;
+        }
+        header div img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            aspect-ratio: 1;
+            object-fit: cover;
         }
 
         nav a {
@@ -42,7 +54,10 @@
 <body>
     
     <header>
-        <h1>Group 08</h1>
+        <div>
+            <img src="../imgs/cat.webp" alt="single cat protrait">
+            <h1>Group 08</h1>
+        </div>
         <nav>
             <a href="/">home</a>
             <a href="/people">people</a>
