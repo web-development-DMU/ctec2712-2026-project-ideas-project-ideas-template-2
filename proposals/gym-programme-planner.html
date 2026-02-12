@@ -120,6 +120,68 @@
       </section>
 
       <section>
+        <h3>Possible Names</h3>
+        <ul>
+          <li>FitPlanner</li>
+          <li>GymTracker</li>
+          <li>LiftHeaven</li>
+          <li>LiftOff: Workout Planner</li>
+          <li>ProgressHub</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>References / Inspirations</h3>
+        <ul>
+          <li>
+            <a href="https://www.strong.app" target="_blank">Strong</a> -
+            workout tracking and routine builder
+          </li>
+          <li>
+            <a href="https://www.jefit.com" target="_blank">JEFIT</a> - exercise
+            library and programme planning
+          </li>
+          <li>
+            <a href="https://www.fitbod.me" target="_blank">Fitbod</a> -
+            structured workout recommendations
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Challenges / Risks</h3>
+        <ul>
+          <li>
+            Implementing the many-to-many relationship between programmes and
+            exercises correctly.
+          </li>
+          <li>
+            Designing a simple and intuitive user interface without relying
+            heavily on JavaScript.
+          </li>
+          <li>Managing user authentication securely.</li>
+          <li>
+            Ensuring data consistency when editing or deleting exercises from
+            programmes.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Data Requirements</h3>
+        <ul>
+          <li>User account information (name, email, encrypted password).</li>
+          <li>Workout programme details created by each user.</li>
+          <li>Exercise information including name and category.</li>
+          <li>
+            Programme-specific data such as sets, repetitions, and exercise
+            order.
+          </li>
+          <li>Basic security measures to protect user login data.</li>
+        </ul>
+      </section>
+
+      <section>
         <h3>Database Relationships</h3>
         <p>
           One gym member (user) can create many workout programmes, but each
@@ -163,7 +225,7 @@
         <p>
           This is a junction table used to link Programmes and Exercises. It
           stores which exercises are included in each programme, as well as
-          programme specific details such as sets and reps.
+          programme-specific details such as sets and reps.
         </p>
         <ul>
           <li>programme_id (Foreign key)</li>
@@ -180,13 +242,6 @@
           This proposal is being developed by Group 03 members: Vicky Narotamo,
           Nishal Valji, Gabriel Cusnir, Aryan Bhavsar, Peter.
         </p>
-        <p></p>
-        <ul>
-          <li>
-            <a href="../teams/fake-team.html">Fake team</a> is working on this.
-            We need help with CSS
-          </li>
-        </ul>
       </section>
     </main>
   </body>
