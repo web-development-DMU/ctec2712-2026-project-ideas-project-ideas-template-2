@@ -3,9 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Database Structure</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <section class = "topnav">
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+    <section>
+    
+    <main class = "documentation">
+        <h1>Database Structure</h1>
+        <section class = "database-structure">
+            <h2>Tables</h2>
+            <p>
+                There will be a users table that will store user information such as username, password, age, gender.
+            </p>
+            <p>
+                There will also be a meals table that will store information about the meals that users input, such as the name of the meal, the calories, and the user who inputted it.
+            </p>
+            <p>
+                Finally, there will be an exercises table that will store information about the exercises that users input, such as the name of the exercise, the calories burned, and the user who inputted it.
+            <h2>Fields</h2>
+            <p>
+                The users table will have the following fields: id (primary key), username, password, age, and gender.
+            </p>
+            <p>
+                The meals table will have the following fields: id (primary key), name, calories,protein, carbs, fats, and user_id (foreign key referencing the users table).
+            </p>
+            <p>
+                The exercises table will have the following fields: id (primary key), name, calories_burned, and user_id (foreign key referencing the users table).
+            </p>
+            <h2>Relationships</h2>
+            <p>
+                The users table will have a one-to-many relationship with the meals and exercises tables, as one user can input multiple meals and exercises.
+            </p>
+            <p>
+                The meals and exercises tables will have a many-to-one relationship with the users table, as multiple meals and exercises can be inputted by one user.
+            </p>
+            <p>
+                The meals and exercises tables will not have a direct relationship with each other, as they will be linked through the users table.
+            </p>
+            <p>
+                Overall, the database structure will be simple and efficient, allowing for easy storage and retrieval of user information, meals, and exercises.
+            </p>
+            <p>
+                For a visual representation of the database structure, please see the diagram below.
+            </p>
+            <img src="" alt="Database Diagram">
+        </section>
+
+    <section class = "bottom-nav">
+        <p><a href="/teams">back</a></p>
+    </section>
+    </main>
     
 </body>
 </html>
