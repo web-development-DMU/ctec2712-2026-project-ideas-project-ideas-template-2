@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 6</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #2c3e50;
+            background-color: #f0f0f0;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem 2rem;
+        }
+
+        section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.2s ease;
+        }
+
+        section:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        section h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 0.75rem;
+        }
+
+        section h3 {
+            color: #34495e;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        section p {
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            color: #555;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        ul ul {
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                gap: 0.75rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.4rem;
+            }
+
+            section h3 {
+                font-size: 1.1rem;
+            }
+
+            main {
+                padding: 0 0.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Caloryx</h1>
+        <nav>
+            <a href = "/">Home</a>
+            <a href = "/people/">People</a>
+            <a href = "/proposals/">Proposals</a>
+            <a href = "/teams/">Teams</a>
+        </nav>
+    </header>
+
+    <main>
+            <section class = "proposal">
+                <h2>Caloryx</h2>
+                <p>
+                    Proposed By: <a href="/people/P2872504.html">Joshua Moody</a>, <a href="/people/P2869415.html">Alfie Tones</a>
+                </p>
+                <h3>Overview</h3>
+                <p>
+                    The idea for this application is to create a functional web app that allows users to track their caloric intake and the different amount of macronutrients that they consume, combining the total to display for them. The app will allow users to input food they have eaten and the amount of calories and macronutrients in that food, and then it will calculate the total calories and macronutrients consumed for the day. The app will also allow for users to set workouts they have completed and the calories burned from those workouts, which will then be subtracted from the total calories consumed to give the user a net calorie count for the day. The app will also have a feature that allows users to set goals for their caloric intake and macronutrient consumption, and it will provide feedback on how well they are meeting those goals. This combines both a calorie tracking and a workout tracking app into one, making it easier for users to keep track of their overall health and fitness goals.
+                </p>
+                <p>It will need a database to store user information, food items, and workout data. It will also need a user interface to allow users to input their data and view their progress. Theres a possibility that it needs an admin system to manage user accounts and content, such as adding new food items or managing user data.</p>
+
+                <h3>Features</h3>
+                <ul>
+                    <li>Track caloric intake and macronutrient consumption</li>
+                    <li>Set and track daily goals for calories and macronutrients</li>
+                    <li>Log completed workouts and calories burned</li>
+                    <li>Calculate net calorie count for the day</li>
+                    <li>Admin panel for managing users and content</li>
+                        <ul>
+                            <li>Add new food items to the database</li>
+                            <li>Manage user accounts and data</li>
+                        </ul>
+                </ul>               
+            </section>
+
+            <section class = "user-specifications">
+                <h3>List of Possible Names</h3>
+                <p>The current name is Caloryx, but other possible names include:</p>
+                <ul>
+                    <li>NutriTrack</li>
+                    <li>MacroMind</li>
+                    <li>CalorieCounter</li>
+                    <li>FitFuel</li>
+                </ul>
+
+                <h3>Diffent Types of Users</h3>
+                <p>The different types of users for this application include:</p>
+                <ul>
+                    <li>Regular Users - Individuals who want to track their caloric intake and macronutrient consumption</li>
+                    <li>Admin Users - Users who manage the application, including adding new food items and managing user accounts</li>
+                    <li>Guest Users - Users who can view public information but cannot make changes</li>
+                    <li>Premium Users - Users who have access to additional features and functionality</li>
+                </ul>
+            </section>
+
+            <section class = "user-requirements">
+                <h3>User Requirements</h3>
+                <p>Users of this application should be able to:</p>
+                <ul>
+                    <li>Log food items and their nutritional information</li>
+                    <li>Set daily goals for calories and macronutrients</li>
+                    <li>Track completed workouts and calories burned</li>
+                    <li>View their net calorie count for the day</li>
+                    <li>Access premium features if they are premium users</li>
+                </ul>
+                <p>Admin users should be able to:</p>
+                <ul>
+                    <li>Add new food items to the database</li>
+                    <li>Manage user accounts and data</li>
+                    <li>Access analytics and reports on user activity</li>
+                </ul>
+
+                <h3>Technical Requirements</h3>
+                <p>The technical requirements for this application include:</p>
+                <ul>
+                    <li>A database to store user information, food items, and workout data</li>
+                    <p>The database structure could possible look like this:</p>
+                    <ul>
+                        <li>Users table: id, username, email, password, user_type (regular, admin, guest, premium)</li>
+                        <li>Food items table: id, name, calories, protein, carbs, fat</li>
+                        <li>Workouts table: id, user_id, workout_name, calories_burned</li>
+                        <li>Goals table: id, user_id, daily_calorie_goal, daily_protein_goal, daily_carb_goal, daily_fat_goal</li>
+                    </ul>  
+                    <li>A user interface for inputting data and viewing progress</li>
+                    <li>Authentication and authorization system for managing user accounts and access levels</li>
+                    <li>Integration with third-party APIs for nutritional information and workout tracking (optional)</li>
+                </ul>
+             </section>
+
+             <section class = "potential-challenges">
+                <h3>Potential Challenges</h3>
+                <p>Some potential challenges in developing this application include:</p>
+                <ul>
+                    <li>Ensuring data accuracy and reliability for food items and workouts</li>
+                    <li>Designing a user-friendly interface that is easy to navigate</li>
+                    <li>Implementing a secure authentication and authorization system</li>
+                    <li>Integrating with third-party APIs for nutritional information and workout tracking (if applicable)</li>
+                    <li>Managing user data and ensuring privacy and security</li>
+                </ul>
+            </section>
+
+            <section class = "data-requiremenets">
+                <h3>Data Requirements</h3>
+                <p>The data requirements for this application include:</p>
+                <ul>
+                    <li>User information (username, email, password, user type)</li>
+                    <li>Food items and their nutritional information (name, calories, protein, carbs, fat)</li>
+                    <li>Workout information (user_id, workout_name, calories_burned)</li>
+                    <li>Goal information (user_id, daily_calorie_goal, daily_protein_goal, daily_carb_goal, daily_fat_goal)</li>
+                </ul>
+            </section>
+
+            <section class = "implimented">
+            <h3>Who has already implimented?</h3>
+            <p>Implimented by <a href="/teams/Sub5s/index.html">Sub5s</a>
+            </p>
+            </section>
+
+        </main>
+    
+</body>
+</html>
