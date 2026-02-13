@@ -1,0 +1,75 @@
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
+    gap: 1rem;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    line-height: 1.5;
+}
+
+header,
+main {
+    padding-inline: 2rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1rem;
+    background: #198488;
+}
+
+h3 {
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header nav {
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    font-size: 1.5em;
+    color: rgb(0, 0, 0);
+}
+
+nav a:hover {
+    font-size: 1.5em;
+    color: rgb(255, 255, 255);
+}
+
+section {
+    margin-top: 1.25rem;
+}
+
+main p {
+    max-width: 70ch;
+}
+
+ul {
+    padding-left: 1.2rem;
+}
+
+footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.description {
+    text-align: center;
+    color: blue;
+}
