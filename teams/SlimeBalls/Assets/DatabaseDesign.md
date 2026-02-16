@@ -1,3 +1,11 @@
+# Database Design
+***This includes the following:***
+- [Tables](#tables)
+- [Table Fields](#table-fields)
+- [Table Relationships](#relationship-of-tables)
+- [Database Queries](#database-queries)
+
+___
 ### Tables:
 - Catalog
 - Chapters
@@ -8,14 +16,14 @@
 
 ___
 ### Catalog
-| BookID                          | BookTitle | ReleaseDate | BookAbout | BookAuthor | BookPublisher | BookImage | BookStatus | BookSource |
+| BookID                          | BookTitle | ReleaseDate | BookAbout | BookAuthor | BookPublisher | BookImage | BookStatus | BookSource       |
 | ------------------------------- | --------- | ----------- | --------- | ---------- | ------------- | --------- | ---------- | ---------------- |
 | PK, Int, auto increment, unique | varchar   | DateTime    | varchar   | varchar    | varchar       | varchar   | varchar    | varchar          |
 ___
 ### Chapters
 | ChapterID                       | BookID  | ChapterName | ChapterRelease |
 | ------------------------------- | ------- | ----------- | -------------- |
-| PK, Int, auto increment, unique | FK, Int | varchar     | Datetime       |
+| PK, Int, auto increment, unique | FK, Int | varchar     | Datetime      |
 ___
 ### Users
 | UserID                          | UserName | UserPass | DateCreated |
@@ -28,8 +36,8 @@ ___
 | FK, Int | FK, Int   |
 ___
 
-# Relationship of databases
-![Database Design image](/teams/SlimeBalls/Assets/DatabaseDesignsofar.png)
+# Relationship of tables
+![alt text](DesignAssets/DatabaseDesignsofar.png)
 
 ___
 # Database queries
