@@ -1,0 +1,1 @@
+fetch('./footer/footer.html').then(response => response.text()).then(data => document.body.innerHTML = document.body.innerHTML + data);
