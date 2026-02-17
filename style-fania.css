@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    font-family: system-ui;
+
+    header,
+    main {
+        padding-inline: 2rem;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 1rem;
+        background: hsl(200 40% 30%);
+        color: hsl(200 40% 90%);
+
+        h1 {
+            margin: 0;
+        }
+
+        nav {
+            position: fixed;
+            right: 0;
+            top: 0;
+            translate: calc(100% - 2rem);
+
+            font-size: 1.2em;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            gap: 1rem;
+            background: inherit;
+            filter: hue-rotate(0.3333turn);
+            transition: translate 200ms;
+            animation: slide 1s ease-in-out;
+            &:hover {
+                translate: none;
+            }
+        }
+    }
+
+    main {
+        p {
+            font-weight: 300;
+            max-width: 70ch;
+            line-height: 1.5;
+        }
+    }
+}
+
+nav a {
+    color: inherit;
+    text-decoration: none;
+    padding: 0.25em 0.5em;
+    background: hsl(0 0% 100% / 0.1);
+    transition: background 200ms;
+    &:hover {
+        background: hsl(0 0% 0% / 0.2)
+    }
+}
+
+@keyframes slide {
+    0%, 60% {
+        translate: none;
+    }
+}
+
+
+.kitten {
+    width: 30%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
