@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Brandon Hextall</title>
+    <style>
+        * {
+            color: white;
+        }
+        body {
+            background-color: black;
+            padding: 0.1%;
+        }
+        .title {
+            text-decoration: underline;
+        }
+        div {
+            margin-top: 2%;
+        }
+        #disclaimer {
+            margin-top: 1%;
+            padding-bottom: 0;
+            text-align: center;
+            font-size: 13px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            margin-left:25%;
+            margin-right: 25%;
+            min-width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        //setting methods for simpler element generation
+        const   getId = (what) => document.getElementById(what),
+                createElem = (elem) => document.createElement(elem),
+                body = document.body;
+        
+        //creating elements
+        let pageHead = createElem("h2"),
+            headUnderline = createElem("u"),
+            disclaimerDiv = createElem("div"),
+            disclaimer = createElem("p"),
+            myHTMLdiv = createElem("div"),
+            myHTMLtitle = createElem("h5"),
+            myHTMLtxt = createElem("p"),
+            learningDiv = createElem("div"),
+            learningtitle = createElem("h5"),
+            learningtxt = createElem("p"),
+            ideasDiv = createElem("div"),
+            ideastitle = createElem("h5"),
+            ideastxt = createElem("p");
+
+        //adding properties to elements
+        pageHead.setAttribute("class", "title text-center");
+        disclaimer.setAttribute("id", "disclaimer");
+        disclaimer.setAttribute("class", "border border-danger border-2 rounded-3");
+        myHTMLdiv.setAttribute("class", "border border-calm border-2 rounded-3 text-center");
+        myHTMLtitle.setAttribute("class", "title");
+        learningDiv.setAttribute("class", "learningdiv border border-calm border-2 rounded-3 text-center");
+        learningtitle.setAttribute("class", "title");
+        ideasDiv.setAttribute("class", "border border-info border-2 rounded-3 text-center");
+        ideastitle.setAttribute("class", "title");
+        ideastxt.setAttribute("style", "display: flex; justify-content: center");
+
+        //setting text and innerHTML
+        pageHead.innerText = "Brandon Hextall";
+        disclaimer.innerHTML = "Note: this page is made almost entirely out of JavaScript and almost <b>ZERO</b> hardcoded HTML :)";
+        myHTMLtitle.innerText = "My HTML experience";
+        myHTMLtxt.innerHTML = "I have had a good chunk of experience with HTML, CSS, and JS. I started back in high school and persued it in college for 2 years and am currently working on a personal project during my free time. I had written this page in my free time and got bored with it so I decided instead of using hardcoded HTML, I would instead use almost entirely JavaScript for the body of this page for fun.";
+        learningtitle.innerText = "What I hope to learn from this module";
+        learningtxt.innerHTML = "In this module I hope to learn a few new skills that I haven't already gained throughout my years of web dev and hopefully brush up on some old skills I haven't used in a long time.";
+        ideastitle.innerText = "Possible Project Ideas";
+        ideastxt.innerHTML = "<ul><li>An application in which you can set dates and coursework/assignment due dates and, as well as showing your timetable and past assignments</li><li>A simple(ish) app that lets you make notes about anything you want, set reminders for things like appointments, timers, etc, and being able to create lists for anything you may need (like a to-do list or a shopping list)</li><li>A simple multiplayer game like Battleships, noughts and crosses, or 4-in-a-row</li></ul>"
+
+        //appending elements to containers
+        headUnderline.append(pageHead);
+        disclaimerDiv.append(disclaimer);
+        myHTMLdiv.append(myHTMLtitle, myHTMLtxt);
+        learningDiv.append(learningtitle, learningtxt);
+        ideasDiv.append(ideastitle, ideastxt);
+
+        //appending elements to body
+        body.append(headUnderline, disclaimerDiv,  myHTMLdiv, learningDiv, ideasDiv);
+    </script>
+</body>
+</html>
