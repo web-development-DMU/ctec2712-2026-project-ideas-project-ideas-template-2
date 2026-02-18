@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GVN - Database Design</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+
+    <body>
+        <header>
+            <h1>GVN - Gym Programme Planner</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/people">people</a>
+                <a href="/proposals">proposals</a>
+                <a href="/teams">teams</a>
+                <a href="/teams/GVN/Team-introduction.html">team page</a>
+            </nav>
+        </header>
+
+        <main>
+            <section aria-labelledby=""db-overview">
+                <h2 id=""db-overview">Database Overview</h2>
+                <p>
+                    This page documents the draft database design for the Gym Programme Planner.
+                    It covers tables, fields, and relationships, plus example SQL queries for the main
+                    interactions (registration, login, browsing exercises, creating programmes,
+                    and adding/removing exercises from a programme).
+                </p>
+
+                <h3>Tables</h3>
+                <ul>
+                    <li><strong>Users</strong> - stores gym members and administrators</li>
+                    <li><strong>Programmes</strong> - workout programmes created by a user</li>
+                    <li><strong>Categories</strong> - exercise categories managed by admins</li>
+                    <li><strong>Exercises</strong> - exercise library entries</li>
+                    <li><strong>Programme_Exercises</strong> - Junction table linking programmes
+                    and exercises, including sets/reps/order</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="db-relationships">
+                <h2 id="db-relationships">Relationships</h2>
+
+                <ul>
+                    <li>
+                        <strong>Users -> Programmes (One-to-many):</strong> one user can create many
+                        programmes, each programme belongs to one user.
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </body>
+</html>
