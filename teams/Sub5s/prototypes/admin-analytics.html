@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Admin: Analytics</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #333; border-bottom: 1px solid #111; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #fff; }
+        .admin-badge { font-size: 0.7rem; background: #900; color: #fff; padding: 0.1rem 0.4rem; margin-left: 0.4rem; }
+        .nav-links a { color: #ddd; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .nav-links a.logout { color: #f99; }
+        .page { max-width: 900px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+        .subtitle { font-size: 0.875rem; color: #555; margin-bottom: 1.25rem; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+        .stat { border: 1px solid #ccc; padding: 0.75rem 1rem; }
+        .stat .label { font-size: 0.8rem; color: #555; }
+        .stat .value { font-size: 1.4rem; font-weight: bold; }
+        .stat .change { font-size: 0.8rem; color: #555; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+        .section { border: 1px solid #ccc; padding: 1rem 1.25rem; }
+        .section h2 { font-size: 1rem; margin-bottom: 0.75rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+        /* Simple bar chart */
+        .bar-chart { display: flex; align-items: flex-end; gap: 0.4rem; height: 100px; margin-bottom: 0.4rem; }
+        .bar { flex: 1; background: #555; }
+        .bar-labels { display: flex; gap: 0.4rem; }
+        .bar-label { flex: 1; text-align: center; font-size: 0.7rem; color: #555; }
+        /* Top list */
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        td { padding: 0.4rem 0; border-bottom: 1px solid #eee; }
+        td:last-child { text-align: right; }
+        tr:last-child td { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Admin: Analytics</div>
+
+    <nav>
+        <div>
+            <a href="home.html" class="logo">Caloryx</a>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="nav-links">
+            <a href="admin.html">Dashboard</a>
+            <a href="admin-users.html">Users</a>
+            <a href="admin-food-database.html">Food DB</a>
+            <a href="admin-analytics.html" class="active">Analytics</a>
+            <a href="admin-reports.html">Reports</a>
+            <a href="admin-settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1>Analytics</h1>
+        <p class="subtitle">User engagement and usage patterns across the Caloryx platform.</p>
+
+        <div class="stats-row">
+            <div class="stat">
+                <div class="label">Monthly active users</div>
+                <div class="value">892</div>
+                <div class="change">&#8593; 14% vs last month</div>
+            </div>
+            <div class="stat">
+                <div class="label">Avg. meals / user / day</div>
+                <div class="value">3.1</div>
+                <div class="change">&#8593; 0.2 vs last month</div>
+            </div>
+            <div class="stat">
+                <div class="label">Avg. exercises / user / week</div>
+                <div class="value">4.7</div>
+                <div class="change">&#8595; 0.3 vs last month</div>
+            </div>
+            <div class="stat">
+                <div class="label">Avg. session length</div>
+                <div class="value">4.2m</div>
+                <div class="change">&#8593; 30s vs last month</div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="section">
+                <h2>New user registrations (last 7 days)</h2>
+                <div class="bar-chart">
+                    <div class="bar" style="height:40%;"></div>
+                    <div class="bar" style="height:55%;"></div>
+                    <div class="bar" style="height:70%;"></div>
+                    <div class="bar" style="height:50%;"></div>
+                    <div class="bar" style="height:80%;"></div>
+                    <div class="bar" style="height:65%;"></div>
+                    <div class="bar" style="height:90%;"></div>
+                </div>
+                <div class="bar-labels">
+                    <div class="bar-label">Tue</div>
+                    <div class="bar-label">Wed</div>
+                    <div class="bar-label">Thu</div>
+                    <div class="bar-label">Fri</div>
+                    <div class="bar-label">Sat</div>
+                    <div class="bar-label">Sun</div>
+                    <div class="bar-label">Mon</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Top 5 most logged foods</h2>
+                <table>
+                    <tr><td>1. Chicken breast (cooked)</td><td>4,201</td></tr>
+                    <tr><td>2. Rolled oats (dry)</td><td>3,876</td></tr>
+                    <tr><td>3. Greek yoghurt (full fat)</td><td>3,104</td></tr>
+                    <tr><td>4. Banana (medium)</td><td>2,890</td></tr>
+                    <tr><td>5. Brown rice (cooked)</td><td>2,644</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="section">
+                <h2>Top 5 most logged exercises</h2>
+                <table>
+                    <tr><td>1. Running (outdoor)</td><td>2,109</td></tr>
+                    <tr><td>2. Cycling (stationary)</td><td>1,876</td></tr>
+                    <tr><td>3. Walking</td><td>1,540</td></tr>
+                    <tr><td>4. Strength training</td><td>1,230</td></tr>
+                    <tr><td>5. Swimming</td><td>890</td></tr>
+                </table>
+            </div>
+            <div class="section">
+                <h2>User retention</h2>
+                <table>
+                    <tr><td>Logged in this week</td><td>71%</td></tr>
+                    <tr><td>Logged in last 30 days</td><td>58%</td></tr>
+                    <tr><td>Logged a meal today</td><td>44%</td></tr>
+                    <tr><td>Logged exercise this week</td><td>39%</td></tr>
+                    <tr><td>Set calorie goal</td><td>82%</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

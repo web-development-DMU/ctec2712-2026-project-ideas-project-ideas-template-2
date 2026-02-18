@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Routes</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .route-method {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+        .route-method.post {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        .route-method.delete {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .route-item {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-left: 4px solid #2a8a6a;
+            border-radius: 4px;
+        }
+        .route-path {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #333;
+            margin: 0.5rem 0;
+        }
+        .route-description {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+        .route-details {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+    </nav>
+    
+    <main>
+        <h1>API Routes</h1>
+        
+        <section class = "overview">
+            <h2>Overview</h2>
+            <p>
+                The api routes for Caloryx are designed to handle all interactions between the frontend and backend, including user authentication, meal and exercise logging, account settings management, and admin functionalities. Each route is structured to ensure secure data handling and provide clear feedback to the user on the success or failure of their actions.
+            </p>
+            <p><a href="index.html">← Back to Routes Overview</a></p>
+        </section>
+
+        <section class = "authentication-api">
+            <h2>Authentication API</h2>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/login</div>
+                <div class="route-description">Submit login credentials</div>
+                <div class="route-details"><strong>Form Fields:</strong> username, password<br><strong>On Success:</strong> Redirects to /dashboard<br><strong>On Error:</strong> Returns to /login with error message</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/register</div>
+                <div class="route-description">Submit new user registration</div>
+                <div class="route-details"><strong>Form Fields:</strong> username, email, password, age, gender<br><strong>On Success:</strong> Redirects to /dashboard<br><strong>On Error:</strong> Returns to /register with validation errors</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/logout</div>
+                <div class="route-description">Logout user and clear session</div>
+                <div class="route-details"><strong>On Success:</strong> Redirects to /login</div>
+            </div>
+        </section>
+
+        <section class = "data-api">
+            <h2>Meals API</h2>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/meals</div>
+                <div class="route-description">Create a new meal record</div>
+                <div class="route-details"><strong>Form Fields:</strong> name, calories, protein, carbs, fats, date, time<br><strong>On Success:</strong> Redirects to /meals or /dashboard<br><strong>Validation:</strong> All fields required, calories must be positive</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/meals/:mealId</div>
+                <div class="route-description">Update an existing meal record</div>
+                <div class="route-details"><strong>Form Fields:</strong> name, calories, protein, carbs, fats, date, time<br><strong>On Success:</strong> Redirects to /meals/:mealId<br><strong>Validation:</strong> Verify user owns this meal before updating</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/meals/:mealId/delete</div>
+                <div class="route-description">Delete a specific meal record</div>
+                <div class="route-details"><strong>On Success:</strong> Redirects to /meals<br><strong>Security:</strong> Verify user owns this meal before deletion</div>
+            </div>
+        </section>
+
+        <section class = "exercise-api">
+            <h2>Exercises API</h2>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/exercises</div>
+                <div class="route-description">Create a new exercise record</div>
+                <div class="route-details"><strong>Form Fields:</strong> name, calories_burned, duration, date, time, intensity<br><strong>On Success:</strong> Redirects to /exercises or /dashboard<br><strong>Validation:</strong> All fields required, calories_burned must be positive</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/exercises/:exerciseId</div>
+                <div class="route-description">Update an existing exercise record</div>
+                <div class="route-details"><strong>Form Fields:</strong> name, calories_burned, duration, date, time, intensity<br><strong>On Success:</strong> Redirects to /exercises/:exerciseId<br><strong>Validation:</strong> Verify user owns this exercise before updating</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/exercises/:exerciseId/delete</div>
+                <div class="route-description">Delete a specific exercise record</div>
+                <div class="route-details"><strong>On Success:</strong> Redirects to /exercises<br><strong>Security:</strong> Verify user owns this exercise before deletion</div>
+            </div>
+        </section>
+
+        <section class = "account-api">
+            <h2>Account Settings API</h2>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/settings</div>
+                <div class="route-description">Update user account settings and preferences</div>
+                <div class="route-details"><strong>Form Fields:</strong> daily_calorie_goal, daily_protein_goal, daily_carb_goal, daily_fat_goal, email<br><strong>On Success:</strong> Redirects to /settings<br><strong>Validation:</strong> Goals must be positive numbers</div>
+            </div>
+        </section>
+
+        <section class = "admin-api">
+            <h2>Admin API Routes</h2>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/admin/users/:userId</div>
+                <div class="route-description">Update user information (admin only)</div>
+                <div class="route-details"><strong>Form Fields:</strong> username, email, age, gender, user_type<br><strong>On Success:</strong> Redirects to /admin/users/:userId</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/admin/users/:userId/delete</div>
+                <div class="route-description">Delete a user account and associated data (admin only)</div>
+                <div class="route-details"><strong>On Success:</strong> Redirects to /admin/users<br><strong>Warning:</strong> Deletes all user data permanently</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/admin/food-database</div>
+                <div class="route-description">Add a new food item to database (admin only)</div>
+                <div class="route-details"><strong>Form Fields:</strong> name, calories, protein, carbs, fats, serving_size<br><strong>On Success:</strong> Redirects to /admin/food-database</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/admin/food-database/:foodId</div>
+                <div class="route-description">Update a food item (admin only)</div>
+                <div class="route-details"><strong>Form Fields:</strong> name, calories, protein, carbs, fats, serving_size<br><strong>On Success:</strong> Redirects to /admin/food-database/:foodId</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method post">POST</span>
+                <div class="route-path">/admin/food-database/:foodId/delete</div>
+                <div class="route-description">Delete a food item from database (admin only)</div>
+                <div class="route-details"><strong>On Success:</strong> Redirects to /admin/food-database</div>
+            </div>
+        </section>
+
+        <section class = "query-parameters">
+            <h2>Query Parameters</h2>
+            <p>Optional parameters that can be used with GET requests to filter and search results:</p>
+
+            <div class="route-item">
+                <div class="route-path">GET /meals?date=YYYY-MM-DD</div>
+                <div class="route-description">Filter meals by specific date</div>
+            </div>
+
+            <div class="route-item">
+                <div class="route-path">GET /meals?query=searchTerm</div>
+                <div class="route-description">Search meals by name or food item</div>
+            </div>
+
+            <div class="route-item">
+                <div class="route-path">GET /exercises?date=YYYY-MM-DD</div>
+                <div class="route-description">Filter exercises by specific date</div>
+            </div>
+
+            <div class="route-item">
+                <div class="route-path">GET /exercises?type=cardio</div>
+                <div class="route-description">Filter exercises by type or category</div>
+            </div>
+
+            <div class="route-item">
+                <div class="route-path">GET /admin/users?query=username</div>
+                <div class="route-description">Search users by username or email</div>
+            </div>
+
+            <div class="route-item">
+                <div class="route-path">GET /admin/food-database?query=apple</div>
+                <div class="route-description">Search food database by name</div>
+            </div>
+        </section>
+
+        <section class="bottom-nav">
+            <p><a href="index.html">back to routes overview</a></p>
+        </section>
+    </main>
+</body>
+</html>

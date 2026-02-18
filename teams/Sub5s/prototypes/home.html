@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Home</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #222; }
+        .nav-links a { color: #222; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover { text-decoration: underline; }
+        .page { max-width: 800px; margin: 2rem auto; padding: 0 1.25rem; }
+        .hero { text-align: center; padding: 2rem 0; border-bottom: 1px solid #ddd; margin-bottom: 2rem; }
+        .hero h1 { font-size: 1.8rem; margin-bottom: 0.75rem; }
+        .hero p { font-size: 1rem; color: #555; margin-bottom: 1.5rem; }
+        .hero-links a { display: inline-block; margin: 0 0.4rem; padding: 0.5rem 1.2rem; border: 1px solid #333; text-decoration: none; color: #222; font-size: 0.95rem; }
+        .hero-links a.primary { background: #333; color: #fff; }
+        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .feature { border: 1px solid #ccc; padding: 1rem; }
+        .feature h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+        .feature p { font-size: 0.875rem; color: #555; }
+        footer { text-align: center; padding: 1.5rem; font-size: 0.8rem; color: #888; border-top: 1px solid #ddd; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Home page</div>
+
+    <nav>
+        <a href="home.html" class="logo">Caloryx</a>
+        <div class="nav-links">
+            <a href="login.html">Log in</a>
+            <a href="register.html">Create account</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="hero">
+            <h1>Track your calories, reach your goals.</h1>
+            <p>Caloryx makes it simple to log meals, track exercise, and stay on top of your daily nutrition targets.</p>
+            <div class="hero-links">
+                <a href="register.html" class="primary">Create a free account</a>
+                <a href="login.html">Log in</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>Log meals instantly</h3>
+                <p>Search our food database and add meals in seconds. Track calories, protein, carbs and fats.</p>
+            </div>
+            <div class="feature">
+                <h3>Track exercise</h3>
+                <p>Record your workouts and see calories burned factored into your daily net total.</p>
+            </div>
+            <div class="feature">
+                <h3>Daily dashboard</h3>
+                <p>A clear summary of your progress every day — intake, expenditure and net calories at a glance.</p>
+            </div>
+            <div class="feature">
+                <h3>Set personal goals</h3>
+                <p>Configure your calorie and macronutrient targets to match your lifestyle and health objectives.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>&copy; 2025 Caloryx &mdash; Prototype application built for CTECH2712.</footer>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Settings</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #222; }
+        .nav-links a { color: #222; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { text-decoration: underline; }
+        .nav-links a.logout { color: #900; }
+        .page { max-width: 600px; margin: 1.5rem auto; padding: 0 1.25rem 2rem; }
+        h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+        .subtitle { font-size: 0.875rem; color: #555; margin-bottom: 1.25rem; }
+        .success { background: #f0fff0; border: 1px solid #a5d6a7; padding: 0.6rem 0.8rem; font-size: 0.85rem; color: #2e7d32; margin-bottom: 1rem; display: none; }
+        .section { border: 1px solid #ccc; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+        .section h2 { font-size: 1rem; margin-bottom: 1rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+        label { display: block; font-size: 0.875rem; font-weight: bold; margin-bottom: 0.25rem; }
+        .hint { font-size: 0.8rem; color: #666; font-weight: normal; margin-left: 0.3rem; }
+        input { width: 100%; padding: 0.5rem; border: 1px solid #ccc; font-size: 0.9rem; font-family: inherit; margin-bottom: 1rem; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .macros { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        button { padding: 0.5rem 1.5rem; background: #333; color: #fff; border: none; font-size: 0.9rem; cursor: pointer; font-family: inherit; }
+        button:hover { background: #555; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Settings</div>
+
+    <nav>
+        <a href="home.html" class="logo">Caloryx</a>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="meals.html">Meals</a>
+            <a href="exercises.html">Exercises</a>
+            <a href="settings.html" class="active">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1>Account Settings</h1>
+        <p class="subtitle">Manage your profile information and daily nutrition targets.</p>
+
+        <div class="success">Settings saved successfully!</div>
+
+        <form action="settings.html" method="get">
+            <div class="section">
+                <h2>Profile</h2>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="jane_doe">
+
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" value="jane@example.com">
+
+                <div class="row">
+                    <div>
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" value="28" min="13" max="120">
+                    </div>
+                    <div>
+                        <label for="gender">Gender</label>
+                        <input type="text" id="gender" name="gender" value="Female">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Daily nutrition goals</h2>
+                <label for="calorie_goal">Daily calorie goal <span class="hint">(kcal)</span></label>
+                <input type="number" id="calorie_goal" name="daily_calorie_goal" value="2000" min="500">
+
+                <div class="macros">
+                    <div>
+                        <label for="protein_goal">Protein goal <span class="hint">(g)</span></label>
+                        <input type="number" id="protein_goal" name="daily_protein_goal" value="150" min="0">
+                    </div>
+                    <div>
+                        <label for="carb_goal">Carbohydrate goal <span class="hint">(g)</span></label>
+                        <input type="number" id="carb_goal" name="daily_carb_goal" value="250" min="0">
+                    </div>
+                    <div>
+                        <label for="fat_goal">Fat goal <span class="hint">(g)</span></label>
+                        <input type="number" id="fat_goal" name="daily_fat_goal" value="60" min="0">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Save settings</button>
+        </form>
+    </div>
+</body>
+</html>

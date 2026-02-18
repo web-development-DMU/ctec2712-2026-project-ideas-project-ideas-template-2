@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Exercises</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #222; }
+        .nav-links a { color: #222; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { text-decoration: underline; }
+        .nav-links a.logout { color: #900; }
+        .page { max-width: 860px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        h1 { font-size: 1.4rem; }
+        .btn { padding: 0.4rem 1rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; text-decoration: none; }
+        .btn:hover { background: #555; }
+        .filter-bar { border: 1px solid #ccc; padding: 0.75rem 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; }
+        .filter-bar label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.2rem; }
+        .filter-bar input, .filter-bar select { padding: 0.4rem; border: 1px solid #ccc; font-size: 0.875rem; font-family: inherit; }
+        .filter-bar button { padding: 0.4rem 0.9rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        th { text-align: left; padding: 0.5rem; border-bottom: 2px solid #ccc; background: #f5f5f5; }
+        td { padding: 0.5rem; border-bottom: 1px solid #eee; }
+        td a { color: #222; text-decoration: none; }
+        td a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Exercises</div>
+
+    <nav>
+        <a href="home.html" class="logo">Caloryx</a>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="meals.html">Meals</a>
+            <a href="exercises.html" class="active">Exercises</a>
+            <a href="settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="page-header">
+            <h1>My Exercises</h1>
+            <a href="#" class="btn">+ Log exercise</a>
+        </div>
+
+        <div class="filter-bar">
+            <div>
+                <label for="filter-date">Date</label>
+                <input type="date" id="filter-date" name="date" value="2026-02-17">
+            </div>
+            <div>
+                <label for="filter-type">Type</label>
+                <select id="filter-type" name="type">
+                    <option value="">All types</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="strength">Strength</option>
+                    <option value="flexibility">Flexibility</option>
+                    <option value="sports">Sports</option>
+                </select>
+            </div>
+            <button>Filter</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Date &amp; time</th>
+                    <th>Duration</th>
+                    <th>Type</th>
+                    <th>Intensity</th>
+                    <th>Calories burned</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="exercise-detail.html">Morning run</a></td>
+                    <td>17 Feb 2026 &mdash; 07:00</td>
+                    <td>30 min</td><td>Cardio</td><td>High</td><td>280 kcal</td>
+                </tr>
+                <tr>
+                    <td><a href="exercise-detail.html">Stretching / cool-down</a></td>
+                    <td>17 Feb 2026 &mdash; 07:35</td>
+                    <td>10 min</td><td>Flexibility</td><td>Low</td><td>40 kcal</td>
+                </tr>
+                <tr>
+                    <td><a href="exercise-detail.html">Cycling (stationary bike)</a></td>
+                    <td>16 Feb 2026 &mdash; 18:00</td>
+                    <td>45 min</td><td>Cardio</td><td>Moderate</td><td>350 kcal</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
