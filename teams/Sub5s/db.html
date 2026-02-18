@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Structure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class = "topnav">
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+    <section>
+    
+    <main class = "documentation">
+        <h1>Database Structure</h1>
+        <section class = "database-structure">
+            <h2>Tables</h2>
+            <p>
+                There will be a users table that will store user information such as username, password, age, gender.
+            </p>
+            <p>
+                There will also be a meals table that will store information about the meals that users input, such as the name of the meal, the calories, and the user who inputted it.
+            </p>
+            <p>
+                Finally, there will be an exercises table that will store information about the exercises that users input, such as the name of the exercise, the calories burned, and the user who inputted it.
+            <h2>Fields</h2>
+            <p>
+                The users table will have the following fields: id (primary key), username, password, age, and gender.
+            </p>
+            <p>
+                The meals table will have the following fields: id (primary key), name, calories,protein, carbs, fats, and user_id (foreign key referencing the users table).
+            </p>
+            <p>
+                The exercises table will have the following fields: id (primary key), name, calories_burned, and user_id (foreign key referencing the users table).
+            </p>
+            <h2>Relationships</h2>
+            <p>
+                The users table will have a one-to-many relationship with the meals and exercises tables, as one user can input multiple meals and exercises.
+            </p>
+            <p>
+                The meals and exercises tables will have a many-to-one relationship with the users table, as multiple meals and exercises can be inputted by one user.
+            </p>
+            <p>
+                The meals and exercises tables will not have a direct relationship with each other, as they will be linked through the users table.
+            </p>
+            <p>
+                Overall, the database structure will be simple and efficient, allowing for easy storage and retrieval of user information, meals, and exercises.
+            </p>
+            <p>
+                For a visual representation of the database structure, please see the diagram below.
+            </p>
+
+            <img src="DatabseDesign.png" alt="Database Diagram"
+                 style="width: 300px; cursor: pointer; border-radius: 5px; transition: transform 0.3s ease;"
+                 onclick="if(this.style.width==='300px'){this.style.width='100%';this.style.transform='scale(1)'}else{this.style.width='300px'}"
+                 title="Click to enlarge">
+        </section>
+
+        <section class="database-queries">
+            <h2>Database Queries (SQL Statements)</h2>
+            <p>
+                Below are some example SQL statements for creating the tables, inserting data, and querying the database for our calorie tracking application.
+            </p>
+
+            <h3>Table Creation</h3>
+            <pre><code>CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    age INT,
+    gender VARCHAR(10)
+);
+
+CREATE TABLE meals (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    calories INT,
+    protein INT,
+    carbs INT,
+    fats INT,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE exercises (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    calories_burned INT,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);</code></pre>
+
+            <h3>User Registration & Login</h3>
+            <pre><code>-- Register a new user
+INSERT INTO users (username, password, age, gender)
+VALUES ('john_doe', 'hashed_password', 25, 'Male');
+
+-- Login (find user by username)
+SELECT * FROM users WHERE username = 'john_doe';</code></pre>
+
+            <h3>Adding & Viewing Meals</h3>
+            <pre><code>-- Add a meal
+INSERT INTO meals (name, calories, protein, carbs, fats, user_id)
+VALUES ('Chicken Salad', 350, 30, 15, 12, 1);
+
+-- View all meals for a user
+SELECT * FROM meals WHERE user_id = 1;
+
+-- Get total calories consumed today
+SELECT SUM(calories) AS total_calories
+FROM meals WHERE user_id = 1;</code></pre>
+
+            <h3>Adding & Viewing Exercises</h3>
+            <pre><code>-- Add an exercise
+INSERT INTO exercises (name, calories_burned, user_id)
+VALUES ('Running', 400, 1);
+
+-- View all exercises for a user
+SELECT * FROM exercises WHERE user_id = 1;
+
+-- Get total calories burned
+SELECT SUM(calories_burned) AS total_burned
+FROM exercises WHERE user_id = 1;</code></pre>
+
+            <h3>Calorie Summary</h3>
+            <pre><code>-- Net calories (consumed minus burned) for a user
+SELECT
+    (SELECT COALESCE(SUM(calories), 0) FROM meals WHERE user_id = 1)
+    -
+    (SELECT COALESCE(SUM(calories_burned), 0) FROM exercises WHERE user_id = 1)
+AS net_calories;</code></pre>
+
+            <h3>Deleting Records</h3>
+            <pre><code>-- Delete a meal
+DELETE FROM meals WHERE id = 1;
+
+-- Delete an exercise
+DELETE FROM exercises WHERE id = 1;
+
+-- Delete a user and their data
+DELETE FROM exercises WHERE user_id = 1;
+DELETE FROM meals WHERE user_id = 1;
+DELETE FROM users WHERE id = 1;</code></pre>
+        </section>
+
+    <section class = "bottom-nav">
+        <p><a href="/teams/Sub5s/index.html">back</a></p>
+    </section>
+    </main>
+    
+</body>
+</html>
