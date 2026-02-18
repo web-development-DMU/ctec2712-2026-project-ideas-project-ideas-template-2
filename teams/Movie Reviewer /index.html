@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Review App – Route Documentation</title>
+</head>
+<body>
+
+<h1>Movie / Game Review Application – Route Documentation</h1>
+
+<section>
+    <h2>GET /items</h2>
+    <p>Displays all movies or games.</p>
+
+    <h3>Server Actions</h3>
+    <ol>
+        <li>Extract optional search query from URL.</li>
+        <li>Execute SELECT query.</li>
+        <li>Render HTML page with results.</li>
+    </ol>
+
+    <h3>SQL Queries</h3>
+    <pre>
+SELECT item_id, title, genre FROM items ORDER BY title;
+    </pre>
+
+    <h3>Response</h3>
+    <p>Status: 200 OK</p>
+    <p>Returns HTML page listing all items.</p>
+</section>
+
+<section>
+    <h2>GET /items/:itemId</h2>
+    <p>Displays details for a specific movie or game.</p>
+
+    <h3>Server Actions</h3>
+    <ol>
+        <li>Extract itemId from URL.</li>
+        <li>Query database for item details.</li>
+        <li>Query database for reviews.</li>
+        <li>If not found return 404.</li>
+    </ol>
+
+    <h3>SQL Queries</h3>
+    <pre>
+SELECT * FROM items WHERE item_id = ?;
+
+SELECT users.username, review_text, rating_value
+FROM reviews
+JOIN users ON reviews.user_id = users.user_id
+WHERE item_id = ?;
+    </pre>
+
+    <h3>Response</h3>
+    <p>Status: 200 OK or 404 Not Found</p>
+</section>
+
+<section>
+    <h2>POST /reviews</h2>
+    <p>Creates a new review for an item.</p>
+
+    <h3>Server Actions</h3>
+    <ol>
+        <li>Extract review data from POST body.</li>
+        <li>Validate fields.</li>
+        <li>Insert review into database.</li>
+        <li>Redirect to item page.</li>
+    </ol>
+
+    <h3>SQL Query</h3>
+    <pre>
+INSERT INTO reviews (user_id, item_id, review_text, rating_value)
+VALUES (?, ?, ?, ?);
+    </pre>
+
+    <h3>Response</h3>
+    <p>Status: 303 See Other (redirect to /items/:itemId)</p>
+</section>
+
+</body>
+</html>
