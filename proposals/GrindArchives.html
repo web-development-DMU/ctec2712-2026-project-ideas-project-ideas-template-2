@@ -64,6 +64,19 @@
             background: #111827;
             border-top: 2px solid #1f2937;
         }
+
+                .schema-image {
+            text-align: center;
+            margin: 30px auto;
+        }
+
+        .schema-image img {
+            width: 75%;          /* controls size */
+            max-width: 700px;    /* prevents it getting too big */
+            height: auto;
+            border-radius: 8px;
+        }
+
     </style>
 
 <body>
@@ -88,7 +101,7 @@
     
                 <h3>What Problem It Solves</h3>
             <p>
-                Many gamers track progress across multiple platforms (PlayStation, Xbox, Steam, Switch). 
+                Many gamers track progress across multiple platforms (PlayStation, Xbox, PC, Switch). 
                 Even when platforms show stats, they are often locked inside that platform and not presented 
                 as a single “portfolio” that’s easy to share. Grind Archives centralises that information 
                 and lets the player present it in a clean, personalised profile.
@@ -175,7 +188,45 @@
             </ul>
 
             <h2>Ideas for Basic Database Structure (Tables & Fields)</h2>
-            
+            <h3>User Table</h3>
+
+        <figure class="schema-image">
+    <img src="../imgs/UserTable.png" 
+         alt="Users table schema">
+    <figcaption>
+        Draft schema for the users table.
+    </figcaption>
+</figure>
+
+            <h3>Profiles Table</h3>
+    
+            <figure class="schema-image">
+    <img src="../imgs/ProfilesTable.png" 
+         alt="Users table schema">
+    <figcaption>
+        Draft schema for the users table.
+    </figcaption>
+</figure>
+
+            <h3>Games Table</h3>
+
+                <figure class="schema-image">
+    <img src="../imgs/GamesTable.png" 
+         alt="Users table schema">
+    <figcaption>
+        Draft schema for the users table.
+    </figcaption>
+</figure>
         </section>
+
+            <h3>user_game Table</h3>
+
+                    <figure class="schema-image">
+    <img src="../imgs/ProfilesTable.png" 
+         alt="Users table schema">
+    <figcaption>
+        Draft schema for the users table.
+    </figcaption>
+</figure>
 
     </main>
