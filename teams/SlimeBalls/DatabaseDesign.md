@@ -109,13 +109,13 @@ CREATE TABLE "Favourites" (
 ___
 
 # Relationship of tables
-![DB relationship diagram](/teams/SlimeBalls/DBDesignAssets/DatabaseDiagram.png)
+![alt text](/teams/SlimeBalls/DBDesignAssets/DatabaseDiagram.png)
 ___
 # Queries required:
 ## Route('/'):
-### Get Currently added
+### Get Recently added
 ```SQL
-SELECT BookTitle
+SELECT BookTitle, BookImage
 FROM Books
 ORDER BY BookId DESC
 LIMIT 5;
@@ -165,7 +165,7 @@ WHERE UserId = (?);
 ```
 ### Get user favourites
 ```sql
-SELECT BookTitle
+SELECT BookTitle, BookImage
 FROM Books B
 JOIN Favourites F
 ON B.BookId = F.BookId
