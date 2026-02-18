@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes</title>
+    <link rel="stylesheet" href="/teams/GVN/team-introduction.css">
+</head>
+<body>
+    <header>
+        <h1>Group 03</h1>
+        <nav>
+            <a href="/">home</a>
+            <a href="/people">people</a>
+            <a href="/proposals">proposals</a>
+            <a href="/teams">teams</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h3>Navigation URLs</h3>
+                <p>GET/index/login</p>
+                <p>index/register</p>
+                <p>POST/index/register/addUser</p>
+                <p>index/Exercise</p>
+                <p>index/Exercise/viewExercise</p>
+                <p>POST/index/myRoutines/userRoutines - List all of the user created/saved routines</p>
+                <p>GET/index/myRoutine/userRoutines/updateRoutine/:routineid - Page to update a selected routine. add/remove an exercise from the routine.</p>
+            <h3>Admin Page Routes/URLs</h3>
+            <p>-- User --</p>
+                <p>GET/admin/user - List all of the users/members in the admin dashboard</p>
+                <p>POST/admin/user/addUser - Uses POST method to create a new user records and adds it to database </p>
+                <p>GET/admin/user/viewUser/:userid - Lists a selected user details</p>
+                <p>GET/admin/user/updateUser/:userid - Page to update a selected user data</p>
+            <p>-- Routine --</p>
+                <p>GET/admin/routine -- List all of the routines in the admin dashboard</p>
+                <p>POST/admin/routine/addRoutine - Uses POST moethod to create new and adds it to the database</p>
+                <p>GET/admin/routine/viewUser/:routineid - Lists a selected routine data</p>
+                <p>GET/admin/routine/updateRoutine/:routineid - Page to update a selected routine data</p>
+            <p>-- Exercise --</p>
+                <p>GET/admin/exercise -- List all of the exercises in the admin dashboard</p>
+                <p>POST/admin/exercise/addExercise - Uses POST moethod to create new exercise and adds it to the database</p>
+                <p>GET/admin/exercise/viewExercise/:exerciseid - Lists a selected exercise data</p>
+                <p>GET/admin/exercise/updateExercise/:exerciseid - Page to update a selected exercise data</p>
+        </section>
+    </main>
+</body>
+</html>
