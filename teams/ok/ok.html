@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="p2873297" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Group Page — OK</title>
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin: 2rem; line-height: 1.5; color: #111; }
+        header { margin-bottom: 1.5rem; }
+        h1 { margin: 0 0 .25rem 0; font-size: 1.5rem; }
+        .meta { color: #555; font-size: .95rem; }
+        section { margin-top: 2rem; border-top: 1px solid #e6e6e6; padding-top: 2rem;}
+        .lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: .75rem; }
+        .idea-list { background: #fafafa; border: 1px solid #eee; padding: 2.5rem; border-radius: 6px; min-height: 6rem; }
+        .idea-list h2 { margin: 0 0 .5rem 0; font-size: 1rem; }
+        .placeholder { color: #888; font-size: .95rem; }
+
+    </style>
+</head>
+<body>
+
+        <nav>
+            <a href = "/">Home</a>
+            <a href = "/people/">People</a>
+            <a href = "/proposals/">Proposals</a>
+            <a href = "/teams/">Teams</a>
+        </nav>
+
+    <header>
+        <h1>Group: OK</h1>
+        <div class="meta">Author: P2873297 & P2871142</div>
+    </header>
+
+    <main>
+        <section aria-labelledby="ideas-heading">
+                <div class="idea-list" aria-labelledby="ideas-1-title">
+                    <h2 id="ideas-1-title">Ideas — List 1</h2>
+                    <ul id="ideas-1" aria-label="Ideas list one">
+                        <li>
+                            Lost and found website
+                            <ul>
+                                <li><strong>User requirements</strong>
+                                    <ul>
+                                        <li>Report lost item with photo, location, and contact.</li>
+                                        <li>Search and filter items by category, date, and location.</li>
+                                        <li>Claim verification process for owners (evidence upload).</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Fields used for queries</strong>
+                                    <ul>
+                                        <li>items: id, title, description, photo_url, status (lost/found/claimed), reporter_id, claimer_id, created_at, updated_at, claimed_at</li>
+                                        <li>locations: id, item_id, location_text</li>
+                                        <li>users: id, name, email, phone, verified</li>
+                                        <li>claims: id, item_id, user_id, evidence_url, status, created_at</li>
+                                    </ul>
+                                </li>
+                                <li><strong>User specifications</strong>
+                                    <ul>
+                                        <li>Roles: guest, user, admin.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+ 
+                <div class="idea-list" aria-labelledby="ideas-2-title">
+                    <h2 id="ideas-2-title">Ideas — List 2</h2>
+                    <ul id="ideas-2" aria-label="Ideas list two">
+                        <li>
+                            Recipe sharing website
+                            <ul>
+                                <li><strong>User requirements</strong>
+                                    <ul>
+                                        <li>Create, edit, and publish recipes with ingredients and steps.</li>
+                                        <li>Rate/comment on recipes and save favorites.</li>
+                                        <li>Search by ingredient, cuisine, dietary tags.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Fields used for queries</strong>
+                                    <ul>
+                                        <li>recipes: id, title, description, author_id, servings, prep_time, cook_time, difficulty, photo_url, created_at, updated_at</li>
+                                        <li>ingredients: id, name, normalized_name</li>
+                                        <li>recipe_ingredients: id, recipe_id, ingredient_id, quantity, unit, notes</li>
+                                        <li>ratings: id, recipe_id, user_id, score, comment, created_at</li>
+                                        <li>favorites: id, user_id, recipe_id, created_at</li>
+                                        <li>tags: id, name; recipe_tags: recipe_id, tag_id</li>
+                                    </ul>
+                                </li>
+                                <li><strong>User specifications</strong>
+                                    <ul>
+                                        <li>Roles: guest, user, moderator, admin.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+ 
+                <div class="idea-list" aria-labelledby="ideas-3-title">
+                    <h2 id="ideas-3-title">Ideas — List 3</h2>
+                    <ul id="ideas-3" aria-label="Ideas list three">
+                        <li>
+                            Social meetup finder
+                            <ul>
+                                <li><strong>User requirements</strong>
+                                    <ul>
+                                        <li>Create and browse events with date, time, location, and capacity.</li>
+                                        <li>RSVP and messaging for attendees; event recommendations.</li>
+                                        <li>Map view and filters by interest, date, distance.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Fields used for queries</strong>
+                                    <ul>
+                                        <li>events: id, title, description, host_id, start_time, end_time, capacity, location_text, address, is_public, status, created_at, updated_at</li>
+                                        <li>rsvps: id, event_id, user_id, status (attending/interested/cancelled), created_at</li>
+                                        <li>users: id, name, email, profile_photo, interests, verified</li>
+                                        <li>event_tags: event_id, tag_id; tags: id, name</li>
+                                        <li>messages: id, event_id, sender_id, content, created_at</li>
+                                    </ul>
+                                </li>
+                                <li><strong>User specifications</strong>
+                                    <ul>
+                                        <li>Roles: guest, user, moderator, admin.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
