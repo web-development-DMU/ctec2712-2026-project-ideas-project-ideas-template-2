@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Routes</title>
+        <style>
+
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>Routes</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/teams">Teams</a>
+                <a href="/teams/monkauge/index.html">Back</a>
+            </nav>
+        </header>
+
+        <main>
+            <section id="usersRoutes">
+                <h2>Users</h2>
+                <pre>
+                    <ul>
+                        <li>GET /users/:userId          →   returns individual user</li>
+                        <li>GET /users?query=username   →   returns filtered list of users</li>
+                        <li>POST /users                 →   creates new user record, redirects to GET /users</li>
+                        <li>POST /users/:userId         →   updates user record, redirects to GET /users</li>
+                        <li>POST /users/:userId/delete  →   deletes user record, redirects to GET /users</li>
+                    </ul>
+                </pre>
+            </section>
+            <section id="commentsRoutes">
+                <h2>Comments</h2>
+                <pre>
+                    <ul>
+                        <li>GET /comments?query=userId      →   returns filtered list of comments by userId</li>
+                        <li>GET /comments?query=episodeId   →   returns filtered list of comments by episodeId</li>
+                        <li>GET /comments?query=characterId      →   returns filtered list of comments by characterId</li>
+                        <li>GET /comments?query=factionId      →   returns filtered list of comments by factionId</li>
+                    </ul>
+                </pre>
+            </section>
+            
+        </main>
+        
+        <footer>
+
+        </footer>
+    </body>
+</html>
