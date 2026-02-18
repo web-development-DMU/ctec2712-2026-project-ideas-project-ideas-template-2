@@ -86,21 +86,21 @@
 
             <h2>A Few Paragraphs of the Application</h2>
     
-                <h3>What problem it solves</h3>
+                <h3>What Problem It Solves</h3>
             <p>
                 Many gamers track progress across multiple platforms (PlayStation, Xbox, Steam, Switch). 
                 Even when platforms show stats, they are often locked inside that platform and not presented 
                 as a single “portfolio” that’s easy to share. Grind Archives centralises that information 
                 and lets the player present it in a clean, personalised profile.
             </p>
-            <h3>What the user experience is like</h3>
+            <h3>What The User Experience Is Like</h3>
             <p>
                 A user signs up, creates a profile (bio, favourite genres, “currently grinding”, etc.), 
                 then adds games to their archive. Each game entry includes structured fields (hours played, 
                 trophies/achievements, completion %) plus optional personal notes. The user can edit entries over time, 
                 and their profile automatically reflects updates.
             </p>
-            <h3>Why it fits in this module</h3>
+            <h3>Why It Fits In This Module</h3>
             <p>
                 This is a CRUD application with an HTML interface: users can Create profiles/game entries, 
                 Read (view) profiles and game archives, Update stats and details, and Delete games or accounts. 
@@ -120,6 +120,62 @@
                 Gamefolio.
 
             </p>
+            <h2>Different Types of Users and What They Can Do</h2>
+
+            <h3>Standard User (Player)</h3>
+            <ul>
+                <li>Register / log in / log out</li>
+                <li>Create and edit their profile</li>
+                <li>Add games to their archive</li>
+                <li>Update game stats (hours, achievements, completion, etc.)</li>
+                <li>Delete a game entry</li>
+                <li>Choose privacy level (public profile vs private profile)</li>
+            </ul>
+
+            <h3>Administrator (Moderation)</h3>
+            <ul>
+                <li>View all users and archives</li>
+                <li>Remove inappropiate content (Bios/Notes/Usernames)</li>
+                <li>Disable accounts that break rules</li>
+                <li>Manage "Platform List" / "Genre List" data</li>
+
+            </ul>
+
+            <h3>Guest (Not logged in)</h3>
+            <ul>
+                <li>Browse/Search the games archive page</li>
+                <li>View public profiles </li>
+                <li>Cannot edit anything</li>
+            </ul>
+
+            <h2>Draft List of User Requirements</h2>
+            <h3>Accounts & Profiles</h3>
+            <ul>
+                <li>As a user, I want to create an account so that my archive is saved and linked to me.</li>
+                <li>As a user, I want to create/edit my profile (Bio, Avatar, Favourite Genres) 
+                    so my page represents me</li>
+                <li>As a user, I want my profile to have a sharable public URL so i can show it to others</li>
+            </ul>
+            <h4>Game Archive (CRUD)</h4>
+            <ul>
+                <li>As a user, I want to add a game to my archive so I can track it.</li>
+                <li>As a user, I want to edit a game entry (hours played, trophies, completion status) 
+                    so the stats stay accurate.</li>
+                <li>As a user, I want to delete a game entry so I can remove games I no longer want listed.</li>
+                <li>As a user, I want to view my archive as a list and click a game to view details.</li>
+            </ul>
+            <h4>Browsing & Discovery</h4>
+            <ul>
+                <li>As a guest, I want to search public profiles by username so I can find people.</li>
+                <li>As a user, I want to filter my archive by platform/genre/status so I can find games quickly.</li>
+            </ul>
+            <h4>Admin (If Implemented)</h4>
+            <ul>
+                <li>As an admin, I want to remove reported content so the site stays safe and appropriate.</li>
+            </ul>
+
+            <h2>Ideas for Basic Database Structure (Tables & Fields)</h2>
+            
         </section>
 
     </main>
