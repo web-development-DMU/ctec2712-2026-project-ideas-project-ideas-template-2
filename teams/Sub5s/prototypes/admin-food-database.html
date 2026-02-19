@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Admin: Food Database</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #333; border-bottom: 1px solid #111; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #fff; }
+        .admin-badge { font-size: 0.7rem; background: #900; color: #fff; padding: 0.1rem 0.4rem; margin-left: 0.4rem; }
+        .nav-links a { color: #ddd; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .nav-links a.logout { color: #f99; }
+        .page { max-width: 900px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        h1 { font-size: 1.4rem; }
+        .btn { padding: 0.4rem 1rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; text-decoration: none; }
+        .btn:hover { background: #555; }
+        .filter-bar { border: 1px solid #ccc; padding: 0.75rem 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-end; }
+        .filter-bar label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.2rem; }
+        .filter-bar input { padding: 0.4rem; border: 1px solid #ccc; font-size: 0.875rem; font-family: inherit; min-width: 240px; }
+        .filter-bar button { padding: 0.4rem 0.9rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        th { text-align: left; padding: 0.5rem; border-bottom: 2px solid #ccc; background: #f5f5f5; }
+        td { padding: 0.5rem; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+        td a { color: #222; font-size: 0.8rem; }
+        td a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Admin: Food database</div>
+
+    <nav>
+        <div>
+            <a href="home.html" class="logo">Caloryx</a>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="nav-links">
+            <a href="admin.html">Dashboard</a>
+            <a href="admin-users.html">Users</a>
+            <a href="admin-food-database.html" class="active">Food DB</a>
+            <a href="admin-analytics.html">Analytics</a>
+            <a href="admin-reports.html">Reports</a>
+            <a href="admin-settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="page-header">
+            <h1>Food Database</h1>
+            <a href="#" class="btn">+ Add food item</a>
+        </div>
+
+        <div class="filter-bar">
+            <div>
+                <label for="filter-query">Search food items</label>
+                <input type="text" id="filter-query" name="query" placeholder="e.g. apple, chicken breast…">
+            </div>
+            <button>Search</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Serving</th>
+                    <th>Calories</th>
+                    <th>Protein</th>
+                    <th>Carbs</th>
+                    <th>Fat</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#1001</td><td>Chicken breast (cooked)</td><td>100g</td>
+                    <td>165 kcal</td><td>31g</td><td>0g</td><td>3.6g</td>
+                    <td><a href="admin-food-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#1002</td><td>Rolled oats (dry)</td><td>50g</td>
+                    <td>190 kcal</td><td>6g</td><td>32g</td><td>3.5g</td>
+                    <td><a href="admin-food-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#1003</td><td>Banana (medium)</td><td>120g</td>
+                    <td>107 kcal</td><td>1.3g</td><td>27g</td><td>0.4g</td>
+                    <td><a href="admin-food-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#1004</td><td>Greek yoghurt (full fat)</td><td>150g</td>
+                    <td>150 kcal</td><td>14g</td><td>9g</td><td>3g</td>
+                    <td><a href="admin-food-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#1005</td><td>Spaghetti (cooked)</td><td>200g</td>
+                    <td>262 kcal</td><td>9g</td><td>52g</td><td>1.5g</td>
+                    <td><a href="admin-food-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#1006</td><td>Brown rice (cooked)</td><td>180g</td>
+                    <td>216 kcal</td><td>5g</td><td>45g</td><td>1.8g</td>
+                    <td><a href="admin-food-detail.html">Edit</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

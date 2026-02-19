@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Admin Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #333; border-bottom: 1px solid #111; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #fff; }
+        .admin-badge { font-size: 0.7rem; background: #900; color: #fff; padding: 0.1rem 0.4rem; margin-left: 0.4rem; }
+        .nav-links a { color: #ddd; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .nav-links a.logout { color: #f99; }
+        .page { max-width: 900px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+        .subtitle { font-size: 0.875rem; color: #555; margin-bottom: 1.25rem; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+        .stat { border: 1px solid #ccc; padding: 0.75rem 1rem; }
+        .stat .label { font-size: 0.8rem; color: #555; }
+        .stat .value { font-size: 1.5rem; font-weight: bold; }
+        .stat .sub { font-size: 0.8rem; color: #555; }
+        h2 { font-size: 1rem; margin-bottom: 0.75rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+        .nav-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+        .nav-card { border: 1px solid #ccc; padding: 0.75rem 1rem; text-decoration: none; color: #222; display: block; }
+        .nav-card:hover { background: #f5f5f5; }
+        .nav-card h3 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+        .nav-card p { font-size: 0.8rem; color: #555; }
+        .section { border: 1px solid #ccc; padding: 1rem 1.25rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        th { text-align: left; padding: 0.5rem; border-bottom: 2px solid #ccc; background: #f5f5f5; }
+        td { padding: 0.5rem; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Admin dashboard</div>
+
+    <nav>
+        <div>
+            <a href="home.html" class="logo">Caloryx</a>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="nav-links">
+            <a href="admin.html" class="active">Dashboard</a>
+            <a href="admin-users.html">Users</a>
+            <a href="admin-food-database.html">Food DB</a>
+            <a href="admin-analytics.html">Analytics</a>
+            <a href="admin-reports.html">Reports</a>
+            <a href="admin-settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1>Admin Dashboard</h1>
+        <p class="subtitle">System overview — Caloryx application management.</p>
+
+        <div class="stats-row">
+            <div class="stat">
+                <div class="label">Total users</div>
+                <div class="value">1,247</div>
+                <div class="sub">+12 this week</div>
+            </div>
+            <div class="stat">
+                <div class="label">Meals logged today</div>
+                <div class="value">3,891</div>
+                <div class="sub">+8% vs yesterday</div>
+            </div>
+            <div class="stat">
+                <div class="label">Exercises logged today</div>
+                <div class="value">986</div>
+                <div class="sub">+5% vs yesterday</div>
+            </div>
+            <div class="stat">
+                <div class="label">Food database items</div>
+                <div class="value">4,502</div>
+                <div class="sub">+3 added this week</div>
+            </div>
+        </div>
+
+        <h2>Management areas</h2>
+        <div class="nav-cards">
+            <a href="admin-users.html" class="nav-card">
+                <h3>Manage Users</h3>
+                <p>View, edit, or remove user accounts and privileges.</p>
+            </a>
+            <a href="admin-food-database.html" class="nav-card">
+                <h3>Food Database</h3>
+                <p>Add, update, or delete food items and nutritional data.</p>
+            </a>
+            <a href="admin-analytics.html" class="nav-card">
+                <h3>Analytics</h3>
+                <p>User growth, engagement trends, and popular foods.</p>
+            </a>
+            <a href="admin-reports.html" class="nav-card">
+                <h3>Reports</h3>
+                <p>System health checks and user activity reports.</p>
+            </a>
+            <a href="admin-settings.html" class="nav-card">
+                <h3>System Settings</h3>
+                <p>Configure defaults, maintenance mode, and backups.</p>
+            </a>
+        </div>
+
+        <div class="section">
+            <h2>Recently registered users &mdash; <a href="admin-users.html" style="font-size:0.85rem;color:#222;font-weight:normal;">View all</a></h2>
+            <table>
+                <thead>
+                    <tr><th>Username</th><th>Email</th><th>Joined</th><th>Role</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>mark_t</td><td>mark@example.com</td><td>17 Feb 2026</td><td>user</td></tr>
+                    <tr><td>sara_k</td><td>sara@example.com</td><td>16 Feb 2026</td><td>user</td></tr>
+                    <tr><td>jane_doe</td><td>jane@example.com</td><td>15 Feb 2026</td><td>admin</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
