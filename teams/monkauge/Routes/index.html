@@ -5,13 +5,98 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Routes</title>
         <style>
+            html {
+                height: 100%;
+                
+            }
+            body {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                background-color: hwb(278 41% 15% / 0.548);
+                margin: 0;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            header{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                padding-block: 0.5rem;
+                margin: 0;
 
+                h1 {
+                    font-weight: 500;
+                    margin: 0;
+                }
+
+                nav {
+                    display: flex;
+                    gap: 0.5rem;
+                    a {
+                        text-decoration: none;
+                        background: hwb(187 8% 50% / 0.5);
+                        padding: 0.25rem 0.5rem;
+                
+                    }
+                }
+            }
+            p {
+                margin: 0;
+                font-size:large;
+
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            main{
+                display: grid;
+                grid-template-columns: auto auto;
+            }
+            footer{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                bottom: 0;
+                height: 2.5rem;
+                width: 100%;
+                margin: 0;
+                margin-top: auto;
+                
+               
+               
+                nav{
+                    display: flex;
+                    gap: 0.5rem;
+                    a {
+                        text-decoration: none;
+                        background: hwb(187 8% 50% / 0.5);
+                        padding: 0.25rem 0.5rem;
+                        
+                
+                    }
+                }
+            }
+            header, footer{
+                background-color: hwb(251 4% 59%);
+                color: #eee;
+                a {
+                    color: inherit;
+                }
+            }
+
+            main, header, footer{
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
         </style>
     </head>
 
     <body>
         <header>
             <h1>Routes</h1>
+            <nav id="center">
+                <a href="/teams/monkauge/index.html">Team Page</a>
+            </nav>
             <nav>
                 <a href="/">Home</a>
                 <a href="/teams">Teams</a>
@@ -22,32 +107,90 @@
         <main>
             <section id="usersRoutes">
                 <h2>Users</h2>
-                <pre>
+                <p>
                     <ul>
-                        <li>GET /users/:userId          →   returns individual user</li>
-                        <li>GET /users?query=username   →   returns filtered list of users</li>
-                        <li>POST /users                 →   creates new user record, redirects to GET /users</li>
-                        <li>POST /users/:userId         →   updates user record, redirects to GET /users</li>
-                        <li>POST /users/:userId/delete  →   deletes user record, redirects to GET /users</li>
+                        <li><b>GET /users/:userId</b>                  →   returns individual user</li>
+                        <li><b>GET /users?query=username</b>           →   returns filtered list of users</li>
+                        <li><b>POST /users</b>                         →   creates new user record, redirects to GET /users</li>
+                        <li><b>POST /users/:userId</b>                 →   updates user record, redirects to GET /users</li>
+                        <li><b>POST /users/:userId/delete</b>          →   deletes user record, redirects to GET /users</li>
                     </ul>
-                </pre>
+                </p>
             </section>
             <section id="commentsRoutes">
                 <h2>Comments</h2>
-                <pre>
+                <p>
                     <ul>
-                        <li>GET /comments?query=userId      →   returns filtered list of comments by userId</li>
-                        <li>GET /comments?query=episodeId   →   returns filtered list of comments by episodeId</li>
-                        <li>GET /comments?query=characterId      →   returns filtered list of comments by characterId</li>
-                        <li>GET /comments?query=factionId      →   returns filtered list of comments by factionId</li>
+                        <li><b>POST /comments</b>                      →   creates new comment record, redirects to GET /comments</li>
+                        <li><b>POST /comments/:commentId</b>           →   updates comment record, redirects to GET /comments</li>
+                        <li><b>POST /comments/:commentId/delete</b>    →   deletes comment record, redirects to GET /comments</li>
+                        <li><b>GET /comments?query=userId</b>          →   returns filtered list of comments by userId</li>
+                        <li><b>GET /comments?query=episodeId</b>       →   returns filtered list of comments by episodeId</li>
+                        <li><b>GET /comments?query=characterId</b>     →   returns filtered list of comments by characterId</li>
+                        <li><b>GET /comments?query=factionId</b>       →   returns filtered list of comments by factionId</li>
                     </ul>
-                </pre>
+                </p>
+            </section>
+            <section id="EpisodesRoutes">
+                <h2>Episodes</h2>
+                <p>
+                    <ul>
+                        <li><b>GET /episodes/:episodeId</b>           →    returns individual episode</li>
+                        <li><b>POST /episodes</b>                     →    creates new episode record, redirects to GET /episode</li>
+                        <li><b>POST /episodes/:episodeId</b>          →    updates episode record, redirects to GET /episode</li>
+                        <li><b>POST /episodes/:episodeId/delete</b>   →    deletes episode record, redirects to GET /episode</li>
+                        <li><b>GET /episodes?query=seasonNo</b>       →    returns filtered list of comments by seasonNo</li>
+                        <li><b>GET /episodes?query=episodeNo</b>      →    returns filtered list of comments by episodeNo</li>
+                        <li><b>GET /episodes?query=episodeTitle</b>   →    returns filtered list of comments by episodeTitle</li>
+                    </ul>
+                
+                </p>   
+            </section>
+            <section id="CharactersRoutes">
+                <h2>Characters</h2>
+                    <p>
+                        <ul>
+                            <li><b>GET /characters/:characterId</b>            →   returns individual character</li>
+                            <li><b>POST /characters</b>                        →   creates new character record, redirects to GET /characters</li>
+                            <li><b>POST /characters/:characterId</b>           →   updates character record, redirects to GET /characters</li>
+                            <li><b>POST /characters/:characterId/delete</b>    →   deletes character record, redirects to GET /characters</li>
+                            <li><b>GET /characters?query=characterName</b>     →   returns filtered list of comments by characterName</li>
+                            <li><b>GET /characters?query=species</b>           →   returns filtered list of comments by species</li>
+                        </ul>
+                    </p>
+            </section>
+            <section id="FactionsRoutes">
+                <h2>Factions</h2>
+                    <p>
+                        <ul>
+                            <li><b>GET /factions/:factionsId</b>          →   returns individual faction</li>
+                            <li><b>POST /factions</b>                     →   creates new factions→ record, redirects to GET /factions</li>
+                            <li><b>POST /factions/:factionId</b>          →   updates faction record, redirects to GET /factions</li>
+                            <li><b>POST /factions/:factionId/delete</b>   →   deletes faction record, redirects to GET /factions</li>
+                            <li><b>GET /factions?query=factionName</b>    →   returns filtered list of comments by factionName</li>
+                        </ul>
+                    </p>
+            </section>
+            <section id="AppearancesRoutes">
+                <h2>Appearances</h2>
+                    <p>
+                        <ul>
+                            <li><b>POST /appearances</b>                                   →   creates new appearance record, redirects to GET /appearances</li>
+                            <li><b>POST /appearances/:episodeId+:characterId</b>           →   updates appearance record, redirects to GET /appearances</li>
+                            <li><b>POST /appearances/:episodeId+:characterId/delete</b>    →   deletes appearance record, redirects to GET /appearances</li>
+                            <li><b>GET /appearances?query=episodeId</b>                    →   returns filtered list of comments by episodeId</li>
+                            <li><b>GET /appearances?query=characterId</b>                  →   returns filtered list of comments by characterId</li>
+                        </ul>
+                    </p>
             </section>
             
         </main>
         
         <footer>
-
+            <nav>
+                <a href="../../people/P2795278.html">James</a>
+                <a href="../../people/P2867907.html">Thomas</a>
+            </nav>
         </footer>
     </body>
 </html>
