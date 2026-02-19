@@ -1,55 +1,312 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>GVN - Database Design</title>
-        <link rel="stylesheet" href="/style.css">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GVN – Database Design</title>
+    <link rel="stylesheet" href="/teams/GVN/db.css" />
+  </head>
 
-    <body>
-        <header>
-            <h1>GVN - Gym Programme Planner</h1>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/people">people</a>
-                <a href="/proposals">proposals</a>
-                <a href="/teams">teams</a>
-                <a href="/teams/GVN/Team-introduction.html">team page</a>
-            </nav>
-        </header>
+  <body>
+    <header>
+      <h1>GVN – Gym Programme Planner</h1>
+      <nav>
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
 
-        <main>
-            <section aria-labelledby=""db-overview">
-                <h2 id=""db-overview">Database Overview</h2>
-                <p>
-                    This page documents the draft database design for the Gym Programme Planner.
-                    It covers tables, fields, and relationships, plus example SQL queries for the main
-                    interactions (registration, login, browsing exercises, creating programmes,
-                    and adding/removing exercises from a programme).
-                </p>
+        <a href="/teams/GVN/Team-introduction.html">GVN</a>
+      </nav>
+    </header>
 
-                <h3>Tables</h3>
-                <ul>
-                    <li><strong>Users</strong> - stores gym members and administrators</li>
-                    <li><strong>Programmes</strong> - workout programmes created by a user</li>
-                    <li><strong>Categories</strong> - exercise categories managed by admins</li>
-                    <li><strong>Exercises</strong> - exercise library entries</li>
-                    <li><strong>Programme_Exercises</strong> - Junction table linking programmes
-                    and exercises, including sets/reps/order</li>
-                </ul>
-            </section>
+    <main>
+      <section aria-labelledby="db-overview">
+        <h2 id="db-overview">Database overview</h2>
+        <p>
+          This page documents the draft database design for the Gym Programme
+          Planner. It covers tables, fields, and relationships, plus example SQL
+          queries for the main interactions (registration, login, browsing
+          exercises, creating programmes, and adding/removing exercises from a
+          programme).
+        </p>
 
-            <section aria-labelledby="db-relationships">
-                <h2 id="db-relationships">Relationships</h2>
+        <h3>Tables</h3>
+        <ul>
+          <li>
+            <strong>Users</strong> – stores gym members and administrators
+          </li>
+          <li>
+            <strong>Programmes</strong> – workout programmes created by a user
+          </li>
+          <li>
+            <strong>Categories</strong> – exercise categories managed by admins
+          </li>
+          <li><strong>Exercises</strong> – exercise library entries</li>
+          <li>
+            <strong>Programme_Exercises</strong> – junction table linking
+            programmes and exercises, including sets/reps/order
+          </li>
+        </ul>
+      </section>
 
-                <ul>
-                    <li>
-                        <strong>Users -> Programmes (One-to-many):</strong> one user can create many
-                        programmes, each programme belongs to one user.
-                    </li>
-                </ul>
-            </section>
-        </main>
-    </body>
+      <section aria-labelledby="db-relationships">
+        <h2 id="db-relationships">Relationships</h2>
+
+        <ul>
+          <li>
+            <strong>Users → Programmes (one-to-many):</strong> one user can
+            create many programmes, each programme belongs to one user.
+          </li>
+          <li>
+            <strong>Programmes ↔ Exercises (many-to-many):</strong> a programme
+            can include many exercises and an exercise can appear in many
+            programmes. This is resolved using the
+            <strong>Programme_Exercises</strong>
+            junction table.
+          </li>
+          <li>
+            <strong>Categories → Exercises (one-to-many):</strong> one category
+            contains many exercises, each exercise belongs to one category.
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="db-structure">
+        <h2 id="db-structure">Draft database structure</h2>
+
+        <h3>Users</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>user_id</td>
+              <td>INTEGER</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>TEXT</td>
+              <td>Required</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>TEXT</td>
+              <td>Unique, required</td>
+            </tr>
+            <tr>
+              <td>password_hash</td>
+              <td>TEXT</td>
+              <td>Stored hashed (not plain text)</td>
+            </tr>
+            <tr>
+              <td>role</td>
+              <td>TEXT</td>
+              <td>'member' or 'admin'</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Programmes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>programme_id</td>
+              <td>INTEGER</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>INTEGER</td>
+              <td>Foreign key → Users.user_id</td>
+            </tr>
+            <tr>
+              <td>programme_name</td>
+              <td>TEXT</td>
+              <td>Required</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Categories</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>category_id</td>
+              <td>INTEGER</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td>category_name</td>
+              <td>TEXT</td>
+              <td>Unique, required</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Exercises</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>exercise_id</td>
+              <td>INTEGER</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td>exercise_name</td>
+              <td>TEXT</td>
+              <td>Required</td>
+            </tr>
+            <tr>
+              <td>category_id</td>
+              <td>INTEGER</td>
+              <td>Foreign key → Categories.category_id</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Programme_Exercises (junction table)</h3>
+        <p>
+          Links programmes and exercises and stores programme-specific settings
+          such as sets, reps, and the order the exercises should appear in.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>programme_id</td>
+              <td>INTEGER</td>
+              <td>Foreign key → Programmes.programme_id</td>
+            </tr>
+            <tr>
+              <td>exercise_id</td>
+              <td>INTEGER</td>
+              <td>Foreign key → Exercises.exercise_id</td>
+            </tr>
+            <tr>
+              <td>sets</td>
+              <td>INTEGER</td>
+              <td>e.g. 3</td>
+            </tr>
+            <tr>
+              <td>reps</td>
+              <td>INTEGER</td>
+              <td>e.g. 10</td>
+            </tr>
+            <tr>
+              <td>exercise_order</td>
+              <td>INTEGER</td>
+              <td>Controls ordering within a programme</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          <strong>Note:</strong> We can enforce that a programme cannot contain
+          the same exercise twice by using a composite primary key or unique
+          constraint on (programme_id, exercise_id).
+        </p>
+      </section>
+
+      <section aria-labelledby="db-queries">
+        <h2 id="db-queries">Example SQL queries for main interactions</h2>
+
+        <h3>Register a new user (member)</h3>
+        <pre><code>INSERT INTO Users (name, email, password_hash, role)
+VALUES (?, ?, ?, 'member');</code></pre>
+
+        <h3>Login (find user by email)</h3>
+        <pre><code>SELECT user_id, name, role, password_hash
+FROM Users
+WHERE email = ?;</code></pre>
+
+        <h3>Browse exercise library (guest/member)</h3>
+        <pre><code>SELECT e.exercise_id, e.exercise_name, c.category_name
+FROM Exercises e
+JOIN Categories c ON e.category_id = c.category_id
+ORDER BY c.category_name, e.exercise_name;</code></pre>
+
+        <h3>Create a workout programme (member)</h3>
+        <pre><code>INSERT INTO Programmes (user_id, programme_name)
+VALUES (?, ?);</code></pre>
+
+        <h3>List programmes for a user (member)</h3>
+        <pre><code>SELECT programme_id, programme_name
+FROM Programmes
+WHERE user_id = ?
+ORDER BY programme_name;</code></pre>
+
+        <h3>View a programme with its exercises</h3>
+        <pre><code>SELECT e.exercise_name, pe.sets, pe.reps, pe.exercise_order, c.category_name
+FROM Programme_Exercises pe
+JOIN Exercises e ON pe.exercise_id = e.exercise_id
+JOIN Categories c ON e.category_id = c.category_id
+WHERE pe.programme_id = ?
+ORDER BY pe.exercise_order;</code></pre>
+
+        <h3>Add an exercise to a programme</h3>
+        <pre><code>INSERT INTO Programme_Exercises (programme_id, exercise_id, sets, reps, exercise_order)
+VALUES (?, ?, ?, ?, ?);</code></pre>
+
+        <h3>Update sets and reps for an exercise in a programme</h3>
+        <pre><code>UPDATE Programme_Exercises
+SET sets = ?, reps = ?
+WHERE programme_id = ? AND exercise_id = ?;</code></pre>
+
+        <h3>Remove an exercise from a programme</h3>
+        <pre><code>DELETE FROM Programme_Exercises
+WHERE programme_id = ? AND exercise_id = ?;</code></pre>
+
+        <h3>Admin: create a category</h3>
+        <pre><code>INSERT INTO Categories (category_name)
+VALUES (?);</code></pre>
+
+        <h3>Admin: create an exercise</h3>
+        <pre><code>INSERT INTO Exercises (exercise_name, category_id)
+VALUES (?, ?);</code></pre>
+
+        <h3>Admin: update an exercise</h3>
+        <pre><code>UPDATE Exercises
+SET exercise_name = ?, category_id = ?
+WHERE exercise_id = ?;</code></pre>
+
+        <h3>Admin: delete an exercise</h3>
+        <pre><code>DELETE FROM Exercises
+WHERE exercise_id = ?;</code></pre>
+      </section>
+    </main>
+  </body>
 </html>

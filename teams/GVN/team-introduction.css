@@ -1,0 +1,63 @@
+/* Font and padding Design for the whole page */
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    line-height: 1.5;
+}
+
+header,
+main {
+    padding-inline: 2rem;
+}
+
+/* Font and padding Design for the whole page */
+/* Navigation UI Design */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1rem;
+    background: #198488;
+}
+
+header nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    font-size: 1.2em;
+    color: rgb(0, 0, 0);
+}
+
+nav a:hover {
+    color: rgb(255, 255, 255);
+}
+
+/* Navigation UI Design */
+
+section {
+    margin-bottom: 2rem;
+}
+
+.doc-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.doc-links li {
+    margin-bottom: 0.5rem;
+}
+
+.doc-links a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #198488;
+}
+
+.doc-links a:hover {
+    text-decoration: underline;
+}
