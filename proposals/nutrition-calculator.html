@@ -21,44 +21,33 @@
 
   <main>
     <div>
-      <h3 id="description">Description</h3>
+      <h3 id="description">Description </h3>
       <p>
-        So the idea is that it's a website for a Gym/Fitness enthusiast. It allows gym members to
-        create and manage their own workout programmes. Guests/Visitors can register
-        for an account and build personalised training plans by selecting
-        exercises from a predefined exercise library. Users can organise
-        exercises into structured routines and update sets and repetitions
-        when needed. The system stores user accounts, exercises and workout
-        programmes in a database.
+        Nutrti-Track is the name of our application and is a browser-based application that allows users to calculate nutritional content of meals by selecting foods,
+        entering quantities and viewing totals for calories, macronutrients, and key vitamins/minerals.
+        Built using html,css and javascript as it aims to be fast and accessible for everyday users.
+       
       </p>
       <p>
-        It needs an admin system so administrators can manage the exercise
-        records and categories. Administrators can create, update and delete
-        exercises and routines to ensure the library remains accurate and organised. Administrator will have access to
+        NutriTrack is designed to help users make informed dietary choices without needing a complex app or login system. The application will allow users to search for foods, add them to a meal,
+        and instantly see nutritional totals. It can pull data from a built in database.
+        The interface will focus on clarity: a search bar, a food list, a meal builder, and a results panel. Users can adjust quantities, remove items, and save meals locally using browser storage.
+        Administrators may have access to a backend interface to update food data, add new items, or correct nutritional values. Administrator will have access to
         manage the users data such as username, email and password which will be encrypted.
       </p>
 
-      <p>
-        This web application will be intended for gym members who want
-        structured planning, as it will help maintain consistency and
-        progression, replacing paper notes and memory-based planning. It keeps
-        workouts organised and accessible.
-      </p>
     </div>
 
     <section>
       <h3>User Roles</h3>
       <ul>
         <li>
-          <strong>Guest (Visitor):</strong> can browse public
-          exercises/programmes but cannot create or save workout plans
-        </li>
-        <li>
-          <strong>Gym Member:</strong> creates programmes,share programmes logs workouts.
+          <strong>Regular User:</strong> Searches for foods, adds food to meal, adjust quantities, view nutritional totals, saves meals locally and exports results.
+        
         </li>
 
         <li>
-          <strong>Administrator:</strong> manages exercises, categories, routines, users
+          <strong>Administrator:</strong> manages food items (add/delete), edit nutritional values, remove outdated/incorrect items, manage categories and upload bulk data.
         </li>
       </ul>
     </section>
@@ -66,13 +55,16 @@
     <section>
       <h3>Core Functionalities</h3>
       <ul>
-        <li>Browse exercise library (available to guests and members)</li>
-        <li>Register and login</li>
-        <li>Create workout programmes</li>
-        <li>browser through the other programmes</li>
-        <li>Add exercises to programmes</li>
-        <li>Edit sets and repetitions</li>
-        <li>Delete exercises from a programme</li>
+        <li>Food search and retrieval</li>
+        <li>Add foods to meal</li>
+        <li>Adjust quanitity</li>
+        <li>Nutrition calculation</li>
+        <li>Meal Management</li>
+        <li>Admin Panel</li>
+        <li>Database operations</li>
+        <li>Data Validation
+
+        </li>
       </ul>
     </section>
 
@@ -80,37 +72,34 @@
       <h3>User Requirements</h3>
       <ul>
         <li>
-          As a guest/vistor, I want to register so that I can save my
-          programmes.
+          As a user, I want to search for foods so that I can quickly find what I ate.
         </li>
         <li>
-          As a gym member, I want to create a workout programme so that I can
-          organise my training.
+          As a user, I want to add foods to a meal so that I can calculate total nutrition.
         </li>
         <li>
-          As a gym member, I want to add an exercise to a programme with sets
-          and reps so that I can follow a structured routine.
+          As a user, I want to change quantities so that the results match what I consumed.
         </li>
         <li>
-          As an administrator, I want to create exercises so that users have
-          access to structured exercise data.
+          As a user, I want to see calories, macros, and key nutrients so that I can track my diet.
         </li>
         <li>
-          As an administrator, I want to manage exercise categories so that
-          the exercise library stays organised.
+          As a user, I want to save meals so that I can revisit them later.
         </li>
-        <li>As an administrator, i want to manage the users</li>
+        <li>As an admin, I want to add new foods so the database stays up to date.
+        </li>
+        <li>As an admin, I want to edit food data so that errors can be corrected.   
+        </li>
+        <li>As an admin, I want to upload bulk data so I can update the database efficiently.</li>
       </ul>
     </section>
 
     <section>
       <h3>Possible Names</h3>
       <ul>
-        <li>FitPlanner</li>
-        <li>GymTracker</li>
-        <li>LiftHeaven</li>
-        <li>LiftOff: Workout Planner</li>
-        <li>ProgressHub</li>
+        <li>NutriTrack</li>
+        <li>MealMetric</li>
+        <li>MacroMate</li>
       </ul>
     </section>
 
@@ -118,16 +107,15 @@
       <h3>References / Inspirations</h3>
       <ul>
         <li>
-          <a href="https://www.strong.app" target="_blank">Strong</a> -
-          workout tracking and routine builder
+          <a href="https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid" target="_blank">CoFID</a> -
+          Composition of Foods Integrated Dataset, UK Nutrition Database
         </li>
         <li>
-          <a href="https://www.jefit.com" target="_blank">JEFIT</a> - exercise
-          library and programme planning
+          <a href="https://www.myfitnesspal.com" target="_blank">MyFitnessPal</a> - Food Databse
         </li>
         <li>
-          <a href="https://www.fitbod.me" target="_blank">Fitbod</a> -
-          structured workout recommendations
+          <a href="https://www.nhs.uk/live-well/eat-well" target="_blank">NHS</a> -
+          Structured Nutrition Guidelines by NHS
         </li>
       </ul>
     </section>
@@ -136,17 +124,14 @@
       <h3>Challenges / Risks</h3>
       <ul>
         <li>
-          Implementing the many-to-many relationship between programmes and
-          exercises correctly.
+          Building or sourcing a reliable nutrition database.
         </li>
         <li>
-          Designing a simple and intuitive user interface without relying
-          heavily on JavaScript.
+          Ensuring accurate calculations when quantities change.
         </li>
-        <li>Managing user authentication securely.</li>
+        <li>Creating clean, intuitive UI.</li>
         <li>
-          Ensuring data consistency when editing or deleting exercises from
-          programmes.
+          Handling large data sets and deciding whether to use local data or external API.
         </li>
       </ul>
     </section>
@@ -154,94 +139,43 @@
     <section>
       <h3>Data Requirements</h3>
       <ul>
-        <li>User account information (name, email, encrypted password).</li>
-        <li>Workout programme details created by each user.</li>
-        <li>Exercise information including name and category.</li>
+        <li>Nutritional Values per 100g or per serving</li>
+        <li>Macronutrients: protein, carbs and fat</li>
+        <li>Calories.</li>
         <li>
-          Programme-specific data such as sets, repetitions, and exercise
-          order.
+          Food categories.
         </li>
-        <li>Basic security measures to protect user login data.</li>
+        <li>Serving size conversions.</li>
       </ul>
     </section>
 
     <section>
       <h3>Database Relationships</h3>
       <p>
-        One gym member (user) can create many workout programmes, but each
-        programme belongs to one user. This is a one-to-many relationship
-        between Users and Programmes.
+        Have a look at <a href="/teams/PA/db.html">Database outline</a>
       </p>
-      <p>
-        A programme can contain many exercises, and the same exercise can
-        appear in many programmes. This creates a many-to-many relationship
-        between Programmes and Exercises, which is resolved using the
-        Programme_Exercises junction table.
-      </p>
-    </section>
-
-    <section>
-      <h3>Draft Database Structure</h3>
-
-      <h4>Users</h4>
-      <ul>
-        <li>user_id (Primary key)</li>
-        <li>name</li>
-        <li>email</li>
-        <li>password</li>
-      </ul>
-
-      <h4>Programmes</h4>
-      <ul>
-        <li>programme_id (Primary key)</li>
-        <li>user_id (Foreign key)</li>
-        <li>programme_name</li>
-      </ul>
-
-      <h4>Exercises</h4>
-      <ul>
-        <li>exercise_id (Primary key)</li>
-        <li>exercise_name</li>
-        <li>category</li>
-      </ul>
-
-      <h4>Programme_Exercises</h4>
-      <p>
-        This is a junction table used to link Programmes and Exercises. It
-        stores which exercises are included in each programme, as well as
-        programme-specific details such as sets and reps.
-      </p>
-      <ul>
-        <li>programme_id (Foreign key)</li>
-        <li>exercise_id (Foreign key)</li>
-        <li>sets</li>
-        <li>reps</li>
-        <li>exercise_order</li>
-      </ul>
-    </section>
+     
 
     <section>
       <h2>Team</h2>
       <p>
         This proposal is being developed by Group 03 members:
-        <a href="/people/vnarotamo.html">Vicky Narotamo</a>,
+        
         <a href="/people/p2788921.html">Peter</a>,
         <a href="/people/p2796728.html">Aryan Bhavsar</a>,
-        <a href="/people/nvalji.html">Nishal Valji</a>,
-        <a href="/people/gbcusnir.html">Gabriel Cusnir</a>
+  
       </p>
     </section>
   </main>
 
   <footer>
-    <h2>Gym Programme Planner</h2>
+    <h2>Nutrition Calculator</h2>
     <p>
       Proposed by:
-      <a href="/people/vnarotamo.html">Vicky Narotamo</a>,
+    
       <a href="/people/p2788921.html">Peter</a>,
       <a href="/people/p2796728.html">Aryan Bhavsar</a>,
-      <a href="/people/nvalji.html">Nishal Valji</a>,
-      <a href="/people/gbcusnir.html">Gabriel Cusnir</a>
+
     </p>
   </footer>
 </body>

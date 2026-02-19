@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTrack Database Structure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class="topnav">
+        <a href="/">home</a>
+        <a href="/foods">foods</a>
+        <a href="/meals">meals</a>
+        <a href="/admin">admin</a>
+    </section>
+    
+    <main class="documentation">
+        <h1>NutriTrack Database Structure</h1>
+
+        <section class="database-structure">
+            <h2>Tables</h2>
+
+            <p>
+                The <strong>users</strong> table stores registered user information such as username, password, and role (user/admin).
+            </p>
+
+            <p>
+                The <strong>foods</strong> table stores all available food items and their nutritional values (calories, protein, carbs, fat).
+            </p>
+
+            <p>
+                The <strong>meals</strong> table stores meal records created by users.
+            </p>
+
+            <p>
+                The <strong>meal_items</strong> table acts as a junction table between meals and foods. 
+                It stores which foods belong to which meal and their quantities.
+            </p>
+
+            <h2>Fields</h2>
+
+            <p><strong>Users Table</strong></p>
+            <ul>
+                <li>id (Primary Key)</li>
+                <li>username (Unique)</li>
+                <li>password (Hashed)</li>
+                <li>role (User or Admin)</li>
+            </ul>
+
+            <p><strong>Foods Table</strong></p>
+            <ul>
+                <li>id (Primary Key)</li>
+                <li>name</li>
+                <li>category</li>
+                <li>calories (per 100g)</li>
+                <li>protein (per 100g)</li>
+                <li>carbs (per 100g)</li>
+                <li>fat (per 100g)</li>
+            </ul>
+
+            <p><strong>Meals Table</strong></p>
+            <ul>
+                <li>id (Primary Key)</li>
+                <li>user_id (Foreign Key → users.id)</li>
+            </ul>
+
+            <p><strong>Meal_Items Table</strong></p>
+            <ul>
+                <li>id (Primary Key)</li>
+                <li>meal_id (Foreign Key → meals.id)</li>
+                <li>food_id (Foreign Key → foods.id)</li>
+                <li>quantity (grams)</li>
+            </ul>
+
+            <h2>Relationships</h2>
+
+            <p>
+                A <strong>user</strong> can create many meals (one-to-many relationship).
+            </p>
+
+            <p>
+                A <strong>meal</strong> can contain many food items (one-to-many relationship via meal_items).
+            </p>
+
+            <p>
+                A <strong>food</strong> can appear in many meals (many-to-many relationship resolved by meal_items).
+            </p>
+
+            <p>
+                This structure follows normalization principles and supports accurate nutrition aggregation using SQL joins.
+            </p>
+
+        </section>
+
+        <section class="database-queries">
+            <h2>Database Queries (SQL Statements)</h2>
+
+            <h3>Table Creation</h3>
+<pre><code>CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('user','admin') DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE foods (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    category VARCHAR(50),
+    calories DECIMAL(6,2),
+    protein DECIMAL(6,2),
+    carbs DECIMAL(6,2),
+    fat DECIMAL(6,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE meals (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE meal_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    meal_id INT NOT NULL,
+    food_id INT NOT NULL,
+    quantity DECIMAL(6,2) NOT NULL,
+    FOREIGN KEY (meal_id) REFERENCES meals(id) ON DELETE CASCADE,
+    FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE
+);</code></pre>
+
+            <h3>User Registration</h3>
+<pre><code>INSERT INTO users (username, password)
+VALUES ('john_doe', 'hashed_password');</code></pre>
+
+            <h3>Search Foods</h3>
+<pre><code>SELECT * FROM foods
+WHERE name LIKE '%apple%';</code></pre>
+
+            <h3>Create a Meal</h3>
+<pre><code>INSERT INTO meals (user_id)
+VALUES (1);</code></pre>
+
+            <h3>Add Food to Meal</h3>
+<pre><code>INSERT INTO meal_items (meal_id, food_id, quantity)
+VALUES (12, 3, 150);</code></pre>
+
+            <h3>Update Food Quantity</h3>
+<pre><code>UPDATE meal_items
+SET quantity = 200
+WHERE id = 5;</code></pre>
+
+            <h3>Delete Food from Meal</h3>
+<pre><code>DELETE FROM meal_items
+WHERE id = 5;</code></pre>
+
+            <h3>Meal Nutrition Summary</h3>
+<pre><code>SELECT  
+SUM((foods.calories * meal_items.quantity) / 100) AS total_calories,
+SUM((foods.protein * meal_items.quantity) / 100) AS total_protein,
+SUM((foods.carbs * meal_items.quantity) / 100) AS total_carbs,
+SUM((foods.fat * meal_items.quantity) / 100) AS total_fat
+FROM meal_items
+JOIN foods ON foods.id = meal_items.food_id
+WHERE meal_items.meal_id = 12;</code></pre>
+
+            <h3>Delete a User (Cascade)</h3>
+<pre><code>DELETE FROM users WHERE id = 1;</code></pre>
+
+        </section>
+
+        <section class="bottom-nav">
+            <p><a href="/">back</a></p>
+        </section>
+
+    </main>
+</body>
+</html>
