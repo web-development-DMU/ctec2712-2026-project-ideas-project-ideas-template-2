@@ -1,10 +1,12 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Routes</title>
     <link rel="stylesheet" href="/teams/GVN/team-introduction.css">
 </head>
+
 <body>
     <header>
         <h1>Group 03</h1>
@@ -18,30 +20,144 @@
     <main>
         <section>
             <h3>Navigation URLs</h3>
-                <p>GET/index/login</p>
-                <p>index/register</p>
-                <p>POST/index/register/addUser</p>
-                <p>index/Exercise</p>
-                <p>index/Exercise/viewExercise</p>
-                <p>POST/index/myRoutines/userRoutines - List all of the user created/saved routines</p>
-                <p>GET/index/myRoutine/userRoutines/updateRoutine/:routineid - Page to update a selected routine. add/remove an exercise from the routine.</p>
+            <h4>GET/index/login</h4>
+            <ul>Once the user presses the submit button, the server runs an <a style="font-weight: 500; color: #000000;"
+                    href="/teams/GVN/db.html">SQL query</a>
+                that
+                checks only the records which
+                match the login details entered by the user. If the server finds a matching record, it sends a
+                successful login response (200 OK) and redirect user to the main page (303). If no match is found, the
+                server returns an unsuccessful response, and the user is shown an error message.</ul>
+
+            <h4>index/register - Will display the form UI to fill out the information</h4>
+            <h4>POST/index/register/createUser - Create a new user account by sending registration data to the server
+            </h4>
+            <ul>Once the user presses the submit button, the server recieves the data through POST request, the
+                server
+                will validate the data, the password will be hashed, the server runs an <a
+                    style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a> that will
+                create a new record in the database, the server will return a successful response (200 OK) if the data
+                is added or unsuccessful (400) if the data already exists in the database (eg email)</ul>
+
+            <h4>index/Exercise</h4>
+            <h4>index/Exercise/viewExercise - Will display all the exercises stored in the system by retrieving
+                them from
+                the database and showing them to the user</h4>
+            <ul>The server will use GET method to request, the server will retrieve all the records from the
+                exercise
+                database using <a style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL
+                    query</a>, the
+                server will send back the data to the user, the exercise page will display all the exercise
+                records</ul>
+
+            <h4>GET/index/myRoutines/userRoutines - List all of the user created/saved routines</h4>
+            <ul>The server will identify the logged in user, the server will retrieve users created/saved routines from
+                the database using <a style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a>,
+                the server will send back the database back to the user, the page will display all the routines with the
+                information and will have feature to update/remove.</ul>
+
+            <h4>GET/index/myRoutine/userRoutines/updateRoutine/:routineid - Page to update a selected
+                routine. add/remove an exercise from the routine.</h4>
+            <ul>The server will identify the routine using the routineid from the URL, retrieve the data for the routine
+                from the database using <a style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL
+                    query</a>, the page will display all the data for the routine including the routine name and the
+                exercises, the user can modify the routine, the user will have option to save the modified routine.
+                Once the user submits the data, the server will take all the data using POST method and update the
+                database record for the routine using <a style="font-weight: 500; color: #000000;"
+                    href="/teams/GVN/db.html">SQL query</a>.</ul>
+
+            <h4>POST/index/myRoutines/userRoutines/createRoutines</h4>
+
+
             <h3>Admin Page Routes/URLs</h3>
-            <p>-- User --</p>
-                <p>GET/admin/user - List all of the users/members in the admin dashboard</p>
-                <p>POST/admin/user/addUser - Uses POST method to create a new user records and adds it to database </p>
-                <p>GET/admin/user/viewUser/:userid - Lists a selected user details</p>
-                <p>GET/admin/user/updateUser/:userid - Page to update a selected user data</p>
-            <p>-- Routine --</p>
-                <p>GET/admin/routine -- List all of the routines in the admin dashboard</p>
-                <p>POST/admin/routine/addRoutine - Uses POST moethod to create new and adds it to the database</p>
-                <p>GET/admin/routine/viewUser/:routineid - Lists a selected routine data</p>
-                <p>GET/admin/routine/updateRoutine/:routineid - Page to update a selected routine data</p>
-            <p>-- Exercise --</p>
-                <p>GET/admin/exercise -- List all of the exercises in the admin dashboard</p>
-                <p>POST/admin/exercise/addExercise - Uses POST moethod to create new exercise and adds it to the database</p>
-                <p>GET/admin/exercise/viewExercise/:exerciseid - Lists a selected exercise data</p>
-                <p>GET/admin/exercise/updateExercise/:exerciseid - Page to update a selected exercise data</p>
+            <h4>-- User --</h4>
+            <h4>GET/admin/user - List all of the users/members in the admin dashboard</h4>
+            <ul>The server will identify the user to authenicate if the user is admin, if not then the user will get an
+                error message 404 and will not be allowed on the page. The server will recieve a request to display all
+                the users into the user management page using <a style="font-weight: 500; color: #000000;"
+                    href="/teams/GVN/db.html">SQL query</a>, it will retrieve all the user records from the database,
+                the server will render all the user records into the user management page. The admin will have option to
+                update/remove users from the database.</ul>
+
+            <h4>POST/admin/user/createUser - It will be used by the administrator to create a new user account in the
+                database. It uses the POST method because it is sending new data to the server that will be inserted
+                into
+                the database.</h4>
+
+            <ul>The server will retrieve entered data using the POST request, the server will validate all the data,
+                Once validated the server will create a new record for the user in the database using <a
+                    style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a>, send successful
+                response (200 OK) if added and redirect to the user management page returning (303) status code, if not
+                unsuccessful (400) response with error message (eg record already existing by comparing all the emails
+                in the database)
+            </ul>
+
+            <h4>GET/admin/user/updateUser/:userid - It will be used by the administrator for updating a specific user's
+                account details</h4>
+            <ul>The server will identify the user using the userid from the URL, retrieve the data for the user from the
+                database using <a style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a>, the
+                page will display all the data for the user, the admin will have option to modify the data and save.
+                Once the admin submits the data, the server will take all the data using POST method and update the
+                database record for the user using <a style="font-weight: 500; color: #000000;"
+                    href="/teams/GVN/db.html">SQL query</a>.</ul>
+
+            <h4>-- Routine --</h4>
+            <h4>GET/admin/routine -- List all of the routines in the admin
+                dashboard</h4>
+            <ul>The server will identify the user to authenicate if the user is admin, if not then the user will get an
+                error message 404 and will not be allowed on the page. The server will recieve a request to display all
+                the routines into the routine management page using <a style="font-weight: 500; color: #000000;"
+                    href="/teams/GVN/db.html">SQL query</a>, it will retrieve all the routine records from the database,
+                the server will render all the routine records into the routine management page. The admin will have
+                option to update/remove routines from the database.</ul>
+
+            <h4>POST/admin/routine/createRoutine - It will be used by the administrator to create a new routine in the
+                database. It uses the POST method because it is sending new data to the server that will be inserted
+                into the database.</h4>
+            <ul>The server will retrieve entered data using the POST request, the server will validate all the data,
+                Once validated the server will create a new record for the routine in the database using <a
+                    style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a>, send successful
+                response (200 OK) if added and redirect to the routine management page returning (303) status code.</ul>
+
+            <h4>GET/admin/routine/updateRoutine/:routineid - It will be used by the administrator for updating a
+                specific routine's details</h4>
+            <ul>The server will identify the routine using the routineid from the URL, retrieve the data for the routine
+                from the database using <a style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL
+                    query</a>, the page will display all the data for a specific routine, the admin will have option to
+                modify the data and save. Once the admin submits the data, the server will retrieve all the data using
+                POST method and update the database record for the selected routine using <a
+                    style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a>.</ul>
+
+            <h4>-- Exercise --</h4>
+            <h4>GET/admin/exercise -- List all of the
+                exercises in the admin dashboard</h4>
+            <ul>The server will identify the user to authenicate if the user is admin, if not then the user will get an
+                error message 404 and will not be allowed on the page. The server will recieve a request to display all
+                the routines into the exercise management page using <a style="font-weight: 500; color: #000000;"
+                    href="/teams/GVN/db.html">SQL query</a>, it will retrieve all the exercise records from the
+                database, the server will render all the exercise records into the exercise management page. The admin
+                will have option to update/remove exercises from the database.</ul>
+
+            <h4>POST/admin/exercise/createExercise -It will be used by the administrator to create a new exercise in the
+                database. It uses the POST method because it is sending new data to the server that will be inserted
+                into the database.
+            </h4>
+            <ul>The server will retrieve entered data using the POST request, the server will validate all the data,
+                Once validated the server will create a new record for the exercise in the database using <a
+                    style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a>, send successful
+                response (200 OK) if added and redirect to exercise management page returning (303) status code.</ul>
+
+            <h4>GET/admin/exercise/updateExercise/:exerciseid - It will be used by the administrator for updating a
+                specific exerise's detail</h4>
+            <ul>The server will identify the exercise using the exerciseid from the URL, retrieve the data for the
+                exercise from the database using <a style="font-weight: 500; color: #000000;"
+                    href="/teams/GVN/db.html">SQL query</a>, the page will display all the data for a specific exercise,
+                the admin will have option to modify the data and save. Once the admin submits the data, the server will
+                retrieve all the data using POST method and update the database record for the selected exercise using
+                <a style="font-weight: 500; color: #000000;" href="/teams/GVN/db.html">SQL query</a>.
+            </ul>
         </section>
     </main>
 </body>
+
 </html>
