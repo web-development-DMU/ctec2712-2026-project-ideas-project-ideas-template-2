@@ -1,0 +1,287 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTrack Route Documentation</title>
+    <link rel="stylesheet" href="/teams/PA/team-introduction.html">
+</head>
+<body>
+    <header>
+        <h1>Group 03 - NutriTrack Route Documentation</h1>
+        <nav>
+            <a href="/">home</a>
+            <a href="/people">people</a>
+            <a href="/proposals">proposals</a>
+            <a href="/teams">teams</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h3>Navigation URL's</h3>
+                <p>GET/</p>
+                <p>GET/foods</p>
+                <p>GET/foods/:foodId</p>
+                <p>GET/admin/foods</p>
+                <p>POST/foods</p>
+                <p>POST/foods/:foodId/delete</p>
+                <p>GET/meals</p>
+                <P>POST/meals</P>
+                <p>GET/meals/:mealId</p>
+                <p>POST/meals/:mealId/items</p>
+                <p>POST/meal_items/:itemId/update</p>
+                <p>POST/meal_items/:itemId/delete</p>
+                <p>GET/admin/users</p>
+                <p>POST/admin/users/:userId/delete</p>
+    
+            <h3>--Homepage--</h3>
+                <p>GET/ - Displays homepage with navigation. server does no sql and renders static html</p>
+
+                <h2>1. User Routes</h2>
+
+                <div class="route">
+<h3>GET /register</h3>
+<p><strong>Purpose:</strong> Display the user registration form.</p>
+
+<p><strong>Server Actions:</strong></p>
+<ul>
+    <li>No data extraction.</li>
+    <li>No database queries.</li>
+    <li>Render HTML form.</li>
+</ul>
+
+<p><strong>Response:</strong> 200 OK — HTML page.</p>
+</div>
+
+<div class="route">
+<h3>POST /register</h3>
+<p><strong>Purpose:</strong> Create a new user account.</p>
+
+<p><strong>Server Actions:</strong></p>
+<ul>
+    <li>Extract <code>username</code> and <code>password</code> from POST body.</li>
+    <li>Validate fields.</li>
+    <li>Check if username already exists.</li>
+    <li>If invalid → 400 Bad Request.</li>
+    <li>If valid → insert user:</li>
+</ul>
+
+<pre><code>INSERT INTO users (username, password)
+VALUES (?, ?);</code></pre>
+
+<p><strong>Response:</strong> 303 See Other → /login</p>
+</div>
+
+<div class="route">
+<h3>GET /login</h3>
+<p><strong>Purpose:</strong> Display login form.</p>
+<p><strong>Response:</strong> 200 OK — HTML page.</p>
+</div>
+
+<div class="route">
+<h3>POST /login</h3>
+<p><strong>Purpose:</strong> Authenticate user.</p>
+
+<p><strong>Server Actions:</strong></p>
+<ul>
+    <li>Extract credentials.</li>
+    <li>Validate fields.</li>
+    <li>Query user:</li>
+</ul>
+
+<pre><code>SELECT id, username, password, role
+FROM users
+WHERE username = ?;</code></pre>
+
+<ul>
+    <li>Verify password hash.</li>
+    <li>If invalid → 400 Bad Request.</li>
+    <li>If valid → create session and redirect.</li>
+</ul>
+
+<p><strong>Response:</strong> 303 See Other → /meals</p>
+</div>
+
+<hr>
+
+            <h2>2. Food Routes</h2>
+            <div class="route">
+                <h3>GET /foods</h3>
+<p><strong>Purpose:</strong> Display all foods, optionally filtered.</p>
+
+<p><strong>Server Actions:</strong></p>
+<ul>
+    <li>Extract optional <code>query</code> parameter.</li>
+    <li>Run SQL:</li>
+</ul>
+
+<pre><code>SELECT * FROM foods ORDER BY name;
+-- or
+SELECT * FROM foods WHERE name LIKE ? ORDER BY name;</code></pre>
+
+<p><strong>Response:</strong> 200 OK — HTML list of foods.</p>
+</div>
+
+<div class="route">
+<h3>GET /foods/:foodId</h3>
+<p><strong>Purpose:</strong> Display details for a single food item.</p>
+
+<pre><code>SELECT * FROM foods WHERE id = ?;</code></pre>
+
+<p><strong>Response:</strong> 200 OK or 404 Not Found.</p>
+</div>
+
+<div class="route">
+<h3>GET /admin/foods</h3>
+<p><strong>Purpose:</strong> Admin-only list of foods.</p>
+
+<pre><code>SELECT * FROM foods ORDER BY name;</code></pre>
+
+<p><strong>Response:</strong> 200 OK or 403 Forbidden.</p>
+</div>
+
+<div class="route">
+<h3>GET /admin/foods/new</h3>
+<p><strong>Purpose:</strong> Display form to create a new food item.</p>
+<p><strong>Response:</strong> 200 OK.</p>
+</div>
+
+<div class="route">
+<h3>POST /foods</h3>
+<p><strong>Purpose:</strong> Create a new food item.</p>
+
+<p><strong>Server Actions:</strong></p>
+<ul>
+    <li>Extract fields.</li>
+    <li>Validate numeric nutrition values.</li>
+    <li>Insert:</li>
+</ul>
+
+<pre><code>INSERT INTO foods (name, category, calories, protein, carbs, fat)
+VALUES (?, ?, ?, ?, ?, ?);</code></pre>
+
+<p><strong>Response:</strong> 303 See Other → /admin/foods</p>
+</div>
+
+<div class="route">
+<h3>GET /admin/foods/:foodId</h3>
+<p><strong>Purpose:</strong> Display edit form for a food item.</p>
+
+<pre><code>SELECT * FROM foods WHERE id = ?;</code></pre>
+
+<p><strong>Response:</strong> 200 OK or 404 Not Found.</p>
+</div>
+
+<div class="route">
+<h3>POST /foods/:foodId</h3>
+<p><strong>Purpose:</strong> Update a food item.</p>
+
+<pre><code>UPDATE foods
+SET name = ?, category = ?, calories = ?, protein = ?, carbs = ?, fat = ?
+WHERE id = ?;</code></pre>
+
+<p><strong>Response:</strong> 303 See Other → /admin/foods</p>
+</div>
+
+<div class="route">
+<h3>POST /foods/:foodId/delete</h3>
+<p><strong>Purpose:</strong> Delete a food item.</p>
+
+<pre><code>DELETE FROM foods WHERE id = ?;</code></pre>
+
+<p><strong>Response:</strong> 303 See Other → /admin/foods</p>
+</div>
+
+<hr>
+
+<h2>3. Meal Routes</h2>
+
+<div class="route">
+            <h3>--Meals--</h3>
+                <h3>GET /meals</h3>
+<p><strong>Purpose:</strong> List all meals for logged-in user.</p>
+
+<pre><code>SELECT * FROM meals
+WHERE user_id = ?
+ORDER BY created_at DESC;</code></pre>
+
+<p><strong>Response:</strong> 200 OK.</p>
+</div>
+
+<div class="route">
+<h3>GET /meals/:mealId</h3>
+<p><strong>Purpose:</strong> List a meal and its foods.</p>
+
+<pre><code>SELECT * FROM meals WHERE id = ?;
+
+SELECT meal_items.id, foods.name, foods.calories, foods.protein,
+       foods.carbs, foods.fat, meal_items.quantity
+FROM meal_items
+JOIN foods ON foods.id = meal_items.food_id
+WHERE meal_items.meal_id = ?;</code></pre>
+
+<p><strong>Response:</strong> 200 OK or 404 Not Found.</p>
+</div>
+
+<div class="route">
+<h3>POST /meals</h3>
+<p><strong>Purpose:</strong> Create a new meal.</p>
+
+<pre><code>INSERT INTO meals (user_id)
+VALUES (?);</code></pre>
+
+<p><strong>Response:</strong> 303 See Other → /meals/:mealId</p>
+</div>
+
+<div class="route">
+<h3>POST /meals/:mealId/items</h3>
+<p><strong>Purpose:</strong> Add a food to a meal.</p>
+
+<pre><code>INSERT INTO meal_items (meal_id, food_id, quantity)
+VALUES (?, ?, ?);</code></pre>
+
+<p><strong>Response:</strong> 303 See Other → /meals/:mealId</p>
+</div>
+
+<div class="route">
+<h3>POST /meal_items/:itemId</h3>
+<p><strong>Purpose:</strong> Update quantity of a food in a meal.</p>
+
+<pre><code>UPDATE meal_items
+SET quantity = ?
+WHERE id = ?;</code></pre>
+
+<p><strong>Response:</strong> 303 See Other.</p>
+</div>
+
+<div class="route">
+<h3>POST /meal_items/:itemId/delete</h3>
+<p><strong>Purpose:</strong> Remove a food from a meal.</p>
+
+<pre><code>DELETE FROM meal_items WHERE id = ?;</code></pre>
+
+<p><strong>Response:</strong> 303 See Other.</p>
+</div>
+
+<hr>
+
+
+<h2>4. Admin Routes</h2>
+
+<div class="route">
+            <h3>--Admin--</h3>
+
+            <h3>GET /admin</h3>
+<p><strong>Purpose:</strong> Admin dashboard.</p>
+<p><strong>Response:</strong> 200 OK or 403 Forbidden.</p>
+
+                <h3>GET /admin/users</h3>
+                <p><strong>Purpose:</strong> list all the users</p>
+
+                <h3>POST /admin/users/:userId/delete</h3>
+                <p><strong>Purpose:</strong> deletes a user (cascade deletes meals + meal_items)</p>
+                <p><strong>Response:</strong> 200 OK</p>    
+    
+        </section>
+    </main>
+</body>
+</html>
