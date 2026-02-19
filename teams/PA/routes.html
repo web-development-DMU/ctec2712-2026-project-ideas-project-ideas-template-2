@@ -1,0 +1,58 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes</title>
+    <link rel="stylesheet" href="/teams/GVN/team-introduction.css">
+</head>
+<body>
+    <header>
+        <h1>Group 03</h1>
+        <nav>
+            <a href="/">home</a>
+            <a href="/people">people</a>
+            <a href="/proposals">proposals</a>
+            <a href="/teams">teams</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h3>Navigation URL's</h3>
+                <p>GET/</p>
+                <p>GET/foods</p>
+                <p>GET/foods/:foodId</p>
+                <p>GET/admin/foods</p>
+                <p>POST/foods</p>
+                <p>POST/foods/:foodId/delete</p>
+                <p>GET/meals</p>
+                <P>POST/meals</P>
+                <p>GET/meals/:mealId</p>
+                <p>POST/meals/:mealId/items</p>
+                <p>POST/meal_items/:itemId/update</p>
+                <p>POST/meal_items/:itemId/delete</p>
+                <p>GET/admin/users</p>
+                <p>POST/admin/users/:userId/delete</p>
+            <h3>--Homepage--</h3>
+                <p>GET/ - Displays homepage with navigation. server does no sql and renders static html</p>
+            <h3>--Foods--</h3>
+                <p>GET/foods - lists all foods, optionally filtered by search.</p>
+                <p>GET /foods/:foodId - shows details for a single food item.</p>
+                <p>GET /admin/foods - admin page listing foods plus a form to add new foods.</p>
+                <p>POST /foods - creates a new food item.</p>
+                <p>POST /foods/:foodId/delete - deletes a food item.</p>
+            <h3>--Meals--</h3>
+                <p>GET /meals - lists all meals created by the user</p>
+                <p>POST/meals - creates a new meal</p>
+                <p>GET /meals/:mealId - shows a meal and the foods inside it.</p>
+            <h3>--Meal Items--</h3>
+                <p>POST /meals/:mealId/items - add a food item to a meal</p>
+                <p>POST /meal_items/:itemId/update - update quantity of a food item</p>
+                <p>POST /meal_items/:itemId/delete - remove a food item from a meal</p>
+            <h3>--Admin--</h3>
+                <p>GET /admin/users - list all the users</p>
+                <p>POST /admin/users/:userId/delete - deletes a user (cascade deletes meals + meal_items)</p>    
+    
+        </section>
+    </main>
+</body>
+</html>
