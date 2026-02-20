@@ -1,108 +1,200 @@
-/* RESET */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* BODY */
+/* ================= BODY ================= */
 body {
-    font-family: sans-serif;
-    color: white;
+    font-family: Georgia, "Trebuchet MS", serif;
     min-height: 100vh;
 }
 
-/* BACKGROUND IMAGE */
+/* ================= BACKGROUND ================= */
 .bg-image {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url("../images/1352212.png"); /* CHANGE IMAGE NAME IF NEEDED */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    inset: 0;
+    background: url("../images/1352212.png") center / cover no-repeat;
     z-index: -2;
 }
 
-/* DARK OVERLAY */
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.55);
+    inset: 0;
+    background: rgba(0,0,0,0.55);
     z-index: -1;
 }
 
-/* CONTENT WRAPPER */
 .content {
     position: relative;
     z-index: 1;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    background: rgba(0, 0, 0, 0.7);
+    padding: 22px 45px;
+    background: linear-gradient(180deg, #4b2e1a, #2e1b10);
+    border-bottom: 6px solid #7a4a2d;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.8);
 }
 
-/* NAV LINKS */
-.navbar a {
-    color: white;
+.group-title {
+    font-size: 2rem;
+    color: #f4d03f;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0 #000;
+}
+
+/* NAV BUTTONS */
+.nav-links a {
+    margin-left: 18px;
+    padding: 10px 16px;
     text-decoration: none;
-    margin-left: 20px;
-    font-size: 16px;
+    color: #f5e7c4;
+    font-size: 1rem;
+
+    background: linear-gradient(145deg, #5a3822, #3b2416);
+    border: 2px solid #8b5a2b;
+    border-radius: 4px;
+
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.navbar a:hover {
-    color: gold;
+.nav-links a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.7);
 }
 
-/* PREV / NEXT */
+/* ================= PAGER ================= */
 .pager {
-    padding: 20px 40px;
+    display: flex;
+    gap: 35px;
+    padding: 30px 45px 10px;
 }
 
-.pager a {
-    color: #9b5cff;
-    margin-right: 15px;
+/* ================= ROPE BUTTONS ================= */
+.pirate-btn {
+    position: relative;
+    padding: 14px 28px;
+    text-decoration: none;
+    font-size: 1.05rem;
+    color: #3b2a1a;
+
+    background: linear-gradient(145deg, #f5e7c4, #e6d2a3);
+    border: 3px solid #6b4a2d;
+
+    box-shadow:
+        0 6px 15px rgba(0,0,0,0.6),
+        inset 0 0 10px rgba(0,0,0,0.25);
+
+    transition: transform 0.2s ease;
 }
 
-/* MAIN CONTENT */
+.pirate-btn::before,
+.pirate-btn::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    width: 8px;
+    background: repeating-linear-gradient(
+        45deg,
+        #c9a56a,
+        #c9a56a 4px,
+        #b08b53 4px,
+        #b08b53 8px
+    );
+}
+
+.pirate-btn::before { left: -12px; }
+.pirate-btn::after { right: -12px; }
+
+.pirate-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* ================= MAIN ================= */
 main {
-    padding: 40px;
-    max-width: 900px;
+    padding: 40px 45px;
 }
 
-/* TITLE */
-.title {
-    font-size: 56px;
-    margin-bottom: 20px;
+/* ================= PIRATE BOX ================= */
+.pirate-box {
+    max-width: 760px;
+    padding: 45px;
+    margin-top: 20px;
+
+    background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.2), transparent 60%),
+        rgba(245,231,196,0.92);
+
+    border: 8px solid transparent;
+    border-image: linear-gradient(45deg, #4b2e1a, #7a4a2d, #4b2e1a) 1;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,0.7),
+        inset 0 0 30px rgba(0,0,0,0.25);
+
+    animation: floatBox 6s ease-in-out infinite;
+    position: relative;
+}
+
+/* FLOAT */
+@keyframes floatBox {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* TORN EDGE */
+.pirate-box {
+    -webkit-mask-image:
+        radial-gradient(circle at 20% 0%, transparent 12px, black 13px),
+        radial-gradient(circle at 80% 0%, transparent 14px, black 15px),
+        radial-gradient(circle at 0% 50%, transparent 10px, black 11px),
+        radial-gradient(circle at 100% 50%, transparent 12px, black 13px),
+        radial-gradient(circle at 20% 100%, transparent 14px, black 15px),
+        radial-gradient(circle at 80% 100%, transparent 12px, black 13px),
+        linear-gradient(black, black);
 }
 
 /* TEXT */
-p {
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 20px;
+.title {
+    font-size: 3rem;
+    color: #6b2f1a;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 0 #f8f1dc;
 }
 
-/* SUBTITLE */
-h2 {
-    margin-top: 40px;
-    font-size: 36px;
-    color: gold;
+.pirate-box p {
+    color: #3b2a1a;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 18px;
 }
 
-/* LIST */
-ul li {
+.pirate-box h2 {
+    color: #8b1e12;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.pirate-box ul {
     list-style: none;
-    font-size: 22px;
-    margin: 10px 0;
+}
+
+.pirate-box li {
+    font-size: 1.05rem;
+    padding: 8px 0;
+}
+
+.pirate-box li::before {
+    content: "☠ ";
+    color: #8b1e12;
 }
