@@ -22,6 +22,17 @@
     </header>
     <main>
       <section class="spacer">
+        <h3>Database Structure (Draft)</h3>
+
+        <ol>
+          <li> Users</li>
+          <li> StorageUnits</li>
+          <li>Bookings</li>
+        </ol>
+
+      </section>
+      <section >
+        <h4>Users</h4>
         <table border="1">
         <tr>
           <th>Field</th>
@@ -30,21 +41,77 @@
          </tr>
 
         <tr>
-          <td>Users</td>
-          <td>28</td>
-          <td>Premium</td>
+          <td>user_id</td>
+          <td>INT</td>
+          <td>Primary key</td>
         </tr>
 
          <tr>
-           <td>StorageUnits</td>
-           <td>34</td>
-           <td>Standard</td>
+           <td>name</td>
+           <td>VARCHAR</td>
+           <td>User’s full name</td>
          </tr>
+        </table>
+
+        <h4>StorageUnits</h4>
+        <table border="1">
+           <tr>
+            <th>Field</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <th>unit_id</th>
+            <th>INT</th>
+            <th>Primary key</th>
+          </tr>
+
+          <tr>
+            <th>size</th>
+            <th>VARCHAR</th>
+            <th>e.g., “2m x 2m”</th>
+          </tr>
+
+          <tr>
+            <th>price</th>
+            <th>DECIMAL</th>
+            <th>Price per month</th>
+          </tr>
+
+        </table>
+
+        <h4>Bookings</h4>
+        <table border="1">         
+         
+
+           <tr>
+            <th>unit_id</th>
+            <th>INT</th>
+            <th>Primary key</th>
+          </tr>
+
+          <tr>
+            <th>booking_id</th>
+            <th>INT</th>
+            <th>Primary key</th>
+          </tr>
+
+          <tr>
+            <th>user_id</th>
+            <th>INT</th>
+            <th>Foreign key</th>
+          </tr>
+
+          <tr>
+            <th>unit_id</th>
+            <th>INT</th>
+            <th>Foreign key</th>
+          </tr>
         </table>
 
       </section>
     </main>
-    <h3>Basic Database Structure</h3>
+    
  
     
 </body>
