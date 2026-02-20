@@ -110,7 +110,11 @@ CREATE TABLE "Favourites" (
 ___
 
 # Relationship of tables
+<<<<<<< HEAD
 ![DB relationships design](/DBDesignAssets/relationshipDesign/DatabaseDiagram.png)
+=======
+![DB relationships design](/teams/SlimeBalls/DBDesignAssets/relationshipDesign/DatabaseDiagram.png)
+>>>>>>> origin/main
 ___
 # Queries required:
 ## Route('/'):

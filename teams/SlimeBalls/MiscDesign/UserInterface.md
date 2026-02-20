@@ -2,26 +2,42 @@ ____
 # Web page sketches on Canva
 
 ## Index page
+<<<<<<< HEAD
 ![Index page](/SlimeBookCanvaDesign/1.png)
+=======
+![Index page](/teams/SlimeBalls/SlimeBookCanvaDesign/1.png)
+>>>>>>> origin/main
 
 *This page will contain a small about us, about the website and include a few of the recently added books. (Recently added to the DB anyways...)*
 
 ## Catalogue page
+<<<<<<< HEAD
 ![Catalogue page](/SlimeBookCanvaDesign/2.png)
+=======
+![Catalogue page](/teams/SlimeBalls/SlimeBookCanvaDesign/2.png)
+>>>>>>> origin/main
 
 *This page will either contain a limited amount or all of the book in the DB. If the data set is too large we may need to add a load more button at the bottom.*
 
 *Anyways the book covers are going to technically be links to their own page which will show the users the chapters and what chapter they are currently on. We may add a little star in the corner to show that you may favourite that book from this page. The users will be able to search for a specific book using the search bar.*
 
 ## Book page
+<<<<<<< HEAD
 ![Book page](/SlimeBookCanvaDesign/3.png)
+=======
+![Book page](/teams/SlimeBalls/SlimeBookCanvaDesign/3.png)
+>>>>>>> origin/main
 
 *This is our prototype look of a specific book page. Here it contains all of its information and all of the books chapters.*
 
 *The user will then be able to bookmark a ca=hapter and it will update it to say "currently reading". The users will also be able to search for a specific chapter.*
 
 ## Login/Sign-up page
+<<<<<<< HEAD
 ![Login/Sign-up page](/SlimeBookCanvaDesign/4.png)
+=======
+![Login/Sign-up page](/teams/SlimeBalls/SlimeBookCanvaDesign/4.png)
+>>>>>>> origin/main
 
 *This is what our login/sign-up page will look like. We decided to stick to something simple for this and not overcomplicate a form.*
 
@@ -29,17 +45,29 @@ ____
 
 
 ## About page
+<<<<<<< HEAD
 ![About page](/SlimeBookCanvaDesign/5.png)
+=======
+![About page](/teams/SlimeBalls/SlimeBookCanvaDesign/5.png)
+>>>>>>> origin/main
 
 *This contains more about us :P*
 
 ## FAQ page
+<<<<<<< HEAD
 ![FAQ page](/SlimeBookCanvaDesign/6.png)
+=======
+![FAQ page](/teams/SlimeBalls/SlimeBookCanvaDesign/6.png)
+>>>>>>> origin/main
 
 ***FREQUENTLY ASKED QUESTIONS... does anyone have any questions about our webpage so far???***
 
 ## profile page
+<<<<<<< HEAD
 ![profile page](/SlimeBookCanvaDesign/7.png)
+=======
+![profile page](/teams/SlimeBalls/SlimeBookCanvaDesign/7.png)
+>>>>>>> origin/main
 
 *This is the specific profile page of the current user in session. It will display the users favourite books and/or chapters...*
 
