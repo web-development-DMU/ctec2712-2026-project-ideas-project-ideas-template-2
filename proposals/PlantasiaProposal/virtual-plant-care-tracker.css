@@ -2,6 +2,14 @@ body {
     background-color: rgb(180, 207, 168);
    margin: 10%;
 }
+.header{
+    display: flex;
+    justify-content: center;
+}
+.nav{
+    font-size: large;
+    background-color: rgb(190, 223, 188)
+}
 h2{
     font-display: center;
 }
