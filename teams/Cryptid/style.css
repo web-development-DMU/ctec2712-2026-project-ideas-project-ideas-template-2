@@ -4,31 +4,22 @@ body {
         padding-right: 3px !important;
         font-family: cursive;
     }
-    .navbar {
-        justify-content: left !important;
-        div {
-            width: calc(100% - 10rem);
-        }
-    }
     #navbar {
         position:fixed;
         height: 40px;
         background-color: orange;
         padding: 0px;
         padding-left: 5px;
+        justify-content: left !important;
+        margin-top: -40px;
+        div {
+            width: calc(100% - 10rem);
+        }
         img {
             float: right;
         }
     }
-    h4 {
-        padding-top: 40px;
-    }
-
-    #the_team {
-        padding-top: 40px;
-        * {
+    h5 *{
         display: inline;
-        margin-right: 30px;
-        }
     }
 }
