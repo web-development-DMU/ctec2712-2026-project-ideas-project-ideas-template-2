@@ -1,20 +1,34 @@
-#navbar {
-    position:fixed;
-    height: 40px;
-    background-color: orange;
-    padding: 0px;
-    padding-left: 5px;
-}
+body {
+    * {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+        font-family: cursive;
+    }
+    .navbar {
+        justify-content: left !important;
+        div {
+            width: calc(100% - 10rem);
+        }
+    }
+    #navbar {
+        position:fixed;
+        height: 40px;
+        background-color: orange;
+        padding: 0px;
+        padding-left: 5px;
+        img {
+            float: right;
+        }
+    }
+    h4 {
+        padding-top: 40px;
+    }
 
-#navbar img {
-    float: right;
-}
-
-#the_team {
-    padding-top: 40px;
-}
-
-#the_team * {
-    display: inline;
-    margin-right: 30px;
+    #the_team {
+        padding-top: 40px;
+        * {
+        display: inline;
+        margin-right: 30px;
+        }
+    }
 }
