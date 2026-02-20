@@ -63,10 +63,7 @@ ul {
 footer {
     background-color: #f1f1f1;
     text-align: center;
-    padding: 10px;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    padding-inline: 10px;
 }
 
 .description {

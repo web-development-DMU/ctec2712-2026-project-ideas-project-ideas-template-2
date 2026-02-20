@@ -20,21 +20,37 @@ header {
     background: #198488;
 }
 
+h3 {
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
 header nav {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
 }
 
 nav a {
     text-decoration: none;
     padding: 0.3rem 0.6rem;
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: rgb(0, 0, 0);
 }
 
 nav a:hover {
+    font-size: 1.5em;
     color: rgb(255, 255, 255);
+}
+
+section {
+    margin-top: 1.25rem;
+}
+
+ul {
+    padding-left: 1.2rem;
 }
 
 /* Navigation UI Design */
