@@ -6,10 +6,10 @@
         <header>
             <h1>Group 6</h1>
             <nav>
-                <a href="/">Home</a>
-                <a href="/people/">People</a>
-                <a href="/proposals">Proposals</a>
-                <a href="/teams">Teams</a>
+                <a href="/" class="btn">Home</a>
+                <a href="/people/" class="btn">People</a>
+                <a href="/proposals" class="btn">Proposals</a>
+                <a href="/teams" class="btn">Teams</a>
             </nav>
         </header>
 
@@ -21,6 +21,8 @@
        <h2>Daniel's project ideas</h2>
     </body>
     <hr>
+
+    <div class="info-box">
 
      <p>
         My name is Daniel Sawford-Skinner,
@@ -37,8 +39,8 @@
        they can be changed or remove 
        if not suitable within scope 
      </p>
-     
-     <hr>
+
+     </div>
 
      <h2>Application ideas</h2>
 
@@ -47,6 +49,8 @@
             allows users to review and show tips for 
             games and fan art 
          </li>
+
+         
 
          <br>
 
@@ -89,6 +93,7 @@
     nav {font-family: system-ui;
          background-color: rgb(199, 64, 68);
          color: rgb(14, 13, 13);
+         
     }
 
     a {font-weight: bold;
@@ -106,8 +111,35 @@
 
     p{ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 
     'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-       font-size: larger;}
+       font-size: larger;
 
+       
+    
+    }
+
+
+  .btn {
+   display: inline-block;
+   padding: 8px 16px;
+   background-color: #1c1d1e;
+   color: white;
+   text-decoration: none;
+   border-radius: 6px;
+   font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #121314;
+}
+
+.info-box {
+  background-color: #f2f2f2;  
+  padding: 20px;               
+  border-radius: 10px;         
+  width: 70%;                  
+  margin: 40px auto;           
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
     
 
 
