@@ -104,10 +104,67 @@
             <li>All users must be registered to participate in voting</li>
         </section>
         <section>
+            <h3>Data Requirements</h3>
+            <li>The application will store the following types of data:</li>
+            <li>User Data</li>
+            <ul></ul>
+            <li></li>
+            
+        </section>
+        <section>
             <h3>Proposed Database Structure</h3>
             <li>Users</li>
             <ul>
                 <li>user_id (PK)</li>
+                <li>username</li>
+                <li>email</li>
+                <li>password_hash</li>
+                <li>created_at</li>
+            </ul>
+            <li>Sessions</li>
+            <ul>
+                <li>session_id (PK)</li>
+                <li>session_name</li>
+                <li>created_by (FK -> users)</li>
+                <li>session_code</li>
+                <li>created_at</li>
+                <li>is_active</li>
+            </ul>
+            <li>Movies</li>
+            <ul>
+                <li>movie_id (PK)</li>
+                <li>session_id (FK)</li>
+                <li>title</li>
+                <li>genre</li>
+                <li>added_by (FK -> users)</li>
+                <li>created_at</li>
+            </ul>
+            <li>Votes</li>
+            <ul>
+                <li>vote_id (PK)</li>
+                <li>user_id (FK)</li>
+                <li>movie_id (FK)</li>
+                <li>session_id (FK)</li>
+            </ul>
+            <li>Comments (optional)</li>
+            <ul>
+                <li>comments_id (PK)</li>
+                <li>user_id (FK)</li>
+                <li>session_id (FK)</li>
+                <li>message</li>
+                <li>created_at</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Pages we will need</h3>
+            <ul>
+                <li>index.html (homepage)</li>
+                <li>register.html</li>
+                <li>login.html</li>
+                <li>dashboard.html</li>
+                <li>create-session.html</li>
+                <li>add-movie.html</li>
+                <li>results.html</li>
             </ul>
         </section>
         <section>
