@@ -15,7 +15,6 @@
         <a href="/people">people</a>
         <a href="/proposals">proposals</a>
         <a href="/teams">teams</a>
-
         <a href="/teams/GVN/Team-introduction.html">GVN</a>
       </nav>
     </header>
@@ -27,8 +26,8 @@
           This page documents the draft database design for the Gym Programme
           Planner. It covers tables, fields, and relationships, plus example SQL
           queries for the main interactions (registration, login, browsing
-          exercises, creating programmes, and adding/removing exercises from a
-          programme).
+          exercises, creating routines, and adding/removing exercises from a
+          routine).
         </p>
 
         <h3>Tables</h3>
@@ -37,15 +36,15 @@
             <strong>Users</strong> – stores gym members and administrators
           </li>
           <li>
-            <strong>Programmes</strong> – workout programmes created by a user
+            <strong>Routines</strong> – workout routines created by a user
           </li>
           <li>
             <strong>Categories</strong> – exercise categories managed by admins
           </li>
           <li><strong>Exercises</strong> – exercise library entries</li>
           <li>
-            <strong>Programme_Exercises</strong> – junction table linking
-            programmes and exercises, including sets/reps/order
+            <strong>Routine_Exercises</strong> – junction table linking routines
+            and exercises, including sets/reps/order
           </li>
         </ul>
       </section>
@@ -55,14 +54,13 @@
 
         <ul>
           <li>
-            <strong>Users → Programmes (one-to-many):</strong> one user can
-            create many programmes, each programme belongs to one user.
+            <strong>Users → Routines (one-to-many):</strong> one user can create
+            many routines, each routine belongs to one user.
           </li>
           <li>
-            <strong>Programmes ↔ Exercises (many-to-many):</strong> a programme
-            can include many exercises and an exercise can appear in many
-            programmes. This is resolved using the
-            <strong>Programme_Exercises</strong>
+            <strong>Routines ↔ Exercises (many-to-many):</strong> a routine can
+            include many exercises and an exercise can appear in many routines.
+            This is resolved using the <strong>Routine_Exercises</strong>
             junction table.
           </li>
           <li>
@@ -113,7 +111,7 @@
           </tbody>
         </table>
 
-        <h3>Programmes</h3>
+        <h3>Routines</h3>
         <table>
           <thead>
             <tr>
@@ -124,7 +122,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>programme_id</td>
+              <td>routine_id</td>
               <td>INTEGER</td>
               <td>Primary key</td>
             </tr>
@@ -134,7 +132,7 @@
               <td>Foreign key → Users.user_id</td>
             </tr>
             <tr>
-              <td>programme_name</td>
+              <td>routine_name</td>
               <td>TEXT</td>
               <td>Required</td>
             </tr>
@@ -192,10 +190,10 @@
           </tbody>
         </table>
 
-        <h3>Programme_Exercises (junction table)</h3>
+        <h3>Routine_Exercises (junction table)</h3>
         <p>
-          Links programmes and exercises and stores programme-specific settings
-          such as sets, reps, and the order the exercises should appear in.
+          Links routines and exercises and stores routine-specific settings such
+          as sets, reps, and the order the exercises should appear in.
         </p>
         <table>
           <thead>
@@ -207,9 +205,9 @@
           </thead>
           <tbody>
             <tr>
-              <td>programme_id</td>
+              <td>routine_id</td>
               <td>INTEGER</td>
-              <td>Foreign key → Programmes.programme_id</td>
+              <td>Foreign key → Routines.routine_id</td>
             </tr>
             <tr>
               <td>exercise_id</td>
@@ -229,15 +227,15 @@
             <tr>
               <td>exercise_order</td>
               <td>INTEGER</td>
-              <td>Controls ordering within a programme</td>
+              <td>Controls ordering within a routine</td>
             </tr>
           </tbody>
         </table>
 
         <p>
-          <strong>Note:</strong> We can enforce that a programme cannot contain
+          <strong>Note:</strong> We can enforce that a routine cannot contain
           the same exercise twice by using a composite primary key or unique
-          constraint on (programme_id, exercise_id).
+          constraint on (routine_id, exercise_id).
         </p>
       </section>
 
@@ -259,36 +257,36 @@ FROM Exercises e
 JOIN Categories c ON e.category_id = c.category_id
 ORDER BY c.category_name, e.exercise_name;</code></pre>
 
-        <h3>Create a workout programme (member)</h3>
-        <pre><code>INSERT INTO Programmes (user_id, programme_name)
+        <h3>Create a routine (member)</h3>
+        <pre><code>INSERT INTO Routines (user_id, routine_name)
 VALUES (?, ?);</code></pre>
 
-        <h3>List programmes for a user (member)</h3>
-        <pre><code>SELECT programme_id, programme_name
-FROM Programmes
+        <h3>List routines for a user (member)</h3>
+        <pre><code>SELECT routine_id, routine_name
+FROM Routines
 WHERE user_id = ?
-ORDER BY programme_name;</code></pre>
+ORDER BY routine_name;</code></pre>
 
-        <h3>View a programme with its exercises</h3>
-        <pre><code>SELECT e.exercise_name, pe.sets, pe.reps, pe.exercise_order, c.category_name
-FROM Programme_Exercises pe
-JOIN Exercises e ON pe.exercise_id = e.exercise_id
+        <h3>View a routine with its exercises</h3>
+        <pre><code>SELECT e.exercise_name, re.sets, re.reps, re.exercise_order, c.category_name
+FROM Routine_Exercises re
+JOIN Exercises e ON re.exercise_id = e.exercise_id
 JOIN Categories c ON e.category_id = c.category_id
-WHERE pe.programme_id = ?
-ORDER BY pe.exercise_order;</code></pre>
+WHERE re.routine_id = ?
+ORDER BY re.exercise_order;</code></pre>
 
-        <h3>Add an exercise to a programme</h3>
-        <pre><code>INSERT INTO Programme_Exercises (programme_id, exercise_id, sets, reps, exercise_order)
+        <h3>Add an exercise to a routine</h3>
+        <pre><code>INSERT INTO Routine_Exercises (routine_id, exercise_id, sets, reps, exercise_order)
 VALUES (?, ?, ?, ?, ?);</code></pre>
 
-        <h3>Update sets and reps for an exercise in a programme</h3>
-        <pre><code>UPDATE Programme_Exercises
+        <h3>Update sets and reps for an exercise in a routine</h3>
+        <pre><code>UPDATE Routine_Exercises
 SET sets = ?, reps = ?
-WHERE programme_id = ? AND exercise_id = ?;</code></pre>
+WHERE routine_id = ? AND exercise_id = ?;</code></pre>
 
-        <h3>Remove an exercise from a programme</h3>
-        <pre><code>DELETE FROM Programme_Exercises
-WHERE programme_id = ? AND exercise_id = ?;</code></pre>
+        <h3>Remove an exercise from a routine</h3>
+        <pre><code>DELETE FROM Routine_Exercises
+WHERE routine_id = ? AND exercise_id = ?;</code></pre>
 
         <h3>Admin: create a category</h3>
         <pre><code>INSERT INTO Categories (category_name)
@@ -306,6 +304,10 @@ WHERE exercise_id = ?;</code></pre>
         <h3>Admin: delete an exercise</h3>
         <pre><code>DELETE FROM Exercises
 WHERE exercise_id = ?;</code></pre>
+
+        <h3>Admin: delete a routine</h3>
+        <pre><code>DELETE FROM Routines
+WHERE routine_id = ?;</code></pre>
       </section>
     </main>
   </body>
