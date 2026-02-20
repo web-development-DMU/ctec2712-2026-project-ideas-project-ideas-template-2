@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Four Loop – Application Architecture</title>
+  <title>The Four Loop — Architecture</title>
 
   <link rel="stylesheet" href="../style-example.css" />
   <link rel="stylesheet" href="./team.css" />
@@ -22,59 +22,49 @@
   </header>
 
   <main>
-    <h1>Application Architecture</h1>
-    <p>
-      This page explains how SourceFlow will be structured as a simple database-driven web application using
-      a JavaScript web server (Deno) and an SQLite database.
-    </p>
+    <h1>Architecture Documentation</h1>
+    <p>High-level architecture for <strong>SourceFlow</strong> (Personal Shopping Request System).</p>
 
-    <section aria-labelledby="diagram">
-      <h2 id="diagram">High-level diagram</h2>
-      <pre>
-Browser (HTML/CSS)
-   │ HTTP (GET/POST)
-   ▼
-Deno Web Server (routing + handlers)
-   │ SQL queries
-   ▼
-SQLite Database (customers, requests, statuses, request_notes)
-      </pre>
-      <p>
-        The browser requests pages via HTTP. The server handles routes, queries the database, and returns HTML
-        responses with linked CSS.
-      </p>
-    </section>
+    <div class="grid">
+      <section class="card pad">
+        <h2>System overview</h2>
+        <ul>
+          <li><strong>Client:</strong> HTML/CSS pages (documentation + UI screens)</li>
+          <li><strong>Server:</strong> JavaScript server handling routes + validation</li>
+          <li><strong>Database:</strong> SQLite schema (customers, requests, statuses, request_notes)</li>
+        </ul>
 
-    <section aria-labelledby="lifecycle">
-      <h2 id="lifecycle">Typical request lifecycle</h2>
-      <ol>
-        <li>User visits <code>/requests/new</code> (GET) → server returns an HTML form.</li>
-        <li>User submits form to <code>/requests</code> (POST) → server validates inputs.</li>
-        <li>Server inserts the row into <code>requests</code> and responds with a 303 redirect.</li>
-        <li>Browser follows redirect to <code>/requests</code> (GET) → updated list is displayed.</li>
-      </ol>
-    </section>
+        <pre>
+Browser (UI pages)
+   |
+   | HTTP (GET/POST/PUT/DELETE)
+   v
+JavaScript Web Server (routes + validation)
+   |
+   | SQL queries
+   v
+SQLite Database
+        </pre>
+      </section>
 
-    <section aria-labelledby="structure">
-      <h2 id="structure">Planned code structure (proposal)</h2>
+      <section class="card pad">
+        <h2>Data flow</h2>
+        <ol>
+          <li>Customer submits a request (item, size, budget, preferences).</li>
+          <li>Server validates and inserts into <code>requests</code> with default status <code>New</code>.</li>
+          <li>Concierge updates status (In Progress → Sourced → Completed).</li>
+          <li>Concierge adds notes into <code>request_notes</code>.</li>
+          <li>Customer views status and updates via request list/detail.</li>
+        </ol>
+      </section>
+    </div>
+
+    <section class="card pad" style="margin-top:18px;">
+      <h2>Non-functional considerations</h2>
       <ul>
-        <li><strong>main.js</strong> — starts the server and registers routes.</li>
-        <li><strong>routes/</strong> — functions that map (method + URL) to handlers.</li>
-        <li><strong>db/</strong> — SQLite connection + CRUD query functions.</li>
-        <li><strong>views/</strong> — reusable HTML templates or functions returning HTML strings.</li>
-        <li><strong>public/</strong> — static files (CSS, images).</li>
-      </ul>
-      <p>
-        Consistency is maintained by shared layout (common header/nav) and shared CSS.
-      </p>
-    </section>
-
-    <section aria-labelledby="maintain">
-      <h2 id="maintain">Consistency and maintainability</h2>
-      <ul>
-        <li>All pages share the same navigation menu.</li>
-        <li>Reusable “layout” template ensures the same structure on every page.</li>
-        <li>SQL is centralised in db functions to avoid duplication in route handlers.</li>
+        <li><strong>Accessibility:</strong> semantic HTML, labels, contrast, keyboard-friendly nav.</li>
+        <li><strong>Maintainability:</strong> clean schema + predictable routes.</li>
+        <li><strong>Security (future):</strong> auth for concierge/admin actions.</li>
       </ul>
     </section>
   </main>
