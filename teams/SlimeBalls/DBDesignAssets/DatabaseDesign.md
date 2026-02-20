@@ -23,9 +23,9 @@ ___
 | PK, Int, auto increment, unique | varchar(50) | DateTime    | varchar(255) | varchar(50) | varchar(50)   | varchar(50) | varchar(20)  | varchar(50) |
 ___
 ### Chapters
-| BookCHPID  | BookID  | ChapterName | ChapterRelease |
+| ChapterId  | BookId  | ChapterName | ChapterRelease |
 | ---------- | ------- | ----------- | -------------- |
-| PK, Int    | FK, Int | varchar(50) | Datetime       |
+| CK, Int    | CK, Int | varchar(50) | Datetime       |
 ___
 ### Users
 | UserID                          | UserName 	| UserPass    | DateCreated |
@@ -33,9 +33,9 @@ ___
 | PK, Int, Auto increment, Unique | varchar(50) | varchar(50) | Timestamp   |
 ___
 ### Bookmarks
-| UserID  | BookCHPID | BookID  |
+| UserID  | BookCHPID | BookId  |
 | ------- | --------- | ------- |
-| FK, Int | FK, Int   | ??, Int |
+| FK, Int | CK, Int   | CK, Int |
 ___
 ### Favourites
 | UserID  | BookId  |
@@ -80,7 +80,8 @@ CREATE TABLE "Chapters" (
 	"BookId"	INTEGER,
 	"ChapterName"	TEXT,
 	"ChapterRelease"	TEXT,
-	FOREIGN KEY("BookId") REFERENCES "Books"("BookId")
+	FOREIGN KEY("BookId") REFERENCES "Books"("BookId"),
+	PRIMARY KEY("BookChpId","BookId")
 );
 ```
 
@@ -109,7 +110,7 @@ CREATE TABLE "Favourites" (
 ___
 
 # Relationship of tables
-![alt text](/teams/SlimeBalls/DBDesignAssets/DatabaseDiagram.png)
+![DB relationships design](/teams/SlimeBalls/DBDesignAssets/relationshipDesign/DatabaseDiagram.png)
 ___
 # Queries required:
 ## Route('/'):
