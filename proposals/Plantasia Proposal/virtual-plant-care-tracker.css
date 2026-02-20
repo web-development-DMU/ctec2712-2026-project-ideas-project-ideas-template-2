@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(180, 207, 168);
+   margin: 10%;
+}
+h2{
+    font-display: center;
+}
+.pic1{
+    max-height: 300px;
+}
+.pic2{
+    max-height: 300px;
+}
+.database{
+    max-height: 300px;
+}
+.info{
+    background-color: rgb(190, 223, 188);
+    padding: 5%;
+}
+.description{
+    padding-left: 5%;
+    padding-right: 10%;
+    font-weight: bold;
+}
