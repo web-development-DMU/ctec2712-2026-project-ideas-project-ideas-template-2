@@ -11,7 +11,7 @@
         h1 { margin: 0 0 .25rem 0; font-size: 1.5rem; }
         .meta { color: #555; font-size: .95rem; }
         section { margin-top: 2rem; border-top: 1px solid #e6e6e6; padding-top: 2rem;}
-        .lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: .75rem; }
+        .lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: .75rem; }
         .idea-list { background: #fafafa; border: 1px solid #eee; padding: 2.5rem; border-radius: 6px; min-height: 6rem; }
         .idea-list h2 { margin: 0 0 .5rem 0; font-size: 1rem; }
         .placeholder { color: #888; font-size: .95rem; }
@@ -34,48 +34,41 @@
 
     <main>
         <section aria-labelledby="ideas-heading">
-                <div class="idea-list" aria-labelledby="ideas-1-title">
-                    <h2 id="ideas-1-title">Ideas — List 1</h2>
-                    <ul id="ideas-1" aria-label="Ideas list one">
-                        <li>
-                            Lost and found website
-                            <ul>
-                                <li><strong>User requirements</strong>
-                                    <ul>
-                                        <li>Report lost item with photo, location, and contact.</li>
-                                        <li>Search and filter items by category, date, and location.</li>
-                                        <li>Claim verification process for owners (evidence upload).</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Fields used for queries</strong>
-                                    <ul>
-                                        <li>items: id, title, description, photo_url, status (lost/found/claimed), reporter_id, claimer_id, created_at, updated_at, claimed_at</li>
-                                        <li>locations: id, item_id, location_text</li>
-                                        <li>users: id, name, email, phone, verified</li>
-                                        <li>claims: id, item_id, user_id, evidence_url, status, created_at</li>
-                                    </ul>
-                                </li>
-                                <li><strong>User specifications</strong>
-                                    <ul>
-                                        <li>Roles: guest, user, admin.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
- 
                 <div class="idea-list" aria-labelledby="ideas-2-title">
-                    <h2 id="ideas-2-title">Ideas — List 2</h2>
+                    <h2 id="ideas-2-title">Ideas — Hot Pot</h2>
                     <ul id="ideas-2" aria-label="Ideas list two">
                         <li>
                             Recipe sharing website
                             <ul>
-                                <li><strong>User requirements</strong>
+                                <li><strong>Website features</strong>
                                     <ul>
                                         <li>Create, edit, and publish recipes with ingredients and steps.</li>
                                         <li>Rate/comment on recipes and save favorites.</li>
                                         <li>Search by ingredient, cuisine, dietary tags.</li>
+                                    </ul>
+                                </li>
+                                <li> <strong> The data of users: </strong>
+                                    <ul>
+                                        <li>id: Unique identifier for each user.</li>
+                                        <li>username: Unique name of the user.</li>
+                                        <li>email: Email address of the user.</li>
+                                        <li>created_at: Timestamp when the user account was created.</li>
+                                        <li>privileges: User privileges (e.g., admin, regular user).</li>
+                                    </ul>
+                                </li>
+                                <li> <strong> The data of the recipes: </strong>
+                                    <ul>
+                                        <li>id: Unique identifier for each recipe.</li>
+                                        <li>title: Name of the recipe.</li>
+                                        <li>description: Brief overview of the recipe.</li>
+                                        <li>author_id: ID of the user who created the recipe.</li>
+                                        <li>servings: Number of servings the recipe makes.</li>
+                                        <li>prep_time: Time required for preparation (in minutes).</li>
+                                        <li>cook_time: Time required for cooking (in minutes).</li>
+                                        <li>difficulty: Difficulty level (e.g., Easy, Medium, Hard).</li>
+                                        <li>photo_url: URL to an image of the dish.</li>
+                                        <li>created_at: Timestamp when the recipe was created.</li>
+                                        <li>updated_at: Timestamp when the recipe was last updated.</li>
                                     </ul>
                                 </li>
                                 <li><strong>Fields used for queries</strong>
@@ -88,9 +81,80 @@
                                         <li>tags: id, name; recipe_tags: recipe_id, tag_id</li>
                                     </ul>
                                 </li>
-                                <li><strong>User specifications</strong>
+                                <li><strong>Types of users</strong>
                                     <ul>
-                                        <li>Roles: guest, user, moderator, admin.</li>
+                                        <li>guest: Can view recipes but cannot create or edit them.</li>
+                                        <li>user: Can create, edit, and delete their own recipes.</li>
+                                        <li>admin: Has full access to all features and can manage users and content.</li>
+                                        <li>premium: Has access to premium features like advanced search and ad-free experience.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Routes and server actions</strong>
+                                    <ul>
+                                        <li>HTTP Status Codes:
+                                            <ul>
+                                                <li>200 OK for a successful GET request</li>
+                                                <li>303 See Other to redirect after successful POST (browser follows redirect as GET)</li>
+                                                <li>400 Bad Request for validation error in POST request</li>
+                                                <li>404 Not Found if requested resource does not exist</li>
+                                            </ul>
+                                        </li>
+                                        <li>GET /recipes
+                                            <ul>
+                                                <li>What the server does: Retrieves a list of all recipes from the database.</li>
+                                                <li>What the client receives: JSON array of recipe objects including id, title, description, etc.</li>
+                                                <li>Steps the server performs:
+                                                    <ul>
+                                                        <li>Execute database query: SELECT id, title, description, author_id, servings, prep_time, cook_time, difficulty, photo_url, created_at, updated_at FROM recipes ORDER BY created_at DESC</li>
+                                                        <li>Build the response: JSON array of the query results</li>
+                                                        <li>Handle errors: If database error, return 500 Internal Server Error; if no recipes, return empty array with 200 OK</li>
+                                                    </ul>
+                                                </li>
+                                                <li>Example server action: For SQL query SELECT id, title FROM recipes WHERE author_id = ? (with parameter user_id), server fetches recipes by author and returns JSON like [{"id":1,"title":"Pasta"}]</li>
+                                            </ul>
+                                        </li>
+                                        <li>POST /recipes
+                                            <ul>
+                                                <li>What the server does: Creates a new recipe in the database after validating input.</li>
+                                                <li>What the client receives: 303 See Other redirect to the new recipe's page.</li>
+                                                <li>Steps the server performs:
+                                                    <ul>
+                                                        <li>Validate incoming data: Check if title, description, ingredients are provided and valid; ensure user is authenticated.</li>
+                                                        <li>Execute database queries: INSERT INTO recipes (title, description, author_id, ...) VALUES (?, ?, ?); then INSERT INTO recipe_ingredients for each ingredient.</li>
+                                                        <li>Build the response: Redirect to GET /recipes/:new_id</li>
+                                                        <li>Handle errors: If validation fails, return 400 Bad Request with error messages; if database error, return 500.</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>GET /recipes/:id
+                                            <ul>
+                                                <li>What the server does: Retrieves a specific recipe by ID.</li>
+                                                <li>What the client receives: List of the recipe or 404 if not found.</li>
+                                                <li>Steps:
+                                                    <ul>
+                                                        <li>Validate incoming data: Check if :id is a valid id.</li>
+                                                        <li>Execute database query: SELECT * FROM recipes WHERE id = ?</li>
+                                                        <li>Build response: Recipe data or 404</li>
+                                                        <li>Handle errors: 404 if not found, 400 if invalid id</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>POST /staff/:staff_id/delete
+                                            <ul>
+                                                <li>What the server does: Removes a staff member from the database.</li>
+                                                <li>What the client receives: 303 redirect to the staff list page.</li>
+                                                <li>Steps:
+                                                    <ul>
+                                                        <li>Validate: Check staff_id exists, user authenticated.</li>
+                                                        <li>Execute: DELETE FROM staff WHERE id = ?</li>
+                                                        <li>Build response: Redirect to GET /staff page</li>
+                                                        <li>Handle errors: 400 for invalid data, 404 if staff member not found</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -98,37 +162,7 @@
                     </ul>
                 </div>
  
-                <div class="idea-list" aria-labelledby="ideas-3-title">
-                    <h2 id="ideas-3-title">Ideas — List 3</h2>
-                    <ul id="ideas-3" aria-label="Ideas list three">
-                        <li>
-                            Social meetup finder
-                            <ul>
-                                <li><strong>User requirements</strong>
-                                    <ul>
-                                        <li>Create and browse events with date, time, location, and capacity.</li>
-                                        <li>RSVP and messaging for attendees; event recommendations.</li>
-                                        <li>Map view and filters by interest, date, distance.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Fields used for queries</strong>
-                                    <ul>
-                                        <li>events: id, title, description, host_id, start_time, end_time, capacity, location_text, address, is_public, status, created_at, updated_at</li>
-                                        <li>rsvps: id, event_id, user_id, status (attending/interested/cancelled), created_at</li>
-                                        <li>users: id, name, email, profile_photo, interests, verified</li>
-                                        <li>event_tags: event_id, tag_id; tags: id, name</li>
-                                        <li>messages: id, event_id, sender_id, content, created_at</li>
-                                    </ul>
-                                </li>
-                                <li><strong>User specifications</strong>
-                                    <ul>
-                                        <li>Roles: guest, user, moderator, admin.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                
             </div>
         </section>
     </main>
