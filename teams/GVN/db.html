@@ -106,7 +106,7 @@
             <tr>
               <td>role</td>
               <td>TEXT</td>
-              <td>'member' or 'admin'</td>
+              <td>Examples: 'member' or 'admin'</td>
             </tr>
           </tbody>
         </table>
@@ -242,7 +242,7 @@
       <section aria-labelledby="db-queries">
         <h2 id="db-queries">Example SQL queries for main interactions</h2>
 
-        <h3>Register a new user (member)</h3>
+        <h3>Register a new user (public registration creates member only)</h3>
         <pre><code>INSERT INTO Users (name, email, password_hash, role)
 VALUES (?, ?, ?, 'member');</code></pre>
 
@@ -275,6 +275,15 @@ JOIN Categories c ON e.category_id = c.category_id
 WHERE re.routine_id = ?
 ORDER BY re.exercise_order;</code></pre>
 
+        <h3>Update routine name (member owns routine)</h3>
+        <pre><code>UPDATE Routines
+SET routine_name = ?
+WHERE routine_id = ? AND user_id = ?;</code></pre>
+
+        <h3>Delete routine (member owns routine)</h3>
+        <pre><code>DELETE FROM Routines
+WHERE routine_id = ? AND user_id = ?;</code></pre>
+
         <h3>Add an exercise to a routine</h3>
         <pre><code>INSERT INTO Routine_Exercises (routine_id, exercise_id, sets, reps, exercise_order)
 VALUES (?, ?, ?, ?, ?);</code></pre>
@@ -304,10 +313,67 @@ WHERE exercise_id = ?;</code></pre>
         <h3>Admin: delete an exercise</h3>
         <pre><code>DELETE FROM Exercises
 WHERE exercise_id = ?;</code></pre>
+      </section>
+
+      <section aria-labelledby="db-admin-queries">
+        <h2 id="db-admin-queries">Admin SQL queries (for admin routes)</h2>
+        <p>
+          These SQL examples support admin-only routes (user management, routine
+          management, and exercise management). Admin users can create new users
+          and assign their role (including 'admin').
+        </p>
+
+        <h3>Admin: list all users</h3>
+        <pre><code>SELECT user_id, name, email, role
+FROM Users
+ORDER BY user_id DESC;</code></pre>
+
+        <h3>Admin: create a user (admin can assign role)</h3>
+        <pre><code>INSERT INTO Users (name, email, password_hash, role)
+VALUES (?, ?, ?, ?);</code></pre>
+
+        <h3>Admin: view one user</h3>
+        <pre><code>SELECT user_id, name, email, role
+FROM Users
+WHERE user_id = ?;</code></pre>
+
+        <h3>Admin: update a user</h3>
+        <pre><code>UPDATE Users
+SET name = ?, email = ?, role = ?
+WHERE user_id = ?;</code></pre>
+
+        <h3>Admin: delete a user</h3>
+        <pre><code>DELETE FROM Users
+WHERE user_id = ?;</code></pre>
+
+        <h3>Admin: list all routines</h3>
+        <pre><code>SELECT routine_id, routine_name, user_id
+FROM Routines
+ORDER BY routine_id DESC;</code></pre>
+
+        <h3>Admin: view one routine</h3>
+        <pre><code>SELECT routine_id, routine_name, user_id
+FROM Routines
+WHERE routine_id = ?;</code></pre>
+
+        <h3>Admin: update a routine</h3>
+        <pre><code>UPDATE Routines
+SET routine_name = ?
+WHERE routine_id = ?;</code></pre>
 
         <h3>Admin: delete a routine</h3>
         <pre><code>DELETE FROM Routines
 WHERE routine_id = ?;</code></pre>
+
+        <h3>Admin: list all exercises</h3>
+        <pre><code>SELECT exercise_id, exercise_name, category_id
+FROM Exercises
+ORDER BY exercise_id DESC;</code></pre>
+
+        <h3>Admin: view one exercise</h3>
+        <pre><code>SELECT exercise_id, exercise_name, category_id
+FROM Exercises
+WHERE exercise_id = ?;</code></pre>
       </section>
     </main>
   </body>
