@@ -82,6 +82,11 @@
             >.
           </li>
           <li>
+            New users registered here are standard users (non-admin). Admin
+            accounts can only be created by an existing admin via
+            <strong>POST /admin/user/create</strong>.
+          </li>
+          <li>
             Success: <strong>200 OK</strong> and redirect (<strong>303</strong>)
             to login or main page.
           </li>
@@ -266,6 +271,13 @@
         <p>
           Admin routes require authentication and authorization. Non-admin users
           should be blocked (e.g. <strong>403</strong>) or redirected away.
+        </p>
+
+        <p>
+          Admin access is restricted. Creating a new admin account is not
+          available through public registration. An existing admin must create
+          new admin users through <strong>GET /admin/user/create</strong> and
+          <strong>POST /admin/user/create</strong> (by selecting an admin role).
         </p>
 
         <h4>GET /admin</h4>
