@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P2841278 | Charlie-Mae Taylor's Profile</title>
+</head>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0d0f14;
+            color: #e5e7eb;
+        }
+
+        header {
+            background: #111827;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 2px solid #1f2937;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        section {
+            background: #1f2937;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #374151;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #111827;
+            border-top: 2px solid #1f2937;
+        }
+    </style>
+
+<body>
+
+    <header>
+        <h1>Charlie-Mae Taylor</h1>
+        <p>Student ID: P2841278</p>
+    </header>
+
+    <main>
+
+        <section>
+            <h2>About Me</h2>
+            <p>
+                Hello! My name is Charlie-Mae Taylor and I am studying Web Application Development on your Course
+                with you. I have some ideas about the project, and feel super excited to start! I don't have much
+                experience in this field, but I have actually created a website before (very slowly and poorly) but still, I 
+                was able to do it. 
+            </p>
+        </section>
+
+        <section>
+            <h2>Course Information</h2>
+            <p>Module: CTEC2712 - Web Application Development</p>
+            <p>Year: 2026</p>
+        </section>
+
+        <section>
+            <h2>Interests</h2>
+            <ul>
+                <li>Gaming</li>
+                <li>Cooking</li>
+                <li>Cars</li>
+                <li>Music</li>
+                <li>Technology</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Contact</h2>
+            <p>Email: P2841278@my365.dmu.ac.uk</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Charlie-Mae Taylor</p>
+    </footer>
+
+</body>
+
+</html>
