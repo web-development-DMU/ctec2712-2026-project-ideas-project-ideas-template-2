@@ -1,0 +1,24 @@
+body{
+    font-family: 'Times New Roman', Times, serif;
+    background-color: black;
+    color: white;
+}
+
+header{
+    background: hsl(200 40% 30%);
+    padding: 1rem;
+    text-align: center; 
+}
+
+header nav a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 20px;
+   font-weight: bold;
+}
+
+header nav a:hover {
+    color: hsl(200 40% 70%);
+}
+h1{color:rgb(0, 255, 81)}
