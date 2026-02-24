@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Proposal: Football Boot Sales</title>
+    <style>
+        /* Modern, clean styling */
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        
+        .authors {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #1a2a3a;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        
+        ul, ol {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .user-type {
+            background: #f8f9fa;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #1a2a3a;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .challenge-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        nav {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        nav a {
+            background: #1a2a3a;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        nav a:hover {
+            background: #e74c3c;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>⚽ BootLocker: Football Boot Sales Platform</h1>
+        <p class="authors">Proposed by: [YOUR NAME] & Group [NUMBER]</p>
+        <p><em>Version 1.0 - Last updated: February 2026</em></p>
+    </header>
+    
+    <main>
+        <!-- SECTION 1: DESCRIPTION -->
+        <section id="description">
+            <h2>📝 Description</h2>
+            <p>A specialist e-commerce platform dedicated exclusively to football boots. Think "Sports Direct but only for boots" - a focused, streamlined shopping experience for players at all levels.</p>
+            
+            <p>The application will allow users to browse, filter, compare, and purchase football boots from major brands (Nike, Adidas, Puma, New Balance, etc.) with detailed specifications, size availability, and genuine user reviews.</p>
+            
+            <h3>Alternative Names:</h3>
+            <ul>
+                <li><strong>StrikeDeals</strong> - Focus on best prices/deals</li>
+                <li><strong>PitchPerfect Kicks</strong> - Emphasis on finding the right boot</li>
+                <li><strong>BootLocker</strong> - Like your personal boot collection</li>
+                <li><strong>SoleMate</strong> - Play on words (sole of boot + finding your match)</li>
+                <li><strong>CleatMarket</strong> - Simple and descriptive</li>
+            </ul>
+        </section>
+        
+        <!-- SECTION 2: USERS -->
+        <section id="users">
+            <h2>👥 User Types</h2>
+            
+            <div class="user-type">
+                <h3>🟢 Regular Users (Shoppers)</h3>
+                <ul>
+                    <li>Browse boots by brand, surface type (FG, AG, SG, Indoor), price range, size</li>
+                    <li>View detailed product pages with images, specifications, and reviews</li>
+                    <li>Create accounts to save wishlists and track orders</li>
+                    <li>Add items to cart and purchase (simulated checkout)</li>
+                    <li>Write reviews for boots they've purchased</li>
+                    <li>Request stock alerts for out-of-stock sizes</li>
+                </ul>
+            </div>
+            
+            <div class="user-type">
+                <h3>Registered Members</h3>
+                <ul>
+                    <li>All shopper capabilities</li>
+                    <li>Save multiple boots to wishlist</li>
+                    <li>View order history</li>
+                    <li>Receive price drop notifications</li>
+                    <li>Write verified reviews (with "Verified Purchase" badge)</li>
+                </ul>
+            </div>
+            
+            <div class="user-type">
+                <h3> Administrators</h3>
+                <ul>
+                    <li>Full CRUD on products (add new boots, update prices, manage stock)</li>
+                    <li>Manage user accounts (suspend, view)</li>
+                    <li>Process/mark orders as shipped</li>
+                    <li>Moderate reviews (remove inappropriate content)</li>
+                    <li>View sales analytics and stock reports</li>
+                </ul>
+            </div>
+            
+            <div class="user-type">
+                <h3>🟣 Guest Users (non-logged in)</h3>
+                <ul>
+                    <li>Browse and search products</li>
+                    <li>View product details and reviews</li>
+                    <li>Add items to cart (but must login to checkout)</li>
+                    <li>Cannot write reviews or save wishlists</li>
+                </ul>
+            </div>
+        </section>
+        
+       
+        <section id="requirements">
+            <h2>📋 User Requirements (User Stories)</h2>
+            
+            <h3>As a Shopper:</h3>
+            <ul>
+                <li>"I want to filter boots by brand, surface type, and size so I can find options that suit my playing conditions."</li>
+                <li>"I want to sort by price (low-high, high-low) so I can stay within my budget."</li>
+                <li>"I want to see real customer reviews and ratings before making a purchase decision."</li>
+                <li>"I want to know which sizes are in stock without clicking each product."</li>
+            </ul>
+            
+            <h3>As a Registered Member:</h3>
+            <ul>
+                <li>"I want to save boots to a wishlist so I can consider them later."</li>
+                <li>"I want to be notified when a boot in my wishlist drops in price."</li>
+                <li>"I want to see my order history."</li>
+                <li>"I want my reviews marked as 'Verified Purchase' so others trust my feedback."</li>
+            </ul>
+            
+            <h3>As an Administrator:</h3>
+            <ul>
+                <li>"I want to add new boot models with all specifications quickly."</li>
+                <li>"I want to update stock levels when inventory arrives."</li>
+                <li>"I want to mark orders as dispatched."</li>
+                <li>"I want to remove inappropriate reviews."</li>
+            </ul>
+        </section>
+        
+        <!-- SECTION 4: DATABASE SCHEMA -->
+        <section id="database">
+            <h2>🗄️ Database Schema</h2>
+            
+            <h3>1. users</h3>
+            <table>
+                <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                <tr><td>id</td><td>INT (PK)</td><td>Unique identifier</td></tr>
+                <tr><td>username</td><td>VARCHAR(50)</td><td>Login name</td></tr>
+                <tr><td>email</td><td>VARCHAR(100)</td><td>Contact email</td></tr>
+                <tr><td>password_hash</td><td>VARCHAR(255)</td><td>Secure password</td></tr>
+                <tr><td>role</td><td>ENUM</td><td>admin/member/guest</td></tr>
+            </table>
+            
+            <h3>2. brands</h3>
+            <table>
+                <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                <tr><td>id</td><td>INT (PK)</td><td></td></tr>
+                <tr><td>name</td><td>VARCHAR(50)</td><td>Nike, Adidas, etc.</td></tr>
+                <tr><td>logo_url</td><td>VARCHAR(255)</td><td>Brand logo image</td></tr>
+            </table>
+            
+            <h3>3. products</h3>
+            <table>
+                <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                <tr><td>id</td><td>INT (PK)</td><td></td></tr>
+                <tr><td>brand_id</td><td>INT (FK)</td><td>References brands.id</td></tr>
+                <tr><td>model</td><td>VARCHAR(100)</td><td>Mercurial, Predator, etc.</td></tr>
+                <tr><td>surface_type</td><td>ENUM</td><td>FG, AG, SG, IN, TF</td></tr>
+                <tr><td>price</td><td>DECIMAL(10,2)</td><td>Current selling price</td></tr>
+                <tr><td>description</td><td>TEXT</td><td>Full product details</td></tr>
+                <tr><td>image_url</td><td>VARCHAR(255)</td><td>Main product image</td></tr>
+            </table>
+            
+            <h3>4. stock</h3>
+            <table>
+                <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                <tr><td>id</td><td>INT (PK)</td><td></td></tr>
+                <tr><td>product_id</td><td>INT (FK)</td><td>References products.id</td></tr>
+                <tr><td>size_uk</td><td>DECIMAL(3,1)</td><td>6, 6.5, 7, etc.</td></tr>
+                <tr><td>quantity</td><td>INT</td><td>Available stock</td></tr>
+            </table>
+            
+            <h3>5. reviews</h3>
+            <table>
+                <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                <tr><td>id</td><td>INT (PK)</td><td></td></tr>
+                <tr><td>user_id</td><td>INT (FK)</td><td>References users.id</td></tr>
+                <tr><td>product_id</td><td>INT (FK)</td><td>References products.id</td></tr>
+                <tr><td>rating</td><td>INT</td><td>1-5 stars</td></tr>
+                <tr><td>comment</td><td>TEXT</td><td>Review content</td></tr>
+                <tr><td>created_at</td><td>TIMESTAMP</td><td>Review date</td></tr>
+            </table>
+        </section>
+        
+        <!-- SECTION 5: CHALLENGES -->
+        <section id="challenges">
+            <h2>⚠️ Biggest Challenges</h2>
+            
+            <div class="challenge-box">
+                <h3>1. Stock Management</h3>
+                <p>Tracking inventory across multiple sizes and ensuring cart items don't oversell.</p>
+            </div>
+            
+            <div class="challenge-box">
+                <h3>2. Size Availability Display</h3>
+                <p>Showing available sizes on product listing pages without overwhelming the UI.</p>
+            </div>
+            
+            <div class="challenge-box">
+                <h3>3. Filtering Complexity</h3>
+                <p>Multiple filter categories (brand, surface, size, price) need efficient database queries.</p>
+            </div>
+        </section>
+        
+        <!-- SECTION 6: DATA REQUIREMENTS -->
+        <section id="data">
+            <h2>📊 Data Requirements</h2>
+            <ul>
+                <li><strong>Brands:</strong> At least 5 major brands (Nike, Adidas, Puma, New Balance, Mizuno)</li>
+                <li><strong>Products:</strong> 15-20 boot models across brands</li>
+                <li><strong>Stock:</strong> Each product in 8-10 sizes with varying quantities</li>
+                <li><strong>Users:</strong> 3-5 test accounts (including admin)</li>
+                <li><strong>Reviews:</strong> 2-3 sample reviews per product</li>
+            </ul>
+        </section>
+    </main>
+    
+    <nav>
+        <a href="/proposals/">← Back to All Proposals</a>
+    </nav>
+    
+    <div class="footer">
+        <p>Proposal created for CTEC2712 Web Application Development - Week 2</p>
+        <p>Group Members: [List all names here]</p>
+    </div>
+</body>
+</html>
