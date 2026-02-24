@@ -1,0 +1,40 @@
+body {
+    margin-top: 40px !important;
+    * {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+        font-family: cursive;
+    }
+    #navbar, #footer {
+        width: 100%;
+        align-items: center !important;
+        position: fixed;
+        height: 40px;
+        background-color: orange;
+        padding: 0px;
+        padding-left: 5px;
+        justify-content: left !important;
+        top: 0px !important;
+        div {
+            width: calc(100% - 10rem);
+        }
+        a {
+            position: relative;
+            float: right;
+            img {
+                height: inherit !important;
+            }
+        }
+    }
+    #footer {
+        position: relative;
+        margin-top: 40px;
+        background-color: black;
+        * {
+            color: white;
+        }
+    }
+    h5 {
+        padding-left: 0px !important;
+    }
+}
