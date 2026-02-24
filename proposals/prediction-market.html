@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 07</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
+            gap: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Group 04</h1>
+        <nav>
+            <a href="/">home</a>
+            <a href="/people">people</a>
+            <a href="/proposals">proposals</a>
+            <a href="/teams">teams</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Prediction Market <span style="font-weight: lighter; font-size: 16px;">(Mock)</span></h2>
+            <p>
+                Proposed by: <a href="/people/P2851764.html">P2851764</a> and <a
+                    href="/people/P2845493.html">P2845493</a>
+            </p>
+
+            <h3>Description</h3>
+            <p>
+                The prediction market will allow users to bet on the outcome of user submitted current events; such as
+                the likelihood of a specific event happening within a period of time, or the outcome of an event e.g. a
+                sports match or political election.
+            </p>
+            <p>
+                Users will be given digital currency upon the creation of their account which can then be used to
+                interact with events. The users account balance will be displayed on their profile page and
+                leaderboards.
+            </p>
+            <p>
+                Events can be created by users with a title, description, and set of interactive options between
+                two or more outcomes. A real-time graph will show the current predicted odds from all users on the
+                event (based of the amount wagered a specific option), and it will change the buy-in amount required to
+                participate on that specific choice on the event.
+            </p>
+
+            <h3>Resources</h3>
+            <ul>
+                <li><b>Home page (event browser)</b></li>
+                <li><b>Event page</b> ~ real-time graph and interactions</li>
+
+                <br />
+
+                <li><b>User profile page</b> ~ account balance and wager history</li>
+                <li><b>Leaderboard page</b> ~ top users and their scores (requires public account setting)</li>
+                <li><b>Portal page</b> ~ signup / login</li>
+                <li><b>User settings page</b></li>
+
+                <br />
+
+                <li><b>Event creation page</b></li>
+                <li><b>Admin dashboard</b></li>
+
+                <br />
+
+                <li><b>TOS</b></li>
+            </ul>
+
+            <h3>Technologies</h3>
+            <ul>
+                <li>Graphing (Canvases? Libraries?)</li>
+                <li>Real-time updates (Websockets? Polling?)</li>
+            </ul>
+
+            <h3>Accounts</h3>
+            <ul>
+                <li>Administrator</li>
+                <li>User</li>
+                <li>Guest</li>
+            </ul>
+
+            <h3>Databases</h3>
+            <ul>
+                <li>Accounts</li>
+                <li>Events</li>
+                <li>Transaction history</li>
+            </ul>
+
+            <p>
+                The biggest challenge will be implementing the real-time graph and interactions, as well as the backend
+                logic for calculating the odds and buy-in amounts for each option on an event.
+            </p>
+        </section>
+        <section>
+            <h2>Teams building this</h2>
+            <ul>
+                <li><a href="../teams/2Morrow.html">2Morrow™</a> is working on this.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+
+</html>
