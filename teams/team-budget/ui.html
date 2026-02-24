@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Budget - User Interface</title>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a> |
+  <a href="db.html">Database</a> |
+  <a href="ui.html">User Interface</a>
+</nav>
+<hr>
+
+<h1 id="ui">User Interface Plan</h1>
+<p>
+This page describes the main pages and user interactions for Budget Buddy. The UI will be built
+using HTML and CSS, with forms for CRUD operations.
+</p>
+<h2>User Interface Sketch</h2>
+
+<figure>
+  <img src="../../assets/budget-ui.png" alt="Budget Tracker UI Sketch" width="700">
+  <figcaption>
+    Initial wireframe showing the Budget Buddy dashboard layout, including balance overview,
+    expense categories, and transaction list.
+  </figcaption>
+</figure>
+
+<h2>Main Pages</h2>
+
+<h3>1) Dashboard</h3>
+<ul>
+  <li>Shows summary: total income, total expenses, remaining balance.</li>
+  <li>Shows recent transactions list.</li>
+  <li>Shows budget progress per category (simple bars or text).</li>
+  <li>Buttons/links to add new transaction and manage budgets.</li>
+</ul>
+
+<h3>2) Transactions Page</h3>
+<ul>
+  <li>List all transactions (filter by month/category optional).</li>
+  <li>Create transaction (form).</li>
+  <li>Edit transaction (form).</li>
+  <li>Delete transaction (button/link).</li>
+</ul>
+
+<h3>3) Budgets Page</h3>
+<ul>
+  <li>List budgets for the selected month.</li>
+  <li>Create budget (choose category + monthly limit).</li>
+  <li>Edit budget.</li>
+  <li>Delete budget.</li>
+</ul>
+
+<h3>4) Categories Page (optional)</h3>
+<ul>
+  <li>List categories.</li>
+  <li>Add/edit/delete categories (optional if categories are fixed).</li>
+</ul>
+
+<h2>Key User Actions (CRUD)</h2>
+<ul>
+  <li>Create: add transactions and budgets.</li>
+  <li>Read: view dashboards and lists.</li>
+  <li>Update: edit transaction details and budget limits.</li>
+  <li>Delete: remove transactions and budgets.</li>
+</ul>
+
+</body>
+</html>

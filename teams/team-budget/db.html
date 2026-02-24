@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Budget - Database</title>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a> |
+  <a href="db.html">Database</a> |
+  <a href="ui.html">User Interface</a>
+</nav>
+<hr>
+
+<h1>Database Structure</h1>
+<p>
+This page documents the database design for Budget Buddy (Budget Tracker). The application uses a
+relational database with tables linked by foreign keys.
+</p>
+
+<h2>Tables</h2>
+
+<h3>1) users</h3>
+<ul>
+  <li><strong>user_id</strong> (PK)</li>
+  <li>name</li>
+  <li>email (unique)</li>
+  <li>password_hash</li>
+</ul>
+
+<h3>2) categories</h3>
+<ul>
+  <li><strong>category_id</strong> (PK)</li>
+  <li>name (e.g., Food, Rent, Transport)</li>
+</ul>
+
+<h3>3) transactions</h3>
+<ul>
+  <li><strong>transaction_id</strong> (PK)</li>
+  <li><strong>user_id</strong> (FK → users.user_id)</li>
+  <li><strong>category_id</strong> (FK → categories.category_id)</li>
+  <li>type (Income / Expense)</li>
+  <li>amount</li>
+  <li>date</li>
+  <li>description</li>
+</ul>
+
+<h3>4) budgets</h3>
+<ul>
+  <li><strong>budget_id</strong> (PK)</li>
+  <li><strong>user_id</strong> (FK → users.user_id)</li>
+  <li><strong>category_id</strong> (FK → categories.category_id)</li>
+  <li>month (e.g., 2026-02)</li>
+  <li>monthly_limit</li>
+</ul>
+
+<h2>Relationships</h2>
+<ul>
+  <li>One user can have many transactions.</li>
+  <li>One category can be used by many transactions.</li>
+  <li>One user can set many budgets (usually one per category per month).</li>
+  <li>Each budget belongs to one user and one category.</li>
+</ul>
+
+<h2>Notes</h2>
+<ul>
+  <li>Foreign keys help connect data and enforce consistency.</li>
+  <li>Budgets are compared against total expenses in that category for the chosen month.</li>
+</ul>
+
+</body>
+</html>

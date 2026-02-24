@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Team Budget - Routes</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f4f6f8; }
+    .container { max-width: 900px; margin:40px auto; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    h1 { color:#2c3e50; text-align:center; margin-top:0; }
+    h2 { border-bottom:2px solid #3498db; padding-bottom:5px; color:#34495e; margin-top:28px; }
+    h3 { color:#2c3e50; }
+    p { line-height:1.6; }
+    nav { margin-bottom:15px; }
+    a { color:#3498db; text-decoration:none; font-weight:bold; }
+    a:hover { text-decoration:underline; }
+    hr { border:0; border-top:1px solid #d0d7de; margin:15px 0; }
+    code { background:#eef2f6; padding:2px 6px; border-radius:6px; }
+    .route { margin: 14px 0; padding: 12px 14px; background:#f7fafc; border:1px solid #e5e7eb; border-radius:10px; }
+    .meta { font-size: 0.95rem; }
+    .label { font-weight:bold; }
+    ul { margin-top: 8px; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>HTTP Interactions / Routes</h1>
+
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="db.html">Database</a> |
+      <a href="ui.html">User Interface</a> |
+      <a href="routes.html">Routes</a>
+    </nav>
+    <hr>
+
+    <p>
+      This page documents the planned application routes for <b>Budget Buddy</b>. A route is the
+      combination of a URL and an HTTP method. For each route we describe what the server does,
+      what database operations are required, and what the user receives in the response.
+    </p>
+
+    <h2 id="transactions">Transactions</h2>
+
+    <div class="route">
+      <div class="meta"><span class="label">GET</span> <code>/transactions</code> (optional: <code>?month=YYYY-MM</code>, <code>?categoryId=1</code>)</div>
+      <p><b>Purpose:</b> Show a list of transactions (optionally filtered).</p>
+      <ul>
+        <li><b>Server actions:</b> read query params → run <code>SELECT</code> → render HTML list</li>
+        <li><b>DB:</b> SELECT from <code>transactions</code> joined to <code>categories</code></li>
+        <li><b>Response:</b> HTML page, status <b>200</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">GET</span> <code>/transactions/new</code></div>
+      <p><b>Purpose:</b> Show a form to create a new transaction.</p>
+      <ul>
+        <li><b>Server actions:</b> fetch categories → render form</li>
+        <li><b>DB:</b> SELECT from <code>categories</code></li>
+        <li><b>Response:</b> HTML page, status <b>200</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">POST</span> <code>/transactions</code></div>
+      <p><b>Purpose:</b> Create a transaction (income/expense) from submitted form data.</p>
+      <ul>
+        <li><b>Server actions:</b> validate fields → INSERT → redirect</li>
+        <li><b>DB:</b> INSERT into <code>transactions</code></li>
+        <li><b>On success:</b> redirect <b>303</b> to <code>/transactions</code></li>
+        <li><b>On validation error:</b> re-render form with errors, status <b>400</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">GET</span> <code>/transactions/{id}/edit</code></div>
+      <p><b>Purpose:</b> Show edit form for a specific transaction.</p>
+      <ul>
+        <li><b>Server actions:</b> read id → SELECT transaction → render form (pre-filled)</li>
+        <li><b>DB:</b> SELECT from <code>transactions</code>, SELECT <code>categories</code></li>
+        <li><b>If not found:</b> status <b>404</b></li>
+        <li><b>Response:</b> HTML page, status <b>200</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">POST</span> <code>/transactions/{id}</code></div>
+      <p><b>Purpose:</b> Update a transaction after edit form submit.</p>
+      <ul>
+        <li><b>Server actions:</b> read id → validate → UPDATE → redirect</li>
+        <li><b>DB:</b> UPDATE <code>transactions</code> WHERE id</li>
+        <li><b>On success:</b> redirect <b>303</b> to <code>/transactions</code></li>
+        <li><b>On validation error:</b> status <b>400</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">POST</span> <code>/transactions/{id}/delete</code></div>
+      <p><b>Purpose:</b> Delete a transaction.</p>
+      <ul>
+        <li><b>Server actions:</b> read id → DELETE → redirect</li>
+        <li><b>DB:</b> DELETE from <code>transactions</code> WHERE id</li>
+        <li><b>On success:</b> redirect <b>303</b> to <code>/transactions</code></li>
+      </ul>
+    </div>
+
+    <h2 id="budgets">Budgets</h2>
+
+    <div class="route">
+      <div class="meta"><span class="label">GET</span> <code>/budgets</code> (optional: <code>?month=YYYY-MM</code>)</div>
+      <p><b>Purpose:</b> Show budgets and current spend vs limit.</p>
+      <ul>
+        <li><b>Server actions:</b> read month → SELECT budgets → compute totals → render</li>
+        <li><b>DB:</b> SELECT <code>budgets</code>, SELECT SUM expenses from <code>transactions</code></li>
+        <li><b>Response:</b> HTML page, status <b>200</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">GET</span> <code>/budgets/new</code></div>
+      <p><b>Purpose:</b> Show form to create a new budget.</p>
+      <ul>
+        <li><b>DB:</b> SELECT <code>categories</code></li>
+        <li><b>Response:</b> HTML page, status <b>200</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">POST</span> <code>/budgets</code></div>
+      <p><b>Purpose:</b> Create a budget for a category/month.</p>
+      <ul>
+        <li><b>Server actions:</b> validate → INSERT → redirect</li>
+        <li><b>DB:</b> INSERT into <code>budgets</code></li>
+        <li><b>On success:</b> redirect <b>303</b> to <code>/budgets</code></li>
+        <li><b>On validation error:</b> status <b>400</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">GET</span> <code>/budgets/{id}/edit</code></div>
+      <p><b>Purpose:</b> Show edit form for a budget.</p>
+      <ul>
+        <li><b>DB:</b> SELECT budget, SELECT categories</li>
+        <li><b>If not found:</b> <b>404</b></li>
+        <li><b>Response:</b> HTML page, status <b>200</b></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">POST</span> <code>/budgets/{id}</code></div>
+      <p><b>Purpose:</b> Update a budget limit.</p>
+      <ul>
+        <li><b>DB:</b> UPDATE <code>budgets</code></li>
+        <li><b>On success:</b> redirect <b>303</b> to <code>/budgets</code></li>
+      </ul>
+    </div>
+
+    <div class="route">
+      <div class="meta"><span class="label">POST</span> <code>/budgets/{id}/delete</code></div>
+      <p><b>Purpose:</b> Delete a budget.</p>
+      <ul>
+        <li><b>DB:</b> DELETE from <code>budgets</code></li>
+        <li><b>On success:</b> redirect <b>303</b> to <code>/budgets</code></li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+</html>
