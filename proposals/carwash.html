@@ -1,18 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Wash Booking System Proposal</title>
-</head>
-<body>
-    <h1>Car Wash Booking System</h1>
-    <p>This car wash booking system is proposed by <a href="/people/P2882530.html">Milan Paudel</a></p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Car Wash Booking System Proposal</title>
 
-    <h2>Project Layout</h2>
-    <p>Users can create an account or log in to their existing account.</p>
-    <p>Users can search for a car wash and book an available timeslot.</p>
-    <p>Car washes will be listed, along with their contact info and location.</p>
-    <p>Timeslots will also be listed for car washes and can be booked.</p>
-</body>
+        <style>
+            #intro {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Car Wash Booking System and Project Layout</h1>
+        <p>This car wash booking system is proposed by <a href="/project-ideas-lab-group-09/people/P2882530.html" id="intro">Milan Paudel</a>.</p>
+        <p>Users can create an account or log in to their existing account.</p>
+        <p>Users can search for a car wash and book an available timeslot.</p>
+        <p>Admins can create, cancel, and delete timeslots.</p>
+        <p>Car washes will be listed, along with their contact info and location.</p>
+        <p>Timeslots will also be listed for car washes and can be booked.</p>
+
+        <hr>
+
+        <h2>Front-End</h2>
+        <p>Login Page: user's name, email, password, phone number, and payment methods – along with the option to choose a default payment method.</p>
+        <p>Home Page: list of 5 car washes per page, filtered by location where the nearest one shows at the top, along with a photo of the car wash and a Google Maps link.</p>
+        <p>Navbar: home page button at the top left, user profile dropdown (options such as edit profile, view bookings, sign out) at the top right.</p>
+        <p>Car Wash View Page: extra information displayed for car wash (services, service fees, etc).</p>
+        <p>Make Booking Form: user prompted to select a timeslot and services at the specific car wash, toggling the available column in the timeslots table to false.</p>
+        <p>Cancel Booking Form: user prompted to cancel specific booking, toggling the available column in the timeslots table to true.</p>
+
+        <hr>
+
+        <h2>Back-End</h2>
+        <p>Users Table: user_id, name, is_admin, email, password, phone number, payment_methods, default_payment_method.</p>
+        <p>Carwashes Table: carwash_id, email, phone number, postcode, address, photo.</p>
+        <p>Services Table: service_id, name, description, carwash_id, fee.</p>
+        <p>Timeslots Table: timeslot_id, start_at, end_at, available.</p>
+        <p>Bookings Table: booking_id, user_id, carwash_id, service_id, start_at, end_at, total_fee.</p>
+
+        <hr>
+
+        <h2>Routes</h2>
+
+        <h3>GET Routes</h3>
+        <p>carwash/login</p>
+        <p>carwash/home</p>
+        <p>carwash/carwash-info/{carwash_id}</p>
+        <p>carwash/user-profile/{user_id}</p>
+
+        <h3>POST Routes</h3>
+        <p>carwash/update-user-profile/{user_id}</p>
+        <p>carwash/make-booking/{carwash_id}</p>
+        <p>carwash/cancel-booking/{booking_id}</p>
+
+        <hr>
+
+        <h2>SQL Operations</h2>
+        <p>Create</p>
+        <p>Edit</p>
+        <p>Update</p>
+        <p>Delete</p>
+    </body>
 </html>
