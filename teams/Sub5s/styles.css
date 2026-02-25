@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eef2f5;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #2d2d2d;
+    line-height: 1.65;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+    padding: 1.75rem 1rem;
+    margin-bottom: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    text-align: center;
+    color: #1a3a4a;
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: underline;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #4a6a7a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+nav a:hover {
+    color: #1a3a4a;
+    background-color: #e8eef2;
+    border-color: #d0dce4;
+}
+
+main {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.25rem 2.5rem;
+}
+
+section {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 1.75rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e4e9ed;
+}
+
+section:hover {
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #1a3a4a;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    border-bottom: 2px solid #d6dee4;
+    padding-bottom: 0.6rem;
+}
+
+section h3 {
+    color: #2a4a5a;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+}
+
+section p {
+    color: #4a4a4a;
+    margin-bottom: 1rem;
+    line-height: 1.75;
+}
+
+a {
+    color: #2a8a6a;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #1e6e52;
+    text-decoration: underline;
+}
+
+ul {
+    margin-left: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+li {
+    color: #4a4a4a;
+    margin-bottom: 0.4rem;
+    line-height: 1.65;
+}
+
+ul ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+strong {
+    color: #1a3a4a;
+    font-weight: 700;
+}
+
+/* Navigation bar used in Sub5s index */
+.topnav {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    background-color: #fff;
+    padding: 1.25rem 1rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #d6dee4;
+}
+
+.topnav a {
+    color: #4a6a7a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    text-transform: capitalize;
+}
+
+.topnav a:hover {
+    color: #1a3a4a;
+    background-color: #e8eef2;
+}
+
+.main {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.25rem 2.5rem;
+}
+
+.main h1 {
+    color: #1a3a4a;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    text-decoration: underline;
+}
+
+.team-intros,
+.application-ideas {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e4e9ed;
+}
+
+.team-intros:hover,
+.application-ideas:hover {
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.1);
+}
+
+.team-intros h2,
+.application-ideas h2 {
+    color: #1a3a4a;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #d6dee4;
+    padding-bottom: 0.5rem;
+}
+
+.team-intros p,
+.application-ideas p {
+    color: #4a4a4a;
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+}
+
+.bottom-nav {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0.5rem 0;
+    margin-top: 1rem;
+    text-align: left;
+}
+
+.bottom-nav:hover {
+    box-shadow: none;
+}
+
+.bottom-nav p {
+    margin: 0;
+}
+
+.bottom-nav a {
+    font-size: 0.85rem;
+    color: #4a6a7a;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #d6dee4;
+    background-color: #f4f7f9;
+}
+
+.bottom-nav a:hover {
+    color: #1a3a4a;
+    background-color: #e8eef2;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    header h1,
+    .main h1 {
+        font-size: 1.5rem;
+    }
+
+    nav,
+    .topnav {
+        gap: 0.5rem;
+    }
+
+    nav a,
+    .topnav a {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.7rem;
+    }
+
+    section,
+    .team-intros,
+    .application-ideas {
+        padding: 1.25rem;
+        border-radius: 8px;
+    }
+
+    section h2,
+    .team-intros h2,
+    .application-ideas h2 {
+        font-size: 1.3rem;
+    }
+
+    section h3 {
+        font-size: 1.05rem;
+    }
+
+    main,
+    .main {
+        padding: 0 0.75rem 1.5rem;
+    }
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy Proposal</title>
+    <style>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #4A90E2;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        header nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header nav a:hover {
+            background: white;
+            color: #4A90E2;
+        }
+
+
+        h1, h2 {
+            text-align: center;
+            margin-top: 30px;
+            color: #2c3e50;
+        }
+
+        p {
+            max-width: 800px;
+            margin: 15px auto;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            max-width: 800px;
+            margin: 10px auto 20px;
+            padding-left: 20px;
+        }
+
+        ul li {
+            background: white;
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-left: 4px solid #4A90E2;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        ul li:hover {
+            transform: scale(1.02);
+        }
+
+        section {
+            background: white;
+            margin: 25px auto;
+            padding: 20px 30px;
+            border-radius: 12px;
+            max-width: 900px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        nav.bottom-nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        nav.bottom-nav a {
+            text-decoration: none;
+            color: #4A90E2;
+            font-weight: bold;
+            border: 2px solid #4A90E2;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        nav.bottom-nav a:hover {
+            background: #4A90E2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            header nav a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            nav.bottom-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Group 06</h1>
+        <nav>
+            <a href="/">home</a>
+            <a href="/people">people</a>
+            <a href="/proposals">proposals</a>
+            <a href="/teams">teams</a>
+        </nav>
+    </header>
+
+    <section>
+        <h1>StudyBuddy Proposal</h1>
+        <h2>Application Name:</h2>
+        <p>StudyBuddy</p>
+    </section>
+
+    <section>
+        <h2>Target Users:</h2>
+        <ul>
+            <li>University students looking for study partners or group sessions</li>
+            <li>Course instructors wanting to suggest study groups</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>User Requirements:</h2>
+        <ul>
+            <li>Students can create and join study groups</li>
+            <li>Students can schedule sessions with date/time and location</li>
+            <li>Users can post resources, notes, and discussion topics</li>
+            <li>Instructors can moderate or suggest groups for specific courses</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Why Users Need It:</h2>
+        <p>Students often struggle to find effective study partners. StudyBuddy helps them collaborate, share resources, and plan sessions efficiently, improving learning outcomes.</p>
+    </section>
+
+    <section>
+        <h2>Database Tables (4 main tables):</h2>
+        <ul>
+            <li><strong>Users</strong>: student_id, name, email, password, role (student/instructor)</li>
+            <li><strong>Groups</strong>: group_id, name, course, description</li>
+            <li><strong>Sessions</strong>: session_id, group_id, date, time, location</li>
+            <li><strong>Resources</strong>: resource_id, session_id, title, link/file</li>
+        </ul>
+    </section>
+
+    <!-- Bottom navigation -->
+    <nav class="bottom-nav">
+        <a href="/proposals/P286Proposal2.html">Next Proposal</a>
+        <a href="/proposals/P286Proposal3.html">Previous Proposal</a>
+    </nav>
+
+</body>
+</html>
