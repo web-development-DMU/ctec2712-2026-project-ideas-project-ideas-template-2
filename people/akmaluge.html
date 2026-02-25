@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akith Maluge</title>
+
+    <style>
+        body {
+            margin: 0;
+
+            header,
+            main {
+                font-family: monospace;
+                font-size: 1.2em;
+                padding-inline: 2rem;
+            }
+
+            header {
+                display: flex;
+                align-items: end;
+                justify-content: space-between;
+                background: #aaa;
+
+                nav {
+                    display: flex;
+                    gap: 1rem;
+
+                    a {
+                        font-size: 1.4em;
+                        padding: 0.25em 0.5em;
+                        backdrop-filter: brightness(1.4);
+                        text-decoration: none;
+                        transition: backdrop-filter 200ms ease-in-out;
+                        border-top-left-radius: 1ch;
+                        border-top-right-radius: 1ch;
+
+                        &:hover {
+                            backdrop-filter: brightness(1.2);
+
+                        }
+                    }
+                }
+            }
+
+            main {
+                p {
+                    max-width: 70ch;
+                    line-height: 1.4;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Group 03</h1>
+        <nav>
+            <a href="/">home</a>
+            <a href="/people">people</a>
+            <a href="/proposals">proposals</a>
+            <a href="/teams">teams</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <p><a href="/people">back</a></p>
+            <h2>Akith Maluge</h2>
+            <p>
+                I'm 23 years old and from Rome, Italy and I'm familiar with we developing since I have created a Web Application back 
+                when I was in College, and have 2 years experience working, I know Python, 
+                JavaScript, Scala. I'm looking forward to learn more about web development 
+                and work in a team for the web development project.
+            </p>
+        </section>
+        <section>
+            <h2>Project ideas</h2>
+            <p>
+                A Travel Planner where you create itineraries, save locations, add noters and photos, share plans with friends and integrate the maps feature later on.
+            </p>
+        </section>
+    </main>
+</body>
+
+</html>
