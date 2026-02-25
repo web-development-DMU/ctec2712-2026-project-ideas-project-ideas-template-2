@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Interval Exersise Timer</title>
+    <link rel="stylesheet" href="/style.css">
+
+        <style>
+            html {
+                height: 100%;
+            }
+            body {
+                font-family: 'Times New Roman', Times, serif;
+                margin: 0;
+                background : linear-gradient(to top, #00c00a, #60917479, #058f71b4);
+                color: #000000;
+                min-height: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>Interval Exersise Timer Proposal</h1>
+            <nav>
+                <a href="/">home</a>
+                <a href="/people">people</a>
+                <a href="/proposals">proposals</a>
+                <a href="/teams">teams</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <p>
+                    Proposed by: <a href="/people/P2867907.html">Thomas Hague</a>
+                </p>
+                <h2>
+                    Introduction
+                </h2>
+                <p>
+                    Idea behind this comes from interval excersises, where you do a certain exersie for
+                    a small amount of time, take a small break and go on to the next. Say you do 8 diffrent 
+                    exersices for 50 seconds each with a 10 second break inbetween, you can then repeat this 
+                    as many rounds as you want in the same session
+                </p>
+            </section>
+
+            <section>
+                <h3>
+                    Description
+                </h3>
+                <p>
+                    The application will allow the user to choose a time period for an exersise and the rest,
+                    having it being the default for all the exersise to have the same time and then allowing
+                    them to set diffrent indvidual times for each exersice in a round. You will be able to have
+                    unlabled numbered excersises or choose an exersise from a drop down or make a custom label.
+                    You would then set the number of rounds and then you can save all of your choices to a text 
+                    document locally. When you start the timer you will get a countdown to get into your poition, 
+                    and if a non custom exersise is labled you will get a diagram or gif to remind you what to do.
+                    At any point you should be able to pause or go back to a periovous exersice.
+                </p>
+            </section>
+
+            <section>
+                <h4>
+                    Database structure
+                </h4>
+                <p>
+                    There should be a database of exersices for the lables, that would store information on the
+                    associated muscle groups as well as either a gif or an image for instruction. This would then connect to a
+                    database of muscle groups that would have descriptions and allow for an index of them that would allow you
+                    to find exersices for them. There also could be a database that connects to both of the prior ones that
+                    would make a preselected routine for a group or combintation of group of muscles.
+                </p>
+            </section>
+        </main>
+    </body>
+</html>
