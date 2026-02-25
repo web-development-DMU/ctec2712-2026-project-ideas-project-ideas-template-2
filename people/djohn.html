@@ -22,12 +22,12 @@
                 display: flex;
                 align-items: end;
                 justify-content: space-between;
-                background: #aaa;
+                background: #9697e4;
                 nav {
                     display: flex;
                     gap: 1rem;
                     a {
-                        font-size: 1.4em;
+                        font-size: 1.8em;
                         padding: 0.25em 0.5em;
                         backdrop-filter: brightness(1.4);
                         text-decoration: none;
@@ -43,9 +43,18 @@
             }
             main {
                 p {
-                    max-width: 70ch;
+                    max-width: 60ch;
                     line-height: 1.4;
+                    background: #d1e6d2;
                 }
+            }
+            
+            #footer {
+                background: #c090a2;
+                gap: 3rem;
+                font-size: 1em;
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
             }
         }
     </style>
@@ -55,8 +64,8 @@
 
 <body>
     <header>
-        <h1>Group 4 - Test</h1>
-        <nav>
+        <h1>Group 4</h1>
+        <nav id = "header">
             <a href="/">home</a>
             <a href="/people">people</a>
             <a href="/proposals">proposals</a>
@@ -68,32 +77,26 @@
         <section>
             <p><a href="/people">back</a></p>
             <h2>Dawn Johnston</h2>
-            <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-            veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
-            quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                
-            </p>
-            <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-            veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
-            quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-            </p>
+            <p>I teach on CTEC2712 in Block 3 and I'm the module leader for CTEC2713 Agile Development Team Project in Block 4.</p>
+            <p>In this module I'm looking forward to seeing the projects that students will develop in their teams.</p>
         </section>
         <section>
             <h2>Project Ideas</h2>
+            <p>I supervise final year projects so I have seen may web applications over the last 19 years. Below are a few web applications I have seen...</p>
             <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-            veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
-            quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                <ul>
+                    <li>A Henna Booking Application</li>
+                    <li>A Chimney Sweep Booking System based on a family business</li>
+                    <li>A Agriculture Enterprise Resource Planning Application</li>
+                </ul>
             </p>
         </section>
+        <footer>
+            <nav id = "footer">
+                <a href="/people/P2869415.html">Previous</a>
+                <a href="/people/fania.html">Next</a>
+            </nav>
+        </footer>
     </main>
 </body>
 
