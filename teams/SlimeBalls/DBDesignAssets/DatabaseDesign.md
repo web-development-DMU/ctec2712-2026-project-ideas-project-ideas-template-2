@@ -23,9 +23,9 @@ ___
 | PK, Int, auto increment, unique | varchar(50) | DateTime    | varchar(255) | varchar(50) | varchar(50)   | varchar(50) | varchar(20)  | varchar(50) |
 ___
 ### Chapters
-| BookCHPID  | BookID  | ChapterName | ChapterRelease |
+| ChapterId  | BookId  | ChapterName | ChapterRelease |
 | ---------- | ------- | ----------- | -------------- |
-| PK, Int    | FK, Int | varchar(50) | Datetime       |
+| CK, Int    | CK, Int | varchar(50) | Datetime       |
 ___
 ### Users
 | UserID                          | UserName 	| UserPass    | DateCreated |
@@ -33,9 +33,9 @@ ___
 | PK, Int, Auto increment, Unique | varchar(50) | varchar(50) | Timestamp   |
 ___
 ### Bookmarks
-| UserID  | BookCHPID | BookID  |
+| UserID  | BookCHPID | BookId  |
 | ------- | --------- | ------- |
-| FK, Int | FK, Int   | ??, Int |
+| FK, Int | CK, Int   | CK, Int |
 ___
 ### Favourites
 | UserID  | BookId  |
@@ -49,8 +49,8 @@ ___
 CREATE TABLE "Users" (
 	"UserId"	INTEGER NOT NULL UNIQUE,
 	"Username"	TEXT NOT NULL UNIQUE,
-	"UserPass"	TEXT,
-	"DateCreated"	TEXT,
+	"UserPass"	TEXT NOT NULL,
+	"DateCreated"	TEXT NOT NULL,
 	PRIMARY KEY("UserId" AUTOINCREMENT)
 );
 ```
@@ -60,14 +60,14 @@ CREATE TABLE "Users" (
 -- CREATING THE BOOKS TABLE
 CREATE TABLE "Books" (
 	"BookId"	INTEGER NOT NULL UNIQUE,
-	"BookTitle"	TEXT,
-	"ReleaseDate"	TEXT,
-	"BookAbout"	TEXT,
-	"BookAuthor"	TEXT,
-	"BookPublisher"	TEXT,
-	"BookImage"	TEXT,
-	"BookStatus"	TEXT,
-	"BookSource"	TEXT,
+	"BookTitle"	TEXT NOT NULL,
+	"ReleaseDate"	TEXT NOT NULL,
+	"BookAbout"	TEXT NOT NULL,
+	"BookAuthor"	TEXT NOT NULL,
+	"BookPublisher"	TEXT NOT NULL,
+	"BookImage"	TEXT NOT NULL,
+	"BookStatus"	TEXT NOT NULL,
+	"BookSource"	TEXT NOT NULL,
 	PRIMARY KEY("BookId" AUTOINCREMENT)
 );
 ```
@@ -76,10 +76,11 @@ CREATE TABLE "Books" (
 ```SQL
 -- CREATING THE CHAPTERS TABLE
 CREATE TABLE "Chapters" (
-	"BookChpId"	INTEGER,
-	"BookId"	INTEGER,
-	"ChapterName"	TEXT,
-	"ChapterRelease"	TEXT,
+	"BookChpId"	INTEGER NOT NULL,
+	"BookId"	INTEGER NOT NULL,
+	"ChapterName"	TEXT NOT NULL,
+	"ChapterRelease"	TEXT NOT NULL,
+	PRIMARY KEY("BookChpId","BookId"),
 	FOREIGN KEY("BookId") REFERENCES "Books"("BookId")
 );
 ```
@@ -88,10 +89,10 @@ CREATE TABLE "Chapters" (
 ```SQL
 --CREATING THE BOOKMARKS TABLE
 CREATE TABLE "Bookmarks" (
-	"UserId"	INTEGER,
-	"BookId"	INTEGER,
-	"BookChpId"	INTEGER,
-	FOREIGN KEY("UserId") REFERENCES "Users"("UserId")
+	"UserId"	INTEGER NOT NULL,
+	"BookId"	INTEGER NOT NULL,
+	"BookChpId"	INTEGER NOT NULL,
+	FOREIGN KEY("BookId") REFERENCES "Books"("BookId")
 );
 ```
 
@@ -99,8 +100,8 @@ CREATE TABLE "Bookmarks" (
 ```SQL
 -- CREATING THE FAVOURITES TABLE
 CREATE TABLE "Favourites" (
-	"UserId"	INTEGER,
-	"BookId"	INTEGER,
+	"UserId"	INTEGER NOT NULL,
+	"BookId"	INTEGER NOT NULL,
 	FOREIGN KEY("UserId") REFERENCES "Users"("UserId"),
 	FOREIGN KEY("BookId") REFERENCES "Books"("BookId")
 );
@@ -109,7 +110,11 @@ CREATE TABLE "Favourites" (
 ___
 
 # Relationship of tables
-![alt text](/teams/SlimeBalls/DBDesignAssets/DatabaseDiagram.png)
+<<<<<<< HEAD
+![DB relationships design](/DBDesignAssets/relationshipDesign/DatabaseDiagram.png)
+=======
+![DB relationships design](/teams/SlimeBalls/DBDesignAssets/relationshipDesign/DatabaseDiagram.png)
+>>>>>>> origin/main
 ___
 # Queries required:
 ## Route('/'):
@@ -124,7 +129,7 @@ LIMIT 5;
 ## Route('/Catalogue')
 ### Get Books to display
 ```SQL
-SELECT BookTitle, BookImage
+SELECT BookId, BookTitle, BookImage
 FROM Books;
 ```
 ## Route('/Catalogue/:BookID')
