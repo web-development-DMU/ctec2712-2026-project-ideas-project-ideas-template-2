@@ -5,12 +5,11 @@ body {
         padding-right: 3px !important;
         font-family: cursive;
     }
-    #navbar, #footer {
+    #header, #footer {
         width: 100%;
         align-items: center !important;
         position: fixed;
         height: 40px;
-        background-color: orange;
         padding: 0px;
         padding-left: 5px;
         justify-content: left !important;
@@ -26,13 +25,22 @@ body {
             }
         }
     }
-    #footer {
-        position: relative;
-        margin-top: 40px;
-        background-color: black;
+    #header {
+        background-color: #081a45;
         * {
             color: white;
+            fill: white !important;
         }
+        img {
+            filter: invert(1);
+            color: white;
+            fill: white !important;
+        }
+    }
+    #footer {
+        position: relative;
+        background-color: white;
+        text-align: center !important;
     }
     h5 {
         padding-left: 0px !important;
