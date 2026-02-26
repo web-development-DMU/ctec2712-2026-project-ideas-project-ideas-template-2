@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGAMe - Home</title>
+    <link rel="stylesheet" href="egamecss.css">
+    <style>
+        .hero-home {
+            text-align: center;
+            padding: 50px 20px 40px;
+            background-color: #16213e;
+        }
+
+        .hero-home img {
+            max-width: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .hero-home h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .hero-home h2 span {
+            color: #7b2ff7;
+        }
+
+        .hero-home p {
+            font-size: 1.1rem;
+            color: #aaa;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .hero-home .divider {
+            width: 50px;
+            height: 3px;
+            background-color: #7b2ff7;
+            margin: 20px auto 0;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background-color: #7b2ff7;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .browse-btn:hover {
+            background-color: #6a1fe0;
+        }
+
+        .featured-img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .category-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .category-card {
+            background-color: #16213e;
+            border-radius: 10px;
+            overflow: hidden;
+            border-top: 3px solid #7b2ff7;
+            text-align: center;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .category-card h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin: 15px 0 8px;
+        }
+
+        .category-card p {
+            font-size: 0.95rem;
+            color: #aaa;
+            padding: 0 15px 20px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 640px) {
+            .hero-home h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero-home img {
+                max-width: 280px;
+            }
+
+            .category-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>E.G.A.M.e</h1>
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="basket.html">Basket</a>
+            <a href="login.html">Login</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <div class="hero-home">
+        <img src="pics/EGAMe Logo.png" alt="EGAMe Logo">
+        <h2>Welcome to <span>EGAMe</span></h2>
+        <p>Your one-stop shop for video games and board games at unbeatable prices. Browse, add to basket, and check out with ease.</p>
+        <div class="divider"></div>
+        <a href="basket.html" class="browse-btn">Start Shopping</a>
+    </div>
+
+    <div class="content">
+
+        <div class="section">
+            <h3>What is EGAMe?</h3>
+            <p>
+                EGAMe is an ecommerce platform built by three Computer Science students at De Montfort University.
+                We sell a wide variety of games — from the latest console titles to classic board games — all in one place.
+            </p>
+            <p>
+                Create an account, browse our catalogue, add games to your basket, and purchase them hassle-free.
+                Whether you are after a new PS5 release or a family board game night, we have got you covered.
+            </p>
+            <img src="pics/pic 1.png" alt="Game On - consoles and games" class="featured-img">
+        </div>
+
+        <div class="section">
+            <h3>Why Shop With Us?</h3>
+            <p>
+                We are gamers ourselves, so we know what matters — great selection, fair prices, and a smooth
+                shopping experience. Our catalogue is handpicked to ensure quality across every genre and platform.
+            </p>
+            <p>
+                As a student-led project, we keep things simple and honest. No hidden fees, no fuss — just
+                great games delivered to you.
+            </p>
+        </div>
+
+        <div class="category-cards">
+            <div class="category-card">
+                <img src="pics/pic 2.png" alt="Tabletop adventure games">
+                <h4>Adventure &amp; RPG</h4>
+                <p>Dive into epic tabletop adventures and role-playing experiences with friends.</p>
+            </div>
+            <div class="category-card">
+                <img src="pics/pic 3.png" alt="Classic board games">
+                <h4>Classic Board Games</h4>
+                <p>From Catan to Pandemic — timeless favourites for every game night.</p>
+            </div>
+            <div class="category-card">
+                <img src="pics/pic 4.png" alt="Strategy and starter sets">
+                <h4>Strategy &amp; Starter Sets</h4>
+                <p>Perfect for beginners and seasoned strategists alike. Pick up a starter set today.</p>
+            </div>
+        </div>
+
+        <div class="values">
+            <div class="value-card">
+                <div class="icon">&#127918;</div>
+                <h4>Huge Selection</h4>
+                <p>Video games, board games, and everything in between — all in one store.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">&#128176;</div>
+                <h4>Student-Friendly Prices</h4>
+                <p>We keep our prices low because we know what it is like to be on a budget.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">&#128274;</div>
+                <h4>Secure Accounts</h4>
+                <p>Create an account, track your orders, and shop with confidence.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 <span>EGAMe</span>. All rights reserved. | A DMU Student Project
+    </footer>
+
+</body>
+</html>

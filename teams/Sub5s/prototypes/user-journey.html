@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – User Journey</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5f5; font-family: Arial, sans-serif; color: #333; line-height: 1.6; }
+
+        header { background: #1a3a4a; color: #fff; padding: 1.5rem 2rem; text-align: center; }
+        header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+        header p { font-size: 0.9rem; color: #aac; }
+
+        .section-label { max-width: 800px; margin: 2rem auto 0.5rem; padding: 0 1.5rem; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: #666; border-bottom: 1px solid #ddd; padding-bottom: 0.4rem; }
+
+        .step { max-width: 800px; margin: 1.5rem auto; padding: 0 1.5rem; }
+
+        .step h2 { font-size: 1.1rem; color: #1a3a4a; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem; }
+        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: #2a8a6a; color: #fff; font-size: 0.8rem; font-weight: bold; flex-shrink: 0; }
+        .step-num.admin { background: #1a3a4a; }
+
+        .step p { font-size: 0.9rem; color: #444; margin-bottom: 0.75rem; }
+
+        .step iframe { width: 100%; height: 500px; border: 1px solid #ccc; border-radius: 4px; display: block; }
+        .step iframe.tall { height: 620px; }
+        .step iframe.short { height: 380px; }
+
+        .arrow { text-align: center; color: #aaa; font-size: 1.2rem; margin: 0.5rem 0; }
+
+        footer { text-align: center; padding: 1.5rem; color: #888; font-size: 0.8rem; border-top: 1px solid #ddd; margin-top: 2rem; background: #fff; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Caloryx – User Journey</h1>
+        <p>Walkthrough of the main screens from a user's and admin's perspective.</p>
+    </header>
+
+    <div class="section-label">User Journey</div>
+
+    <!-- Step 1 -->
+    <div class="step">
+        <h2><span class="step-num">1</span> Home page</h2>
+        <p>The user arrives at the landing page and sees the app's main features. They can choose to register for a new account or log in to an existing one.</p>
+        <iframe src="home.html" title="Home page"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 2 -->
+    <div class="step">
+        <h2><span class="step-num">2</span> Register</h2>
+        <p>A new user fills in their username, email, password, age, and gender. On success they are taken straight to their dashboard.</p>
+        <iframe src="register.html" title="Register" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 3 -->
+    <div class="step">
+        <h2><span class="step-num">3</span> Log in</h2>
+        <p>Returning users enter their username and password. Invalid credentials show an inline error message.</p>
+        <iframe src="login.html" title="Login" class="short"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 4 -->
+    <div class="step">
+        <h2><span class="step-num">4</span> Dashboard</h2>
+        <p>The dashboard shows today's calories consumed, burned, and remaining, along with macronutrient progress bars and a summary of logged meals and exercises.</p>
+        <iframe src="dashboard.html" title="Dashboard" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 5 -->
+    <div class="step">
+        <h2><span class="step-num">5</span> Meals list</h2>
+        <p>All meals logged for the selected day are shown here. The user can search or filter by date, and click any entry to see its full details.</p>
+        <iframe src="meals.html" title="Meals list" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 6 -->
+    <div class="step">
+        <h2><span class="step-num">6</span> Meal detail</h2>
+        <p>Shows the full nutritional breakdown for a single meal. The user can edit or delete the entry from this page.</p>
+        <iframe src="meal-detail.html" title="Meal detail" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 7 -->
+    <div class="step">
+        <h2><span class="step-num">7</span> Exercises list</h2>
+        <p>All exercises logged for the selected day, filterable by date or type. Each card shows name, duration, and calories burned.</p>
+        <iframe src="exercises.html" title="Exercises list" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 8 -->
+    <div class="step">
+        <h2><span class="step-num">8</span> Exercise detail</h2>
+        <p>Full details for a single exercise entry including duration, intensity, and calories burned. Can be edited or deleted.</p>
+        <iframe src="exercise-detail.html" title="Exercise detail" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 9 -->
+    <div class="step">
+        <h2><span class="step-num">9</span> Settings</h2>
+        <p>Users can update their profile information and adjust their daily calorie and macro targets. Changes are saved with a confirmation message.</p>
+        <iframe src="settings.html" title="Settings" class="tall"></iframe>
+    </div>
+
+    <div class="section-label" style="margin-top: 3rem;">Admin Journey</div>
+
+    <!-- Step 10 -->
+    <div class="step">
+        <h2><span class="step-num admin">10</span> Admin dashboard</h2>
+        <p>Admins land on an overview showing platform-wide stats: total users, meals and exercises logged today, and food database size.</p>
+        <iframe src="admin.html" title="Admin dashboard" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 11 -->
+    <div class="step">
+        <h2><span class="step-num admin">11</span> Manage users</h2>
+        <p>A searchable table of all registered users. Each row links to that user's edit page.</p>
+        <iframe src="admin-users.html" title="Admin users" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 12 -->
+    <div class="step">
+        <h2><span class="step-num admin">12</span> Edit user</h2>
+        <p>Admins can update a user's profile fields, change their role, or delete the account entirely from the danger zone at the bottom.</p>
+        <iframe src="admin-user-detail.html" title="Edit user" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 13 -->
+    <div class="step">
+        <h2><span class="step-num admin">13</span> Food database</h2>
+        <p>Lists all food items with their nutritional values. Admins can search, add new items, or click through to edit an existing one.</p>
+        <iframe src="admin-food-database.html" title="Food database" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 14 -->
+    <div class="step">
+        <h2><span class="step-num admin">14</span> Edit food item</h2>
+        <p>A form pre-filled with an item's nutritional data. Admins can correct values or delete the item if it is a duplicate.</p>
+        <iframe src="admin-food-detail.html" title="Edit food item"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 15 -->
+    <div class="step">
+        <h2><span class="step-num admin">15</span> Analytics</h2>
+        <p>Platform-level stats including active users, average meals logged, popular foods, and a registration chart for the past week.</p>
+        <iframe src="admin-analytics.html" title="Analytics" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 16 -->
+    <div class="step">
+        <h2><span class="step-num admin">16</span> Reports</h2>
+        <p>A list of available system reports. Each report shows when it was last generated and any warnings (e.g. missing nutritional data).</p>
+        <iframe src="admin-reports.html" title="Reports" class="tall"></iframe>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <!-- Step 17 -->
+    <div class="step">
+        <h2><span class="step-num admin">17</span> System settings</h2>
+        <p>Controls global platform behaviour: default calorie goals for new users, feature toggles (maintenance mode, registrations, backups), and backup retention period.</p>
+        <iframe src="admin-settings.html" title="System settings" class="tall"></iframe>
+    </div>
+
+
+</body>
+</html>
