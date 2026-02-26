@@ -1,0 +1,1 @@
+fetch('/teams/Cryptid/proposal/footer/footer.html').then(response => response.text()).then(data => {document.body.innerHTML = document.body.innerHTML + data; document.addEventListener('readystatechange', e => {if(document.readyState === "complete") window.scrollTo(0, 0)})});
