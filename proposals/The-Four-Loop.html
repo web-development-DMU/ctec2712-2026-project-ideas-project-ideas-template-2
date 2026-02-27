@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Four Loop — Proposal</title>
+
+  <!-- Use the module template stylesheet (keep this) -->
+  <link rel="stylesheet" href="../style-example.css" />
+
+  <!-- Page-specific styling (embedded so it always works) -->
+  <style>
+    :root{
+      --bg: #0b0f19;
+      --panel: rgba(255,255,255,0.08);
+      --panel2: rgba(255,255,255,0.10);
+      --border: rgba(255,255,255,0.16);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --link: #c7b6ff;
+      --linkHover: #ffffff;
+      --chip: rgba(255,255,255,0.10);
+      --shadow: 0 18px 50px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1100px;
+    }
+
+    /* IMPORTANT: do NOT lock page height. Let it scroll. */
+    body{
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(125, 97, 255, 0.25), transparent 55%),
+        radial-gradient(900px 500px at 85% 35%, rgba(0, 199, 255, 0.18), transparent 55%),
+        linear-gradient(180deg, #070a12 0%, #0b0f19 50%, #070a12 100%);
+    }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 22px 18px 60px;
+    }
+
+    .topnav{
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .topnav a{
+      color: var(--link);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .topnav a:hover{ color: var(--linkHover); }
+
+    .hero{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.15);
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      width: fit-content;
+    }
+
+    .hero h1{
+      margin: 14px 0 10px;
+      font-size: clamp(40px, 5vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.8px;
+    }
+
+    .hero p{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
+      max-width: 62ch;
+    }
+
+    .btnrow{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      min-width: 220px;
+    }
+    .btn.primary{
+      background: #ffffff;
+      color: #0b0f19;
+      border-color: rgba(255,255,255,0.9);
+    }
+    .btn.primary:hover{ filter: brightness(0.95); }
+    .btn.secondary{
+      background: rgba(255,255,255,0.10);
+      color: var(--text);
+    }
+    .btn.secondary:hover{ background: rgba(255,255,255,0.14); }
+
+    .chips{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .chip{
+      border: 1px solid var(--border);
+      background: var(--chip);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .side{
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.15);
+      border-radius: var(--radius2);
+      padding: 14px 14px 12px;
+    }
+    .card h2{
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .grid2{
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.05));
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .panel h2{
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+    }
+    .panel p, .panel li{
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .panel a{ color: var(--link); font-weight: 700; }
+    .panel a:hover{ color: var(--linkHover); }
+
+    .links{
+      margin-top: 16px;
+      border: 1px dashed rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .links ul{ margin: 8px 0 0; }
+    .footer{
+      margin-top: 18px;
+      text-align: center;
+    }
+    .footer a{ color: var(--link); font-weight: 800; }
+    .footer a:hover{ color: var(--linkHover); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="topnav" aria-label="Site navigation">
+      <a href="../index.html">← Back to Home</a>
+      <a href="../teams/index.html">Teams</a>
+      <a href="./index.html">Proposals</a>
+    </nav>
+
+    <!-- HERO (the “picture style” section) -->
+    <header class="hero" aria-label="The Four Loop proposal hero">
+      <div>
+        <div class="pill">SourceFlow • Personal Shopping Request System</div>
+
+        <h1>Personal Shopping Request System</h1>
+
+        <p>
+          A web-based platform where customers submit sourcing requests, track progress,
+          and receive concierge updates — making personal shopping structured, traceable,
+          and easy to manage.
+        </p>
+
+        <div class="btnrow">
+          <a class="btn primary" href="../teams/the-four-loop/index.html">View Team Documentation</a>
+          <a class="btn secondary" href="../teams/the-four-loop/ui.html">View UI & Accessibility</a>
+          <a class="btn secondary" href="../teams/the-four-loop/db.html">View Database</a>
+        </div>
+
+        <div class="chips" aria-label="Key tags">
+          <span class="chip">Request tracking</span>
+          <span class="chip">Concierge workflow</span>
+          <span class="chip">CRUD screens</span>
+          <span class="chip">SQLite schema</span>
+        </div>
+      </div>
+
+      <aside class="side" aria-label="Problem solution outcome">
+        <div class="card">
+          <h2>Problem</h2>
+          <p>Personal shopping requests are often managed in DMs/spreadsheets with no consistent tracking.</p>
+        </div>
+        <div class="card">
+          <h2>Solution</h2>
+          <p>Centralised requests + statuses + notes, mapped cleanly to CRUD actions and routes.</p>
+        </div>
+        <div class="card">
+          <h2>Outcome</h2>
+          <p>Customers see progress; concierge updates faster; requests don’t get lost.</p>
+        </div>
+      </aside>
+    </header>
+
+    <!-- REST OF THE PROPOSAL (what you said went missing) -->
+    <section class="grid2" aria-label="Proposal detail sections">
+      <div class="panel">
+        <h2>What we are building</h2>
+        <p>
+          <strong>SourceFlow</strong> is a request manager for personal shopping. Customers submit a request
+          (item, size, budget, preferences), then track updates as the concierge team sources items,
+          changes the status, and leaves notes.
+        </p>
+        <p>
+          <a href="../teams/the-four-loop/routes.html">Routes →</a>
+          &nbsp;&nbsp;
+          <a href="../teams/the-four-loop/db.html">Database →</a>
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Users and roles</h2>
+        <ul>
+          <li><strong>Customer</strong> — create requests, edit details, view tracking/status.</li>
+          <li><strong>Concierge/Admin</strong> — review requests, update statuses, add internal notes.</li>
+        </ul>
+        <p>Later iterations can add authentication and permission-based access.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Core features</h2>
+        <ul>
+          <li>Create a shopping request with key details (item, size, budget, deadline).</li>
+          <li>Status tracking (e.g., New → In Progress → Sourced → Completed).</li>
+          <li>Concierge notes for internal updates and customer communication.</li>
+          <li>Simple admin management screens mapped to CRUD actions.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2>How it works (high level)</h2>
+        <ul>
+          <li>Customer submits a request.</li>
+          <li>Request is stored in the database with a default status.</li>
+          <li>Concierge updates status and adds notes during sourcing.</li>
+          <li>Customer views request progress at any time.</li>
+        </ul>
+        <p><a href="../teams/the-four-loop/architecture.html">Architecture →</a></p>
+      </div>
+    </section>
+
+    <section class="panel links" aria-label="Links for marker and presentation">
+      <h2>Links for marker / presentation</h2>
+      <p>Use these during the demo so everything is clickable:</p>
+      <ul>
+        <li><a href="../teams/the-four-loop/index.html">Team Home (Documentation Hub)</a></li>
+        <li><a href="../teams/the-four-loop/ui.html">UI & Accessibility Documentation</a></li>
+        <li><a href="../teams/the-four-loop/db.html">Database Documentation</a></li>
+        <li><a href="../teams/the-four-loop/routes.html">Routes Documentation</a></li>
+        <li><a href="../teams/the-four-loop/architecture.html">Architecture Documentation</a></li>
+      </ul>
+    </section>
+
+    <div class="footer">
+      <a href="./index.html">Back to proposals</a>
+    </div>
+  </div>
+</body>
+</html>
