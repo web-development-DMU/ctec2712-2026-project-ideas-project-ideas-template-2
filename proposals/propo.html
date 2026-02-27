@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Project Proposal — Lab Group 10</title>
+    <style>
+        :root{
+            --bg:#f6f8fa; --card:#fff; --accent:#0366d6; --muted:#6b7280;
+            --radius:10px; --gap:16px;
+        }
+        html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:#111;}
+        .wrap{max-width:1100px;margin:28px auto;padding:24px;display:flex;gap:var(--gap);flex-direction:column;}
+        header{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+        header h1{margin:0;font-size:1.25rem;}
+        .grid{display:grid;grid-template-columns:2fr 1fr;gap:var(--gap);}
+        .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:0.9rem;}
+        input[type="text"], input[type="number"], textarea, select{
+            width:100%;padding:10px;border:1px solid #e6e9ee;border-radius:8px;font-size:0.95rem;
+            background:transparent;box-sizing:border-box;
+        }
+        textarea{min-height:140px;resize:vertical;}
+        .row{display:flex;gap:12px;}
+        .row > *{flex:1;}
+        .meta{display:flex;flex-direction:column;gap:12px;}
+        .small{font-size:0.9rem;color:var(--muted);}
+        .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;}
+        button{cursor:pointer;padding:10px 14px;border-radius:8px;border:0;font-weight:600;}
+        .btn-primary{background:var(--accent);color:#fff;}
+        .btn-ghost{background:transparent;border:1px solid #dbe2f3;color:var(--accent);}
+        .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+        .chip{background:#eef5ff;color:var(--accent);padding:6px 8px;border-radius:999px;font-size:0.85rem;}
+        .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+        .timeline{display:flex;flex-direction:column;gap:8px;}
+        .file-input{display:flex;gap:8px;align-items:center;}
+        @media (max-width:880px){ .grid{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <header>
+            <h1>New Proposal</h1>
+            <div class="small">Group 10 — Project Ideas Lab</div>
+        </header>
+
+        <form class="grid" id="proposalForm">
+            <!-- Main column -->
+            <section class="card">
+                <div class="section-title">
+                    <h2 style="margin:0;font-size:1rem">Proposal details</h2>
+                    <div class="small">Give a concise, clear description</div>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:12px">
+                    <div>
+                        <label for="title">Title</label>
+                        <input id="title" name="title" type="text" placeholder="Short descriptive title" required />
+                    </div>
+
+                    <div>
+                        <label for="abstract">Abstract</label>
+                        <textarea id="abstract" name="abstract" placeholder="One-paragraph summary" rows="4"></textarea>
+                        <div class="small">This will be shown in lists and previews.</div>
+                    </div>
+
+                    <div>
+                        <label for="description">Detailed description</label>
+                        <textarea id="description" name="description" placeholder="Describe motivation, approach, deliverables"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <label for="goals">Goals / Success criteria</label>
+                            <input id="goals" name="goals" type="text" placeholder="Comma-separated goals" />
+                        </div>
+                        <div>
+                            <label for="duration">Estimated duration (weeks)</label>
+                            <input id="duration" name="duration" type="number" min="0" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Attachments</label>
+                        <div class="file-input">
+                            <input id="attachment" type="file" />
+                            <button type="button" class="btn-ghost" id="addAttachment">Add</button>
+                        </div>
+                        <div id="attachmentList" class="small"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Sidebar / meta -->
+            <aside class="card meta">
+                <div>
+                    <div class="section-title">
+                        <h3 style="margin:0;font-size:0.95rem">Team</h3>
+                        <div class="small">Who will work on this?</div>
+                    </div>
+                    <div id="teamList" style="display:flex;flex-direction:column;gap:8px">
+                        <div class="row">
+                            <input name="member[]" type="text" placeholder="Name (role)" />
+                            <button type="button" id="addMember" class="btn-ghost">＋</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="resources">Resources needed</label>
+                    <textarea id="resources" name="resources" placeholder="Compute, datasets, tools, budget"></textarea>
+                </div>
+
+                <div>
+                    <label for="timeline">Timeline (high level)</label>
+                    <textarea id="timeline" name="timeline" placeholder="Milestones and dates"></textarea>
+                </div>
+
+                <div>
+                    <label for="tags">Tags</label>
+                    <input id="tags" name="tags" type="text" placeholder="e.g. web, ML, research" />
+                    <div class="chips" id="tagChips"></div>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn-ghost" id="saveDraft">Save draft</button>
+                    <button type="submit" class="btn-primary">Submit proposal</button>
+                </div>
+            </aside>
+        </form>
+    </main>
+
+    <script>
+        // Minimal interactivity: add/remove team members and attachments
+        document.getElementById('addMember').addEventListener('click', () => {
+            const row = document.createElement('div'); row.className = 'row';
+            row.innerHTML = '<input name="member[]" type="text" placeholder="Name (role)" />' +
+                                            '<button type="button" class="btn-ghost">–</button>';
+            row.querySelector('button').addEventListener('click', () => row.remove());
+            document.getElementById('teamList').appendChild(row);
+        });
+
+        document.getElementById('addAttachment').addEventListener('click', () => {
+            const f = document.getElementById('attachment');
+            if (!f.files.length) return;
+            const list = document.getElementById('attachmentList');
+            const item = document.createElement('div');
+            item.textContent = f.files[0].name;
+            list.appendChild(item);
+            f.value = '';
+        });
+
+        // Tags quick parsing
+        const tagsInput = document.getElementById('tags');
+        const tagChips = document.getElementById('tagChips');
+        tagsInput.addEventListener('change', () => {
+            tagChips.innerHTML = '';
+            tagsInput.value.split(',').map(s => s.trim()).filter(Boolean).forEach(t => {
+                const c = document.createElement('span'); c.className = 'chip'; c.textContent = t;
+                tagChips.appendChild(c);
+            });
+        });
+
+        // Basic form submit handler (placeholder)
+        document.getElementById('proposalForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Collect form data and send via fetch / IPC / whatever your app needs.
+            alert('Proposal submitted (stub). Replace with real submission logic.');
+        });
+
+        document.getElementById('saveDraft').addEventListener('click', () => {
+            alert('Draft saved locally (stub).');
+        });
+    </script>
+</body>
+</html>
