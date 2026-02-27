@@ -1,11 +1,11 @@
 import { db } from "../tools/db.js";
 
 db.exec(`
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS carwashes;
-    DROP TABLE IF EXISTS services;
-    DROP TABLE IF EXISTS timeslots;
     DROP TABLE IF EXISTS bookings;
+    DROP TABLE IF EXISTS timeslots;
+    DROP TABLE IF EXISTS services;
+    DROP TABLE IF EXISTS carwashes;
+    DROP TABLE IF EXISTS users;
 
 
     CREATE table users (
@@ -36,9 +36,11 @@ db.exec(`
 
     CREATE table timeslots (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        carwash_id INTEGER,
         start_at DATETIME NOT NULL,
         end_at DATETIME NOT NULL,
-        available BOOLEAN NOT NULL
+        available BOOLEAN NOT NULL,
+        FOREIGN KEY(carwash_id) REFERENCES carwashes(id)
     );
 
     CREATE table bookings (
