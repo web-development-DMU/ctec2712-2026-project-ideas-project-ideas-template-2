@@ -1,449 +1,330 @@
-import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
-import { db, initDb, seedDb } from "./src/db.js";
+import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { extname, join } from "https://deno.land/std@0.224.0/path/mod.ts";
+import { DB } from "https://deno.land/x/sqlite@v3.9.1/mod.ts";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const ROOT = new URL(".", import.meta.url).pathname; // .../teams/the-four-loop/
+const DATA_DIR = join(ROOT, "data");
+const DB_PATH = join(DATA_DIR, "sourceflow.db");
 
-const app = express();
-const PORT = 5500;
+// Ensure data folder exists
+try { await Deno.mkdir(DATA_DIR, { recursive: true }); } catch {}
 
-// Parse form bodies
-app.use(express.urlencoded({ extended: true }));
+const db = new DB(DB_PATH);
 
-// Serve your existing repo files as static (so /teams/... still works)
-app.use(express.static(__dirname));
-
-// Init DB
-initDb();
-seedDb();
-
-// Home → requests list
-app.get("/", (req, res) => {
-  res.redirect("/requests");
-});
-
-// Requests list
-app.get("/requests", (req, res) => {
-  const rows = db.prepare(`
-    SELECT r.request_id, r.item_name, r.brand, r.budget_gbp, r.size, r.colour,
-           s.status_name, r.created_at
-    FROM requests r
-    JOIN statuses s ON s.status_id = r.status_id
-    ORDER BY r.request_id DESC
-  `).all();
-
-  res.send(renderLayout("Requests", renderRequestsList(rows)));
-});
-
-// New request form (uses your theme)
-app.get("/requests/new", (req, res) => {
-  const statuses = db.prepare(`SELECT status_id, status_name FROM statuses ORDER BY status_id`).all();
-  res.send(renderLayout("New Request", renderNewRequestForm(statuses)));
-});
-
-// Create request
-app.post("/requests", (req, res) => {
-  const { item_name, brand, budget_gbp, size, colour, status_id, notes } = req.body;
-
-  if (!item_name || item_name.trim().length < 2) {
-    return res.status(400).send(renderLayout("Error", `<p>Item name is required.</p><p><a href="/requests/new">Back</a></p>`));
-  }
-
-  // Demo customer: customer_id = 1
-  const insert = db.prepare(`
-    INSERT INTO requests (customer_id, status_id, item_name, brand, budget_gbp, size, colour, created_at, updated_at)
-    VALUES (1, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
-  `);
-
-  const result = insert.run(
-    Number(status_id || 1),
-    item_name.trim(),
-    (brand || "").trim(),
-    budget_gbp ? Number(budget_gbp) : null,
-    (size || "").trim(),
-    (colour || "").trim()
+// Minimal schema for demo (you can expand later)
+db.execute(`
+  CREATE TABLE IF NOT EXISTS requests (
+    request_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_name TEXT NOT NULL,
+    brand TEXT,
+    budget_gbp REAL,
+    size TEXT,
+    colour TEXT,
+    notes TEXT,
+    status TEXT DEFAULT 'New',
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now'))
   );
+`);
 
-  // Optional note
-  const noteText = (notes || "").trim();
-  if (noteText) {
-    db.prepare(`
-      INSERT INTO request_notes (request_id, note_text, created_at)
-      VALUES (?, ?, datetime('now'))
-    `).run(result.lastInsertRowid, noteText);
-  }
+function escapeHtml(s) {
+  return String(s ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
-  res.redirect(`/requests/${result.lastInsertRowid}`);
-});
+function redirect(location) {
+  return new Response("", { status: 303, headers: { Location: location } });
+}
 
-// Request detail
-app.get("/requests/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const request = db.prepare(`
-    SELECT r.*, s.status_name, c.full_name, c.email
-    FROM requests r
-    JOIN statuses s ON s.status_id = r.status_id
-    JOIN customers c ON c.customer_id = r.customer_id
-    WHERE r.request_id = ?
-  `).get(id);
+function htmlResponse(html) {
+  return new Response(html, {
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
+}
 
-  if (!request) return res.status(404).send(renderLayout("Not found", `<p>Request not found.</p><p><a href="/requests">Back</a></p>`));
-
-  const notes = db.prepare(`
-    SELECT note_id, note_text, created_at
-    FROM request_notes
-    WHERE request_id = ?
-    ORDER BY note_id DESC
-  `).all(id);
-
-  res.send(renderLayout(`Request #${id}`, renderRequestDetail(request, notes)));
-});
-
-// Edit request
-app.get("/requests/:id/edit", (req, res) => {
-  const id = Number(req.params.id);
-  const request = db.prepare(`SELECT * FROM requests WHERE request_id = ?`).get(id);
-  if (!request) return res.status(404).send(renderLayout("Not found", `<p>Request not found.</p>`));
-
-  const statuses = db.prepare(`SELECT status_id, status_name FROM statuses ORDER BY status_id`).all();
-  res.send(renderLayout(`Edit Request #${id}`, renderEditForm(request, statuses)));
-});
-
-// Update request
-app.post("/requests/:id/update", (req, res) => {
-  const id = Number(req.params.id);
-  const { item_name, brand, budget_gbp, size, colour, status_id, notes } = req.body;
-
-  db.prepare(`
-    UPDATE requests
-    SET status_id = ?,
-        item_name = ?,
-        brand = ?,
-        budget_gbp = ?,
-        size = ?,
-        colour = ?,
-        updated_at = datetime('now')
-    WHERE request_id = ?
-  `).run(
-    Number(status_id || 1),
-    (item_name || "").trim(),
-    (brand || "").trim(),
-    budget_gbp ? Number(budget_gbp) : null,
-    (size || "").trim(),
-    (colour || "").trim(),
-    id
-  );
-
-  const noteText = (notes || "").trim();
-  if (noteText) {
-    db.prepare(`
-      INSERT INTO request_notes (request_id, note_text, created_at)
-      VALUES (?, ?, datetime('now'))
-    `).run(id, noteText);
-  }
-
-  res.redirect(`/requests/${id}`);
-});
-
-// Delete request
-app.post("/requests/:id/delete", (req, res) => {
-  const id = Number(req.params.id);
-  db.prepare(`DELETE FROM request_notes WHERE request_id = ?`).run(id);
-  db.prepare(`DELETE FROM requests WHERE request_id = ?`).run(id);
-  res.redirect("/requests");
-});
-
-app.listen(PORT, () => {
-  console.log(`SourceFlow running on http://127.0.0.1:${PORT}`);
-});
-
-/* -------------------- HTML render helpers -------------------- */
-
-function renderLayout(title, bodyHtml) {
+function layout({ title, subtitle, lead, leftButtons, chips, rightCards, content }) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>${escapeHtml(title)} — SourceFlow</title>
-
-<link rel="stylesheet" href="/style-example.css" />
-
-<style>
-  :root{
-    --bg1:#070a12; --bg2:#0b0f19;
-    --panel: rgba(255,255,255,0.08);
-    --border: rgba(255,255,255,0.16);
-    --text: rgba(255,255,255,0.92);
-    --muted: rgba(255,255,255,0.72);
-    --link: #c7b6ff;
-    --shadow: 0 18px 50px rgba(0,0,0,0.35);
-    --radius: 18px;
-    --radius2: 14px;
-    --max: 1100px;
-  }
-  body{
-    margin:0; color:var(--text);
-    background:
-      radial-gradient(1200px 600px at 20% 10%, rgba(125, 97, 255, 0.25), transparent 55%),
-      radial-gradient(900px 500px at 85% 35%, rgba(0, 199, 255, 0.18), transparent 55%),
-      linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg1) 100%);
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  }
-  .wrap{ max-width: var(--max); margin:0 auto; padding: 22px 18px 60px; }
-  .nav{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
-  .nav a{ color: var(--link); font-weight:800; text-decoration:underline; }
-  .nav a:hover{ color:#fff; }
-  .card{
-    border:1px solid var(--border);
-    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
-    box-shadow: var(--shadow);
-    border-radius: var(--radius);
-    padding: 18px;
-  }
-  h1{ margin:0 0 10px; letter-spacing:-0.4px; }
-  p{ color: var(--muted); line-height:1.55; }
-  table{
-    width:100%; border-collapse: collapse;
-    border:1px solid var(--border);
-    background: rgba(0,0,0,0.18);
-    border-radius: var(--radius2);
-    overflow:hidden;
-  }
-  th, td{ padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.10); text-align:left; }
-  th{ color: rgba(255,255,255,0.85); font-weight: 900; }
-  a.btn, button.btn{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding: 12px 16px; border-radius: 12px;
-    border:1px solid var(--border);
-    text-decoration:none; font-weight: 900; letter-spacing:0.2px;
-    background: rgba(255,255,255,0.10); color: var(--text);
-    cursor:pointer;
-  }
-  a.btn.primary, button.btn.primary{
-    background:#fff; color:#0b0f19; border-color: rgba(255,255,255,0.9);
-  }
-  a.btn:hover, button.btn:hover{ background: rgba(255,255,255,0.14); }
-  a.btn.primary:hover, button.btn.primary:hover{ filter: brightness(0.95); }
-  .row{ display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 16px; }
-  .muted{ color: var(--muted); }
-  .pill{
-    display:inline-block; padding: 6px 10px;
-    border-radius: 999px; border:1px solid var(--border);
-    background: rgba(0,0,0,0.15);
-    color: rgba(255,255,255,0.78);
-    font-weight: 800;
-  }
-  .field{
-    border:1px solid var(--border);
-    background: rgba(0,0,0,0.18);
-    border-radius: var(--radius2);
-    padding: 12px;
-    margin: 10px 0;
-  }
-  label{ display:block; font-weight: 900; margin-bottom: 6px; }
-  input, select, textarea{
-    width:100%; box-sizing:border-box;
-    padding: 11px 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.18);
-    background: rgba(255,255,255,0.06);
-    color: var(--text);
-    outline:none;
-  }
-  textarea{ min-height: 110px; resize: vertical; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escapeHtml(title)}</title>
+  <link rel="stylesheet" href="/app.css" />
 </head>
 <body>
   <div class="wrap">
-    <nav class="nav" aria-label="App navigation">
-      <a href="/requests">Requests</a>
-      <a href="/requests/new">New Request</a>
-      <a href="/teams/the-four-loop/index.html">Team Docs</a>
-      <a href="/proposals/the-four-loop.html">Proposal</a>
+    <nav class="topnav" aria-label="App navigation">
+      <a href="/teams/the-four-loop/index.html">← Team Home</a>
+      <a href="/teams/the-four-loop/ui.html">UI</a>
+      <a href="/teams/the-four-loop/db.html">Database</a>
+      <a href="/teams/the-four-loop/routes.html">Routes</a>
+      <a href="/teams/the-four-loop/architecture.html">Architecture</a>
+      <a href="/requests">App: Requests</a>
     </nav>
 
-    <main class="card">
-      ${bodyHtml}
-    </main>
+    <header class="hero">
+      <div>
+        <div class="pill">${escapeHtml(subtitle)}</div>
+        <h1>${escapeHtml(title)}</h1>
+        <p class="lede">${escapeHtml(lead)}</p>
+
+        <div class="btnrow">
+          ${leftButtons.join("")}
+        </div>
+
+        <div class="chips" aria-label="Key tags">
+          ${chips.map(c => `<span class="chip">${escapeHtml(c)}</span>`).join("")}
+        </div>
+      </div>
+
+      <aside class="side" aria-label="Summary cards">
+        ${rightCards.map(({ h, p }) => `
+          <div class="card">
+            <h2>${escapeHtml(h)}</h2>
+            <p>${escapeHtml(p)}</p>
+          </div>
+        `).join("")}
+      </aside>
+    </header>
+
+    ${content}
+
+    <div class="footer">
+      <a href="/requests">Back to requests</a>
+    </div>
   </div>
 </body>
 </html>`;
 }
 
-function renderRequestsList(rows) {
-  const tr = rows.map(r => `
-    <tr>
-      <td><a href="/requests/${r.request_id}">#${r.request_id}</a></td>
-      <td>${escapeHtml(r.item_name || "")}</td>
-      <td>${escapeHtml(r.brand || "")}</td>
-      <td class="muted">${r.budget_gbp ?? ""}</td>
-      <td class="muted">${escapeHtml(r.size || "")}</td>
-      <td class="muted">${escapeHtml(r.colour || "")}</td>
-      <td><span class="pill">${escapeHtml(r.status_name)}</span></td>
-      <td class="muted">${escapeHtml(r.created_at || "")}</td>
-    </tr>
-  `).join("");
+function requestsListPage() {
+  const rows = [...db.query(`
+    SELECT request_id, item_name, brand, budget_gbp, status, created_at
+    FROM requests
+    ORDER BY request_id DESC
+  `)];
 
-  return `
-    <h1>Requests</h1>
-    <p>These are real rows from SQLite. Create a request to see it appear instantly.</p>
-    <div class="row">
-      <a class="btn primary" href="/requests/new">Create new request</a>
-      <a class="btn" href="/teams/the-four-loop/ui.html">UI Documentation</a>
-      <a class="btn" href="/teams/the-four-loop/db.html">DB Documentation</a>
+  const body = `
+  <section class="panel" aria-label="Requests list">
+    <h2>Requests</h2>
+    <p>Manage customer sourcing requests. Create and remove requests.</p>
+
+    <div class="actions" style="margin: 10px 0 14px;">
+      <a class="btn primary mini" href="/requests/new">+ New Request</a>
+      <a class="btn secondary mini" href="/teams/the-four-loop/ui.html">View UI doc</a>
+      <a class="btn secondary mini" href="/teams/the-four-loop/db.html">View DB doc</a>
     </div>
 
-    <table aria-label="Requests table">
+    <table class="table">
       <thead>
         <tr>
-          <th>ID</th><th>Item</th><th>Brand</th><th>Budget</th><th>Size</th><th>Colour</th><th>Status</th><th>Created</th>
+          <th>ID</th>
+          <th>Item</th>
+          <th>Brand</th>
+          <th>Budget (£)</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        ${tr || `<tr><td colspan="8" class="muted">No requests yet. Create one.</td></tr>`}
+        ${rows.map(([id, item, brand, budget, status, created]) => `
+          <tr>
+            <td>${id}</td>
+            <td>${escapeHtml(item)}</td>
+            <td>${escapeHtml(brand)}</td>
+            <td>${budget ?? ""}</td>
+            <td>${escapeHtml(status || "New")}</td>
+            <td>${escapeHtml(created)}</td>
+            <td>
+              <form method="POST" action="/requests/${id}/delete" style="display:inline;">
+                <button class="btn secondary mini" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        `).join("")}
       </tbody>
     </table>
-  `;
+  </section>`;
+
+  return layout({
+    title: "Requests",
+    subtitle: "SourceFlow • Personal Shopping Request System",
+    lead: "Finished-product UI, wired to SQLite using Deno.",
+    leftButtons: [
+      `<a class="btn primary" href="/requests/new">Create New Request</a>`,
+      `<a class="btn secondary" href="/teams/the-four-loop/index.html">Back to Docs</a>`,
+    ],
+    chips: ["SQLite storage", "CRUD actions", "Accessible UI", "Deno server"],
+    rightCards: [
+      { h: "Problem", p: "Requests get lost in DMs/spreadsheets." },
+      { h: "Solution", p: "Centralised list + actions + status." },
+      { h: "Outcome", p: "Cleaner tracking, faster concierge updates." },
+    ],
+    content: body,
+  });
 }
 
-function renderNewRequestForm(statuses) {
-  const opts = statuses.map(s => `<option value="${s.status_id}">${escapeHtml(s.status_name)}</option>`).join("");
+function newRequestPage() {
+  const body = `
+  <section class="panel" aria-label="New request form">
+    <h2>Create a new request</h2>
+    <p>Enter request details below. Only <strong>Item name</strong> is required.</p>
 
-  return `
-    <h1>New Request</h1>
-    <p>Submit a sourcing request (stored in SQLite).</p>
+    <form method="POST" action="/requests">
+      <div class="formgrid">
+        <div>
+          <label for="item_name">Item name (required)</label>
+          <input id="item_name" name="item_name" placeholder="e.g. Dior B23 sneakers" required />
+        </div>
 
-    <form action="/requests" method="post" aria-label="Create request form">
-      <div class="field">
-        <label for="item_name">Item name (required)</label>
-        <input id="item_name" name="item_name" required minlength="2" placeholder="e.g., Black Prada loafers" />
+        <div>
+          <label for="brand">Brand</label>
+          <input id="brand" name="brand" placeholder="e.g. Dior" />
+        </div>
+
+        <div>
+          <label for="budget_gbp">Budget (GBP)</label>
+          <input id="budget_gbp" name="budget_gbp" type="number" step="0.01" placeholder="e.g. 450" />
+        </div>
+
+        <div>
+          <label for="size">Size</label>
+          <input id="size" name="size" placeholder="e.g. UK 8 / EU 42" />
+        </div>
+
+        <div>
+          <label for="colour">Colour</label>
+          <input id="colour" name="colour" placeholder="e.g. Black" />
+        </div>
+
+        <div>
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option>New</option>
+            <option>In Progress</option>
+            <option>Sourced</option>
+            <option>Completed</option>
+          </select>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" placeholder="Any preferences, deadline, links, etc."></textarea>
+        </div>
       </div>
 
-      <div class="field">
-        <label for="brand">Brand</label>
-        <input id="brand" name="brand" placeholder="e.g., Prada" />
-      </div>
-
-      <div class="field">
-        <label for="budget_gbp">Budget (GBP)</label>
-        <input id="budget_gbp" name="budget_gbp" type="number" min="0" step="1" placeholder="e.g., 450" />
-      </div>
-
-      <div class="field">
-        <label for="size">Size</label>
-        <input id="size" name="size" placeholder="e.g., UK 7 / EU 41" />
-      </div>
-
-      <div class="field">
-        <label for="colour">Colour</label>
-        <input id="colour" name="colour" placeholder="e.g., Black" />
-      </div>
-
-      <div class="field">
-        <label for="status_id">Initial status</label>
-        <select id="status_id" name="status_id">${opts}</select>
-      </div>
-
-      <div class="field">
-        <label for="notes">Notes (optional)</label>
-        <textarea id="notes" name="notes" placeholder="Any constraints, deadline, preferences..."></textarea>
-      </div>
-
-      <div class="row">
-        <button class="btn primary" type="submit">Create request</button>
-        <a class="btn" href="/requests">Cancel</a>
+      <div class="actions" style="margin-top: 14px;">
+        <button class="btn primary" type="submit">Submit Request</button>
+        <a class="btn secondary" href="/requests">Cancel</a>
       </div>
     </form>
-  `;
+  </section>`;
+
+  return layout({
+    title: "New Request",
+    subtitle: "SourceFlow • Customer request intake",
+    lead: "Create a request and save it into SQLite (real CRUD).",
+    leftButtons: [
+      `<a class="btn secondary" href="/requests">Back to Requests</a>`,
+      `<a class="btn secondary" href="/teams/the-four-loop/ui.html#wireframes">Wireframes</a>`,
+    ],
+    chips: ["Semantic form", "Labels", "POST submit", "SQLite insert"],
+    rightCards: [
+      { h: "Validation", p: "Item name required; clear labels." },
+      { h: "Accessibility", p: "Label/for pairs + keyboard friendly." },
+      { h: "Storage", p: "Saved in SQLite with timestamps." },
+    ],
+    content: body,
+  });
 }
 
-function renderRequestDetail(r, notes) {
-  const noteList = notes.length
-    ? `<ul>${notes.map(n => `<li class="muted">${escapeHtml(n.created_at)} — ${escapeHtml(n.note_text)}</li>`).join("")}</ul>`
-    : `<p class="muted">No notes yet.</p>`;
-
-  return `
-    <h1>Request #${r.request_id}</h1>
-    <p><span class="pill">${escapeHtml(r.status_name)}</span> <span class="muted">Customer: ${escapeHtml(r.full_name)} (${escapeHtml(r.email)})</span></p>
-
-    <div class="row">
-      <a class="btn primary" href="/requests/${r.request_id}/edit">Edit</a>
-      <a class="btn" href="/requests">Back to list</a>
-      <form action="/requests/${r.request_id}/delete" method="post" style="display:inline;">
-        <button class="btn" type="submit" onclick="return confirm('Delete this request?')">Delete</button>
-      </form>
-    </div>
-
-    <p><strong>Item:</strong> ${escapeHtml(r.item_name || "")}</p>
-    <p><strong>Brand:</strong> ${escapeHtml(r.brand || "")}</p>
-    <p><strong>Budget:</strong> ${r.budget_gbp ?? ""}</p>
-    <p><strong>Size:</strong> ${escapeHtml(r.size || "")}</p>
-    <p><strong>Colour:</strong> ${escapeHtml(r.colour || "")}</p>
-
-    <h2>Notes</h2>
-    ${noteList}
-  `;
+async function readBodyForm(req) {
+  const form = await req.formData();
+  return Object.fromEntries(form.entries());
 }
 
-function renderEditForm(r, statuses) {
-  const opts = statuses.map(s => {
-    const sel = Number(s.status_id) === Number(r.status_id) ? "selected" : "";
-    return `<option value="${s.status_id}" ${sel}>${escapeHtml(s.status_name)}</option>`;
-  }).join("");
+async function serveStatic(req) {
+  const url = new URL(req.url);
 
-  return `
-    <h1>Edit Request #${r.request_id}</h1>
+  // Serve app.css from this folder
+  if (url.pathname === "/app.css") {
+    const css = await Deno.readFile(join(ROOT, "app.css"));
+    return new Response(css, { headers: { "content-type": "text/css" } });
+  }
 
-    <form action="/requests/${r.request_id}/update" method="post" aria-label="Edit request form">
-      <div class="field">
-        <label for="item_name">Item name</label>
-        <input id="item_name" name="item_name" required minlength="2" value="${escapeAttr(r.item_name || "")}" />
-      </div>
+  // Serve team docs + images by mapping /teams/the-four-loop/... to disk
+  if (url.pathname.startsWith("/teams/the-four-loop/")) {
+    const rel = url.pathname.replace("/teams/the-four-loop/", "");
+    const filePath = join(ROOT, rel);
+    try {
+      const data = await Deno.readFile(filePath);
+      const ext = extname(filePath).toLowerCase();
+      const contentType =
+        ext === ".css" ? "text/css" :
+        ext === ".js" ? "text/javascript" :
+        ext === ".png" ? "image/png" :
+        ext === ".jpg" || ext === ".jpeg" ? "image/jpeg" :
+        ext === ".svg" ? "image/svg+xml" :
+        ext === ".html" ? "text/html; charset=utf-8" :
+        "application/octet-stream";
+      return new Response(data, { headers: { "content-type": contentType } });
+    } catch {
+      return null;
+    }
+  }
 
-      <div class="field">
-        <label for="brand">Brand</label>
-        <input id="brand" name="brand" value="${escapeAttr(r.brand || "")}" />
-      </div>
-
-      <div class="field">
-        <label for="budget_gbp">Budget (GBP)</label>
-        <input id="budget_gbp" name="budget_gbp" type="number" min="0" step="1" value="${r.budget_gbp ?? ""}" />
-      </div>
-
-      <div class="field">
-        <label for="size">Size</label>
-        <input id="size" name="size" value="${escapeAttr(r.size || "")}" />
-      </div>
-
-      <div class="field">
-        <label for="colour">Colour</label>
-        <input id="colour" name="colour" value="${escapeAttr(r.colour || "")}" />
-      </div>
-
-      <div class="field">
-        <label for="status_id">Status</label>
-        <select id="status_id" name="status_id">${opts}</select>
-      </div>
-
-      <div class="field">
-        <label for="notes">Add note (optional)</label>
-        <textarea id="notes" name="notes" placeholder="Add an update for this request..."></textarea>
-      </div>
-
-      <div class="row">
-        <button class="btn primary" type="submit">Save changes</button>
-        <a class="btn" href="/requests/${r.request_id}">Cancel</a>
-      </div>
-    </form>
-  `;
+  return null;
 }
 
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-}
-function escapeAttr(s) {
-  return escapeHtml(s).replace(/"/g, "&quot;");
-}
+serve(async (req) => {
+  const url = new URL(req.url);
+
+  if (url.pathname === "/") return redirect("/requests");
+
+  if (url.pathname === "/requests" && req.method === "GET") {
+    return htmlResponse(requestsListPage());
+  }
+
+  if (url.pathname === "/requests/new" && req.method === "GET") {
+    return htmlResponse(newRequestPage());
+  }
+
+  if (url.pathname === "/requests" && req.method === "POST") {
+    const { item_name, brand, budget_gbp, size, colour, notes, status } = await readBodyForm(req);
+    if (!item_name || String(item_name).trim() === "") return redirect("/requests/new");
+
+    db.query(
+      `INSERT INTO requests (item_name, brand, budget_gbp, size, colour, notes, status)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [
+        String(item_name).trim(),
+        brand ? String(brand) : null,
+        budget_gbp ? Number(budget_gbp) : null,
+        size ? String(size) : null,
+        colour ? String(colour) : null,
+        notes ? String(notes) : null,
+        status ? String(status) : "New",
+      ],
+    );
+
+    return redirect("/requests");
+  }
+
+  const delMatch = url.pathname.match(/^\/requests\/(\d+)\/delete$/);
+  if (delMatch && req.method === "POST") {
+    const id = Number(delMatch[1]);
+    db.query(`DELETE FROM requests WHERE request_id = ?`, [id]);
+    return redirect("/requests");
+  }
+
+  // Static
+  const staticRes = await serveStatic(req);
+  if (staticRes) return staticRes;
+
+  return new Response("Not Found", { status: 404 });
+});
