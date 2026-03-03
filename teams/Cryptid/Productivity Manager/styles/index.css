@@ -1,0 +1,39 @@
+.d-flex {
+    align-items: center !important;
+    justify-content: space-between;
+}
+#user-details {
+    width: 170px;
+    min-width: 170px;
+    border: 1px solid black !important;
+    padding: 0 !important;
+    margin: 3% 0 0 5% /*5px*/ !important;
+    * {
+        margin: 0;
+    }
+    div.rounded-circle {
+        height: 40px !important;
+        width: 40px !important;
+        line-height: 1em;
+        text-align: center;
+    }
+    img {
+        max-width: 40px;
+    }
+}
+.add-task-btn {
+    width: 50px;
+    height: 50px;
+    line-height: 1em;
+    text-align: center;
+    text-wrap: inherit;
+}
+.task-table {
+    width: 40% !important;
+    height: 60%;
+    border: 1px solid black !important;
+}
+.upcoming-task {
+    display:flex;
+    border: 1px solid 
+}

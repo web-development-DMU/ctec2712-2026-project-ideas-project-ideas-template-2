@@ -5,6 +5,7 @@
 }
 .container-fluid {
     max-height: 45px !important;
+    padding-right: 5px !important;
 }
 .nav-link {
     color: black !important;
@@ -25,6 +26,8 @@
 }
 .dropdown-menu {
     border-radius: 0;
+    margin-top: 28px !important;
+    right: -5px !important;
 }
 .navbar-nav {
     max-width: 100px !important;
