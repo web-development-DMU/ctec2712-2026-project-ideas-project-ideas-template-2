@@ -5,17 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Budget Buddy - Security & Validation</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; line-height: 1.6; }
-    .container { max-width: 960px; margin: 40px auto; background: #fff; padding: 28px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-    header h1 { text-align:center; color:#2c3e50; margin: 0 0 10px 0; }
-    nav ul { list-style:none; padding:0; margin: 14px 0 0 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-    nav a { display:inline-block; padding:8px 12px; border-radius:8px; text-decoration:none; font-weight:bold; color:#3498db; background:#f7fafc; border:1px solid #e5e7eb; }
-    nav a:hover { background:#ecf0f1; }
-    h2 { border-bottom:2px solid #3498db; padding-bottom:6px; color:#2c3e50; margin-top: 24px; }
-    code { background:#eef2f6; padding:2px 6px; border-radius:6px; }
-    pre { background:#0b1020; color:#e6edf3; padding: 12px; border-radius: 10px; overflow:auto; }
-    footer { margin-top: 26px; color:#666; font-size: 0.9rem; text-align:center; }
-    @media (max-width: 700px) { .container { margin: 16px; padding: 18px; } }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    header h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin: 0 0 10px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+    }
+
+    nav a:hover {
+      background: #ecf0f1;
+    }
+
+    h2 {
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 6px;
+      color: #2c3e50;
+      margin-top: 24px;
+    }
+
+    code {
+      background: #eef2f6;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    pre {
+      background: #0b1020;
+      color: #e6edf3;
+      padding: 12px;
+      border-radius: 10px;
+      overflow: auto;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        margin: 16px;
+        padding: 18px;
+      }
+    }
   </style>
 </head>
 
@@ -25,12 +95,14 @@
 
     <nav aria-label="Primary navigation">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="db.html">Database</a></li>
-        <li><a href="ui.html">UI Plan</a></li>
-        <li><a href="routes.html">Routes</a></li>
-        <li><a href="security.html" aria-current="page">Security</a></li>
-        <li><a href="prototypes/new-transaction.html">Prototype: Form</a></li>
+        <li><a href="/docs/index.html">Home</a></li>
+        <li><a href="/docs/db.html">Database</a></li>
+        <li><a href="/docs/ui.html">UI Plan</a></li>
+        <li><a href="/docs/routes.html">Routes</a></li>
+        <li><a href="/docs/security.html" aria-current="page">Security</a></li>
+        <li><a href="/prototypes/dashboard.html">Dashboard</a></li>
+        <li><a href="/prototypes/transactions.html">Transactions</a></li>
+        <li><a href="/prototypes/new-transaction.html">New Transaction</a></li>
       </ul>
     </nav>
   </header>
@@ -41,20 +113,20 @@
 
       <h3>SQL Injection Prevention</h3>
       <p>
-        User input must never be inserted directly into SQL strings. Use prepared statements / parameterised queries.
+        User input must never be inserted directly into SQL strings. Use prepared statements or parameterised queries.
         This prevents attackers injecting SQL through inputs.
       </p>
 
       <h3>Cross-Site Scripting (XSS) Prevention</h3>
       <p>
-        Any user content displayed in HTML must be escaped or encoded (especially descriptions). Template engines often
-        escape by default, but it must be verified.
+        Any user content displayed in HTML must be escaped or encoded, especially transaction descriptions.
+        Template engines often escape by default, but this still needs to be verified.
       </p>
 
       <h3>Input Sanitisation</h3>
       <p>
-        Validate and normalise inputs on the server before storing. Reject invalid or suspicious values.
-        Client-side validation helps usability but is not security.
+        Validate and normalise inputs on the server before storing them. Reject invalid or suspicious values.
+        Client-side validation helps usability, but it is not security.
       </p>
     </section>
 
@@ -63,9 +135,9 @@
 
       <ul>
         <li>Amount must be a positive number.</li>
-        <li>Type must be one of: income/expense.</li>
-        <li>Category must be a valid category ID.</li>
-        <li>Description should be limited (e.g., max 200 chars).</li>
+        <li>Type must be one of: income or expense.</li>
+        <li>Category must be a valid category ID or allowed category value.</li>
+        <li>Description should be limited, for example 200 characters maximum.</li>
       </ul>
 
       <h3>Example validation logic (pseudocode)</h3>
@@ -89,7 +161,7 @@ save to DB and redirect (303) to /transactions
       <ul>
         <li>Success message when a transaction is added.</li>
         <li>Error message when validation fails.</li>
-        <li>Message clears after it is shown once (stored in session or cookie).</li>
+        <li>The message clears after it is shown once, usually using session or cookie data.</li>
       </ul>
     </section>
 
@@ -97,8 +169,8 @@ save to DB and redirect (303) to /transactions
       <h2 id="resp-title">Responsive Design</h2>
       <ul>
         <li>Use flexible containers and relative units where possible.</li>
-        <li>Use CSS grid/flex layouts that adapt to screen width.</li>
-        <li>Ensure readable font sizes and touch-friendly buttons on mobile.</li>
+        <li>Use CSS grid or flex layouts that adapt to screen width.</li>
+        <li>Ensure readable font sizes and touch-friendly buttons on mobile devices.</li>
       </ul>
     </section>
 

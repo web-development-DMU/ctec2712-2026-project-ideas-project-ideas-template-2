@@ -4,83 +4,157 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Budget Buddy - UI Plan</title>
+
   <style>
-    body { font-family: Arial, sans-serif; margin:0; background:#f4f6f8; line-height:1.6; }
-    .container { max-width: 960px; margin: 40px auto; background:#fff; padding: 28px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-    header h1 { margin: 0 0 8px 0; color:#2c3e50; text-align:center; }
-    nav ul { list-style:none; padding:0; margin: 16px 0 0 0; display:flex; flex-wrap:wrap; gap: 10px; justify-content:center; }
-    nav a { display:inline-block; padding: 8px 12px; border-radius: 8px; text-decoration:none; font-weight:bold; color:#3498db; background:#f7fafc; border:1px solid #e5e7eb; }
-    nav a:hover { background:#ecf0f1; }
-    h2 { color:#2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 6px; }
-    .box { background:#f7fafc; border:1px solid #e5e7eb; border-radius: 12px; padding: 14px; margin-top: 14px; }
-    footer { margin-top: 26px; color:#666; font-size: 0.9rem; text-align:center; }
-    @media (max-width: 700px) { .container { margin: 16px; padding: 18px; } }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+    }
+
+    nav a:hover {
+      background: #ecf0f1;
+    }
+
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 6px;
+    }
+
+    .box {
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        margin: 16px;
+        padding: 18px;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <header class="container">
-    <h1>User Interface Plan</h1>
 
-    <nav aria-label="Primary navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="db.html">Database</a></li>
-        <li><a href="ui.html" aria-current="page">UI Plan</a></li>
-        <li><a href="routes.html">Routes</a></li>
-        <li><a href="security.html">Security</a></li>
-        <li><a href="prototypes/dashboard.html">Prototype: Dashboard</a></li>
-      </ul>
-    </nav>
-  </header>
+<header class="container">
+  <h1>User Interface Plan</h1>
 
-  <main class="container">
-    <section aria-labelledby="ui-title">
-      <h2 id="ui-title">Main Pages</h2>
+  <nav aria-label="Primary navigation">
+    <ul>
+      <li><a href="/docs/index.html">Home</a></li>
+      <li><a href="/docs/db.html">Database</a></li>
+      <li><a href="/docs/ui.html" aria-current="page">UI Plan</a></li>
+      <li><a href="/docs/routes.html">Routes</a></li>
+      <li><a href="/docs/security.html">Security</a></li>
+      <li><a href="/prototypes/dashboard.html">Dashboard</a></li>
+      <li><a href="/prototypes/transactions.html">Transactions</a></li>
+      <li><a href="/prototypes/new-transaction.html">New Transaction</a></li>
+    </ul>
+  </nav>
+</header>
 
-      <div class="box">
-        <h3>1) Dashboard</h3>
-        <ul>
-          <li>Shows summary: total income, total expenses, remaining balance.</li>
-          <li>Shows recent transactions list.</li>
-          <li>Links to add a new transaction and view all transactions.</li>
-        </ul>
-        <p><a href="prototypes/dashboard.html">Open dashboard prototype</a></p>
-      </div>
+<main class="container">
 
-      <div class="box">
-        <h3>2) Transactions Page</h3>
-        <ul>
-          <li>Lists transactions (optional filters by month/category).</li>
-          <li>Create transaction (form).</li>
-          <li>Edit/Delete actions per row (later, when server-side is added).</li>
-        </ul>
-        <p><a href="prototypes/transactions.html">Open transactions prototype</a></p>
-      </div>
+<section aria-labelledby="ui-title">
+  <h2 id="ui-title">Main Pages</h2>
 
-      <div class="box">
-        <h3>3) Add Transaction (Form)</h3>
-        <ul>
-          <li>Form fields: amount, type, category, date, description.</li>
-          <li>Client-side validation using HTML attributes.</li>
-        </ul>
-        <p><a href="prototypes/new-transaction.html">Open new transaction prototype</a></p>
-      </div>
-    </section>
+  <div class="box">
+    <h3>1) Dashboard</h3>
+    <ul>
+      <li>Shows summary: total income, total expenses, remaining balance.</li>
+      <li>Shows recent transactions list.</li>
+      <li>Links to add a new transaction and view all transactions.</li>
+    </ul>
+    <p><a href="/prototypes/dashboard.html">Open dashboard prototype</a></p>
+  </div>
 
-    <section aria-labelledby="crud-title">
-      <h2 id="crud-title">Key User Actions (CRUD)</h2>
-      <ul>
-        <li>Create: add transactions and budgets.</li>
-        <li>Read: view dashboard and lists.</li>
-        <li>Update: edit transaction details and budget limits.</li>
-        <li>Delete: remove transactions and budgets.</li>
-      </ul>
-    </section>
+  <div class="box">
+    <h3>2) Transactions Page</h3>
+    <ul>
+      <li>Lists transactions (optional filters by month/category).</li>
+      <li>Create transaction (form).</li>
+      <li>Edit/Delete actions per row (later, when server-side is added).</li>
+    </ul>
+    <p><a href="/prototypes/transactions.html">Open transactions prototype</a></p>
+  </div>
 
-    <footer>
-      <p>© 2026 Budget Buddy</p>
-    </footer>
-  </main>
+  <div class="box">
+    <h3>3) Add Transaction (Form)</h3>
+    <ul>
+      <li>Form fields: amount, type, category, date, description.</li>
+      <li>Client-side validation using HTML attributes.</li>
+    </ul>
+    <p><a href="/prototypes/new-transaction.html">Open new transaction prototype</a></p>
+  </div>
+
+</section>
+
+<section aria-labelledby="crud-title">
+  <h2 id="crud-title">Key User Actions (CRUD)</h2>
+
+  <ul>
+    <li>Create: add transactions and budgets.</li>
+    <li>Read: view dashboard and lists.</li>
+    <li>Update: edit transaction details and budget limits.</li>
+    <li>Delete: remove transactions and budgets.</li>
+  </ul>
+
+</section>
+
+<footer>
+  <p>© 2026 Budget Buddy</p>
+</footer>
+
+</main>
+
 </body>
 </html>

@@ -2,16 +2,21 @@
 import { addTransaction, listTransactions } from "./data.js";
 
 /**
- * Serves static files from ./public based on the URL pathname.
+ * Serve static files from ./public
  * Example: /docs/index.html -> ./public/docs/index.html
  */
 async function serveStatic(pathname) {
-  const safePath = pathname.replaceAll("..", ""); // basic traversal guard
-  const filePath = `./public${safePath}`;
+  const cleanPath = pathname.startsWith("/") ? pathname.slice(1) : pathname;
+
+  if (cleanPath.includes("..")) {
+    return null;
+  }
+
+  const fileUrl = new URL(`./public/${cleanPath}`, import.meta.url);
 
   try {
-    const file = await Deno.open(filePath, { read: true });
-    const ext = filePath.split(".").pop()?.toLowerCase();
+    const file = await Deno.readFile(fileUrl);
+    const ext = cleanPath.split(".").pop()?.toLowerCase();
 
     const contentType = ({
       html: "text/html; charset=utf-8",
@@ -24,12 +29,14 @@ async function serveStatic(pathname) {
       ico: "image/x-icon",
     })[ext] ?? "application/octet-stream";
 
-    return new Response(file.readable, {
+    return new Response(file, {
       status: 200,
       headers: { "content-type": contentType },
     });
-  } catch {
-    return null; // let caller decide 404
+  } catch (err) {
+    console.log("Static file not found:", fileUrl.href);
+    console.log("Reason:", err.message);
+    return null;
   }
 }
 
@@ -47,9 +54,17 @@ function redirect(location, status = 303) {
   });
 }
 
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 /**
- * A simple "view" that dynamically generates HTML for /transactions (server-rendered).
- * This is great evidence for Video 3 (HTTP) and Video 4 (architecture + HATEOAS).
+ * Dynamic transactions page
  */
 function transactionsPage({ items, errorMsg = "" }) {
   const rows = items.map((t) => `
@@ -111,14 +126,14 @@ function transactionsPage({ items, errorMsg = "" }) {
       </tbody>
     </table>
   </main>
+
   <script src="/app.js"></script>
 </body>
 </html>`;
 }
 
 /**
- * A server-rendered form at /transactions/new
- * Submits POST /transactions (great for Video 3: POST + 303 redirect).
+ * Dynamic new transaction form
  */
 function newTransactionPage({ errorMsg = "" } = {}) {
   return `<!DOCTYPE html>
@@ -198,30 +213,22 @@ function newTransactionPage({ errorMsg = "" } = {}) {
       Client-side validation is in HTML attributes. Server-side validation happens in <code>server.js</code> too.
     </p>
   </main>
+
   <script src="/app.js"></script>
 </body>
 </html>`;
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
 }
 
 Deno.serve(async (req) => {
   const url = new URL(req.url);
   const { pathname } = url;
 
-  // 1) Friendly root redirect
+  // root redirect
   if (req.method === "GET" && pathname === "/") {
     return redirect("/docs/index.html", 303);
   }
 
-  // 2) Dynamic routes (needed for assignment Video 3 + 4)
+  // dynamic GET routes
   if (req.method === "GET" && pathname === "/transactions") {
     return htmlResponse(transactionsPage({ items: listTransactions() }), 200);
   }
@@ -230,36 +237,50 @@ Deno.serve(async (req) => {
     return htmlResponse(newTransactionPage(), 200);
   }
 
+  // dynamic POST route
   if (req.method === "POST" && pathname === "/transactions") {
     const form = await req.formData();
-    const amountRaw = form.get("amount");
+
+    const amount = Number(form.get("amount"));
     const type = form.get("type");
     const category = form.get("category");
     const date = form.get("date");
-    const description = form.get("description");
+    const description = form.get("description") || "";
 
-    const amount = Number(amountRaw);
-
-    // Server-side validation (show 400 evidence)
+    // validation
     if (!date || !category || !type || !Number.isFinite(amount) || amount <= 0) {
-      // Return 400 with the form page again (easy to demo in Video 3)
       return htmlResponse(
-        newTransactionPage({ errorMsg: "Validation failed: check amount, type, category, and date." }),
-        400,
+        newTransactionPage({
+          errorMsg: "Validation failed: check amount, type, category and date."
+        }),
+        400
       );
     }
 
-    addTransaction({ date: String(date), category: String(category), type: String(type), amount, description: String(description ?? "") });
+    // save transaction
+    addTransaction({
+      date: String(date),
+      category: String(category),
+      type: String(type),
+      amount: Number(amount),
+      description: String(description)
+    });
 
-    // Redirect after POST (HATEOAS pattern with hypermedia navigation)
-    return redirect("/transactions", 303);
+    console.log("Transaction saved");
+
+    // redirect after POST
+    return new Response(null, {
+      status: 303,
+      headers: {
+        "Location": "/transactions"
+      }
+    });
   }
 
-  // 3) Static file serving (docs/prototypes/css/js)
-  // Serve /docs/... , /prototypes/... , /style.css , /app.js
+  // static files
   const staticResponse = await serveStatic(pathname);
   if (staticResponse) return staticResponse;
 
-  // 4) 404 (easy marks to demonstrate)
+  // 404
   return new Response("Not Found", { status: 404 });
-});
+}); 

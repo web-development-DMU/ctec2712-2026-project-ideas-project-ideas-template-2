@@ -5,39 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Budget Buddy - Transactions (Prototype)</title>
   <style>
-    body { font-family: Arial, sans-serif; margin:0; background:#f4f6f8; line-height:1.6; }
-    .container { max-width: 960px; margin: 40px auto; background:#fff; padding: 28px; border-radius: 12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      line-height: 1.6;
+    }
 
-    header h1 { text-align:center; color:#2c3e50; margin: 0 0 10px 0; }
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
 
-    nav ul { list-style:none; padding:0; margin: 0; display:flex; flex-wrap:wrap; gap: 10px; justify-content:center; }
-    nav a { display:inline-block; padding:8px 12px; border-radius: 8px; text-decoration:none; font-weight:bold; color:#3498db; background:#f7fafc; border:1px solid #e5e7eb; }
-    nav a:hover { background:#ecf0f1; }
+    header h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin: 0 0 10px 0;
+    }
 
-    h2 { color:#2c3e50; margin-top: 20px; border-bottom:2px solid #3498db; padding-bottom: 6px; }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
 
-    .actions { display:flex; gap:10px; flex-wrap:wrap; margin: 12px 0 16px; }
-    .btn { display:inline-block; padding:10px 12px; border-radius: 10px; border:1px solid #e5e7eb; background:#f7fafc; text-decoration:none; font-weight:bold; color:#3498db; }
-    .btn:hover { background:#ecf0f1; }
+    nav a {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+    }
 
-    table { width:100%; border-collapse: collapse; background:#fff; }
-    th, td { padding: 10px; border-bottom: 1px solid #e5e7eb; text-align:left; }
-    th { background:#f7fafc; color:#2c3e50; }
-    .amount { font-weight:bold; }
+    nav a:hover {
+      background: #ecf0f1;
+    }
 
-    footer { margin-top: 26px; color:#666; font-size: 0.9rem; text-align:center; }
+    h2 {
+      color: #2c3e50;
+      margin-top: 20px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 6px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      background: #f7fafc;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .btn:hover {
+      background: #ecf0f1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    th {
+      background: #f7fafc;
+      color: #2c3e50;
+    }
+
+    .amount {
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
+    }
 
     @media (max-width: 700px) {
-      .container { margin: 16px; padding: 18px; }
-      table, thead, tbody, th, td, tr { display:block; }
-      thead { display:none; }
-      tr { border:1px solid #e5e7eb; border-radius: 12px; margin-bottom: 10px; padding: 10px; }
-      td { border:none; padding: 6px 0; }
-      td::before { font-weight:bold; display:block; color:#2c3e50; }
-      td[data-label="Date"]::before { content:"Date"; }
-      td[data-label="Category"]::before { content:"Category"; }
-      td[data-label="Type"]::before { content:"Type"; }
-      td[data-label="Amount"]::before { content:"Amount"; }
+      .container {
+        margin: 16px;
+        padding: 18px;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+
+      td {
+        border: none;
+        padding: 6px 0;
+      }
+
+      td::before {
+        font-weight: bold;
+        display: block;
+        color: #2c3e50;
+      }
+
+      td[data-label="Date"]::before { content: "Date"; }
+      td[data-label="Category"]::before { content: "Category"; }
+      td[data-label="Type"]::before { content: "Type"; }
+      td[data-label="Amount"]::before { content: "Amount"; }
     }
   </style>
 </head>
@@ -48,15 +155,15 @@
 
     <nav aria-label="Primary navigation">
       <ul>
-        <li><a href="../index.html">Docs Home</a></li>
-        <li><a href="../db.html">Database</a></li>
-        <li><a href="../ui.html">UI Plan</a></li>
-        <li><a href="../routes.html">Routes</a></li>
-        <li><a href="../security.html">Security</a></li>
+        <li><a href="/docs/index.html">Docs Home</a></li>
+        <li><a href="/docs/db.html">Database</a></li>
+        <li><a href="/docs/ui.html">UI Plan</a></li>
+        <li><a href="/docs/routes.html">Routes</a></li>
+        <li><a href="/docs/security.html">Security</a></li>
 
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="transactions.html" aria-current="page">Transactions</a></li>
-        <li><a href="new-transaction.html">New Transaction</a></li>
+        <li><a href="/prototypes/dashboard.html">Dashboard</a></li>
+        <li><a href="/prototypes/transactions.html" aria-current="page">Transactions</a></li>
+        <li><a href="/prototypes/new-transaction.html">New Transaction</a></li>
       </ul>
     </nav>
   </header>
@@ -66,8 +173,8 @@
       <h2 id="list-title">Transaction List</h2>
 
       <div class="actions" aria-label="Transactions actions">
-        <a class="btn" href="new-transaction.html">Add Transaction</a>
-        <a class="btn" href="dashboard.html">Back to Dashboard</a>
+        <a class="btn" href="/prototypes/new-transaction.html">Add Transaction</a>
+        <a class="btn" href="/prototypes/dashboard.html">Back to Dashboard</a>
       </div>
 
       <table aria-label="Transactions table">

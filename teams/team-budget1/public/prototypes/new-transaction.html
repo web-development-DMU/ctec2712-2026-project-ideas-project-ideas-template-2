@@ -4,120 +4,219 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Budget Buddy - New Transaction (Prototype)</title>
+
   <style>
-    body { font-family: Arial, sans-serif; background:#f4f6f8; margin:0; line-height:1.6; }
-    .container { max-width: 860px; margin:40px auto; background:#fff; padding:24px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); }
-
-    header h1 { text-align:center; color:#2c3e50; margin:0 0 10px 0; }
-
-    nav ul { list-style:none; padding:0; margin: 0; display:flex; flex-wrap:wrap; gap: 10px; justify-content:center; }
-    nav a { display:inline-block; padding:8px 12px; border-radius: 8px; text-decoration:none; font-weight:bold; color:#3498db; background:#f7fafc; border:1px solid #e5e7eb; }
-    nav a:hover { background:#ecf0f1; }
-
-    form { margin-top: 18px; }
-    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .field { display:flex; flex-direction:column; }
-    label { margin:10px 0 6px; font-weight:bold; color:#2c3e50; }
-    input, select { padding:10px; border:1px solid #cfd8e3; border-radius:10px; font: inherit; }
-    input:focus, select:focus { outline: 2px solid #b9ddff; border-color:#7fbfff; }
-
-    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px; }
-    button, .btnlink {
-      padding: 10px 14px; border:1px solid #e5e7eb; border-radius:10px;
-      background:#f7fafc; cursor:pointer; font-weight:bold; color:#3498db; text-decoration:none;
+    body {
+      font-family: Arial, sans-serif;
+      background:#f4f6f8;
+      margin:0;
+      line-height:1.6;
     }
-    button:hover, .btnlink:hover { background:#ecf0f1; }
 
-    .help { margin-top: 14px; color:#555; font-size:0.95rem; }
-    footer { margin-top: 26px; color:#666; font-size: 0.9rem; text-align:center; }
+    .container {
+      max-width: 860px;
+      margin:40px auto;
+      background:#fff;
+      padding:24px;
+      border-radius:12px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    }
 
-    @media (max-width: 700px) {
-      .container { margin: 16px; padding: 18px; }
-      .grid { grid-template-columns: 1fr; }
+    header h1 {
+      text-align:center;
+      color:#2c3e50;
+      margin:0 0 10px 0;
+    }
+
+    nav ul {
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+    }
+
+    nav a {
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      color:#3498db;
+      background:#f7fafc;
+      border:1px solid #e5e7eb;
+    }
+
+    nav a:hover {
+      background:#ecf0f1;
+    }
+
+    form { margin-top:18px; }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+    }
+
+    label {
+      margin:10px 0 6px;
+      font-weight:bold;
+      color:#2c3e50;
+    }
+
+    input, select {
+      padding:10px;
+      border:1px solid #cfd8e3;
+      border-radius:10px;
+      font:inherit;
+    }
+
+    input:focus, select:focus {
+      outline:2px solid #b9ddff;
+      border-color:#7fbfff;
+    }
+
+    .actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    button, .btnlink {
+      padding:10px 14px;
+      border:1px solid #e5e7eb;
+      border-radius:10px;
+      background:#f7fafc;
+      cursor:pointer;
+      font-weight:bold;
+      color:#3498db;
+      text-decoration:none;
+    }
+
+    button:hover, .btnlink:hover {
+      background:#ecf0f1;
+    }
+
+    .help {
+      margin-top:14px;
+      color:#555;
+      font-size:0.95rem;
+    }
+
+    footer {
+      margin-top:26px;
+      color:#666;
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    @media (max-width:700px) {
+      .container {
+        margin:16px;
+        padding:18px;
+      }
+
+      .grid {
+        grid-template-columns:1fr;
+      }
     }
   </style>
 </head>
 
 <body>
-  <header class="container">
-    <h1>Add Transaction (Prototype)</h1>
 
-    <nav aria-label="Primary navigation">
-      <ul>
-        <li><a href="../index.html">Docs Home</a></li>
-        <li><a href="../db.html">Database</a></li>
-        <li><a href="../ui.html">UI Plan</a></li>
-        <li><a href="../routes.html">Routes</a></li>
-        <li><a href="../security.html">Security</a></li>
+<header class="container">
+  <h1>Add Transaction (Prototype)</h1>
 
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="transactions.html">Transactions</a></li>
-        <li><a href="new-transaction.html" aria-current="page">New Transaction</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav>
+    <ul>
+      <li><a href="/docs/index.html">Docs Home</a></li>
+      <li><a href="/docs/db.html">Database</a></li>
+      <li><a href="/docs/ui.html">UI Plan</a></li>
+      <li><a href="/docs/routes.html">Routes</a></li>
+      <li><a href="/docs/security.html">Security</a></li>
 
-  <main class="container">
-    <section aria-labelledby="form-title">
-      <h2 id="form-title">Transaction Details</h2>
+      <li><a href="/prototypes/dashboard.html">Dashboard</a></li>
+      <li><a href="/prototypes/transactions.html">Transactions</a></li>
+      <li><a href="/prototypes/new-transaction.html" aria-current="page">New Transaction</a></li>
+    </ul>
+  </nav>
+</header>
 
-      <!-- Prototype form:
-           Later, when you have a real server, change action="/transactions" and method="post"
-           so you can demonstrate POST + status codes in DevTools (Video 3).
-      -->
-      <form action="#" method="post">
-        <div class="grid">
-          <div class="field">
-            <label for="amount">Amount (£)</label>
-            <input id="amount" name="amount" type="number" required min="0.01" step="0.01" placeholder="e.g. 12.50" />
-          </div>
+<main class="container">
 
-          <div class="field">
-            <label for="type">Type</label>
-            <select id="type" name="type" required>
-              <option value="">Select…</option>
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
-            </select>
-          </div>
+<section>
+  <h2>Transaction Details</h2>
 
-          <div class="field">
-            <label for="category">Category</label>
-            <select id="category" name="category" required>
-              <option value="">Select…</option>
-              <option value="groceries">Groceries</option>
-              <option value="transport">Transport</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="bills">Bills</option>
-            </select>
-          </div>
+  <form action="#" method="post">
 
-          <div class="field">
-            <label for="date">Date</label>
-            <input id="date" name="date" type="date" required />
-          </div>
-        </div>
+    <div class="grid">
 
-        <div class="field">
-          <label for="description">Description (optional)</label>
-          <input id="description" name="description" type="text" maxlength="200" placeholder="Short note (max 200 chars)" />
-        </div>
+      <div class="field">
+        <label for="amount">Amount (£)</label>
+        <input id="amount" name="amount" type="number" required min="0.01" step="0.01" placeholder="e.g. 12.50">
+      </div>
 
-        <div class="actions">
-          <button type="submit">Save</button>
-          <a class="btnlink" href="transactions.html">Cancel</a>
-        </div>
-      </form>
+      <div class="field">
+        <label for="type">Type</label>
+        <select id="type" name="type" required>
+          <option value="">Select…</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </div>
 
-      <p class="help">
-        Client-side validation is shown using HTML attributes (<code>required</code>, <code>min</code>, <code>step</code>, <code>maxlength</code>).
-        Server-side validation is still required because users can bypass client-side checks.
-      </p>
-    </section>
+      <div class="field">
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+          <option value="">Select…</option>
+          <option value="groceries">Groceries</option>
+          <option value="transport">Transport</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="bills">Bills</option>
+        </select>
+      </div>
 
-    <footer>
-      <p>Prototype transaction form for Budget Buddy.</p>
-    </footer>
-  </main>
+      <div class="field">
+        <label for="date">Date</label>
+        <input id="date" name="date" type="date" required>
+      </div>
+
+    </div>
+
+    <div class="field">
+      <label for="description">Description (optional)</label>
+      <input id="description" name="description" type="text" maxlength="200" placeholder="Short note (max 200 chars)">
+    </div>
+
+    <div class="actions">
+      <button type="submit">Save</button>
+      <a class="btnlink" href="/prototypes/transactions.html">Cancel</a>
+    </div>
+
+  </form>
+
+  <p class="help">
+    Client-side validation is shown using HTML attributes
+    (<code>required</code>, <code>min</code>, <code>step</code>, <code>maxlength</code>).
+  </p>
+
+</section>
+
+<footer>
+  <p>Prototype transaction form for Budget Buddy.</p>
+</footer>
+
+</main>
+
 </body>
 </html>
