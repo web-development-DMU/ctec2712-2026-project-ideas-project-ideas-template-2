@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Buddy - Dashboard (Prototype)</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6f8; margin:0; line-height:1.6; }
+    .container { max-width: 960px; margin: 40px auto; background:#fff; padding: 28px; border-radius: 12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); }
+
+    header h1 { text-align:center; color:#2c3e50; margin: 0 0 10px 0; }
+
+    nav ul { list-style:none; padding:0; margin: 0; display:flex; flex-wrap:wrap; gap: 10px; justify-content:center; }
+    nav a { display:inline-block; padding:8px 12px; border-radius: 8px; text-decoration:none; font-weight:bold; color:#3498db; background:#f7fafc; border:1px solid #e5e7eb; }
+    nav a:hover { background:#ecf0f1; }
+
+    .summary { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+    .card { background:#ecf0f1; padding: 14px; border-radius: 10px; }
+    .card h2 { font-size: 1rem; margin: 0 0 6px 0; color:#2c3e50; }
+    .value { font-size: 1.4rem; font-weight:bold; margin:0; }
+
+    h2.section { color:#2c3e50; margin-top: 26px; border-bottom: 2px solid #3498db; padding-bottom: 6px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .btn { display:inline-block; padding:10px 12px; border-radius: 10px; border:1px solid #e5e7eb; background:#f7fafc; text-decoration:none; font-weight:bold; color:#3498db; }
+    .btn:hover { background:#ecf0f1; }
+
+    footer { margin-top: 26px; color:#666; font-size: 0.9rem; text-align:center; }
+
+    @media (max-width: 700px) {
+      .container { margin: 16px; padding: 18px; }
+      .summary { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="container">
+    <h1>Budget Buddy</h1>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        <!-- Back to root docs -->
+        <li><a href="../index.html">Docs Home</a></li>
+        <li><a href="../db.html">Database</a></li>
+        <li><a href="../ui.html">UI Plan</a></li>
+        <li><a href="../routes.html">Routes</a></li>
+        <li><a href="../security.html">Security</a></li>
+
+        <!-- Prototype pages -->
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a href="transactions.html">Transactions</a></li>
+        <li><a href="new-transaction.html">New Transaction</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="dash-title">
+      <h2 id="dash-title" class="section">Dashboard (Prototype)</h2>
+
+      <div class="summary">
+        <article class="card" aria-label="Total income summary">
+          <h2>Total Income</h2>
+          <p class="value">£2,500</p>
+        </article>
+
+        <article class="card" aria-label="Total expenses summary">
+          <h2>Total Expenses</h2>
+          <p class="value">£930</p>
+        </article>
+
+        <article class="card" aria-label="Remaining balance summary">
+          <h2>Remaining Balance</h2>
+          <p class="value">£1,570</p>
+        </article>
+      </div>
+
+      <div class="actions" aria-label="Dashboard actions">
+        <a class="btn" href="transactions.html">View Transactions</a>
+        <a class="btn" href="new-transaction.html">Add Transaction</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="recent-title">
+      <h2 id="recent-title" class="section">Recent Transactions</h2>
+      <ul>
+        <li>Groceries — £40</li>
+        <li>Transport — £20</li>
+        <li>Netflix — £10</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Prototype dashboard for Budget Buddy.</p>
+    </footer>
+  </main>
+</body>
+</html>
