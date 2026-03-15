@@ -1,174 +1,184 @@
-import { extname } from "@std/path";
-import {
-  addNote,
-  createRequest,
-  getDb,
-  getDbPath,
-  listNotesForRequest,
-  listRequests,
-  updateRequestStatus,
-} from "./src/db.js";
+import { DatabaseSync } from "node:sqlite";
+import { dirname, fromFileUrl, join } from "@std/path";
 
-const PORT = 8000;
-const ROOT = new URL(".", import.meta.url);
+const ROOT = dirname(fromFileUrl(import.meta.url));
+const DATA_DIR = join(ROOT, "..", "data");
+const DB_PATH = join(DATA_DIR, "sourceflow.db");
 
-getDb();
-console.log("DB ready at:", getDbPath());
-console.log(`Listening on http://localhost:${PORT}/`);
+let dbInstance = null;
 
-Deno.serve({ port: PORT }, async (req) => {
-  const url = new URL(req.url);
-  const pathname = url.pathname;
+export function getDb() {
+  if (dbInstance) return dbInstance;
 
-  if (pathname.startsWith("/api/")) {
-    return handleApi(req, pathname);
-  }
+  Deno.mkdirSync(DATA_DIR, { recursive: true });
 
-  return serveStatic(pathname);
-});
+  const db = new DatabaseSync(DB_PATH);
 
-async function handleApi(req, pathname) {
-  try {
-    if (req.method === "GET" && pathname === "/api/health") {
-      return json({ ok: true, db: getDbPath() });
-    }
+  db.exec(`
+    PRAGMA foreign_keys = ON;
 
-    if (req.method === "GET" && pathname === "/api/requests") {
-      return json({ ok: true, data: listRequests() });
-    }
-
-    if (req.method === "POST" && pathname === "/api/requests") {
-      const body = await safeJson(req);
-
-      const payload = {
-        customer_name: String(body.customer_name ?? "").trim(),
-        customer_email: String(body.customer_email ?? "").trim() || null,
-        item_name: String(body.item_name ?? "").trim(),
-        brand: String(body.brand ?? "").trim() || null,
-        budget_gbp: body.budget_gbp === "" || body.budget_gbp == null
-          ? null
-          : Number(body.budget_gbp),
-        size: String(body.size ?? "").trim() || null,
-        colour: String(body.colour ?? "").trim() || null,
-      };
-
-      if (!payload.customer_name) {
-        return json({ ok: false, error: "Customer name is required." }, 400);
-      }
-
-      if (!payload.item_name) {
-        return json({ ok: false, error: "Item name is required." }, 400);
-      }
-
-      if (
-        payload.budget_gbp !== null &&
-        (Number.isNaN(payload.budget_gbp) || payload.budget_gbp < 0)
-      ) {
-        return json({ ok: false, error: "Budget must be a valid number." }, 400);
-      }
-
-      const created = createRequest(payload);
-      return json({ ok: true, data: created }, 201);
-    }
-
-    const statusMatch = pathname.match(/^\/api\/requests\/(\d+)\/status$/);
-    if (req.method === "PATCH" && statusMatch) {
-      const requestId = Number(statusMatch[1]);
-      const body = await safeJson(req);
-      const statusName = String(body.status_name ?? "").trim();
-
-      if (!statusName) {
-        return json({ ok: false, error: "status_name is required." }, 400);
-      }
-
-      updateRequestStatus(requestId, statusName);
-      return json({ ok: true });
-    }
-
-    const notesGetMatch = pathname.match(/^\/api\/requests\/(\d+)\/notes$/);
-    if (req.method === "GET" && notesGetMatch) {
-      const requestId = Number(notesGetMatch[1]);
-      return json({ ok: true, data: listNotesForRequest(requestId) });
-    }
-
-    const notesPostMatch = pathname.match(/^\/api\/requests\/(\d+)\/notes$/);
-    if (req.method === "POST" && notesPostMatch) {
-      const requestId = Number(notesPostMatch[1]);
-      const body = await safeJson(req);
-      const noteText = String(body.note_text ?? "").trim();
-
-      if (!noteText) {
-        return json({ ok: false, error: "note_text is required." }, 400);
-      }
-
-      addNote(requestId, noteText);
-      return json({ ok: true });
-    }
-
-    return json({ ok: false, error: "Not found." }, 404);
-  } catch (error) {
-    console.error("API error:", error);
-    return json(
-      {
-        ok: false,
-        error: error?.message || "Internal server error.",
-      },
-      500,
+    CREATE TABLE IF NOT EXISTS statuses (
+      status_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      status_name TEXT NOT NULL UNIQUE
     );
-  }
-}
 
-async function serveStatic(pathname) {
-  let resolvedPath = pathname;
+    CREATE TABLE IF NOT EXISTS requests (
+      request_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      customer_name TEXT NOT NULL,
+      customer_email TEXT,
+      item_name TEXT NOT NULL,
+      brand TEXT,
+      budget_gbp REAL,
+      size TEXT,
+      colour TEXT,
+      status_id INTEGER NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL,
+      FOREIGN KEY (status_id) REFERENCES statuses(status_id)
+    );
 
-  if (resolvedPath === "/") resolvedPath = "/app/index.html";
-  if (resolvedPath.includes("..")) {
-    return new Response("Bad request", { status: 400 });
-  }
+    CREATE TABLE IF NOT EXISTS request_notes (
+      note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      request_id INTEGER NOT NULL,
+      note_text TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE
+    );
+  `);
 
-  const fileUrl = new URL("." + resolvedPath, ROOT);
-
-  try {
-    const data = await Deno.readFile(fileUrl);
-    return new Response(data, {
-      status: 200,
-      headers: { "content-type": getContentType(resolvedPath) },
+  const countRow = db.prepare("SELECT COUNT(*) AS count FROM statuses").get();
+  if ((countRow?.count ?? 0) === 0) {
+    const insert = db.prepare("INSERT INTO statuses (status_name) VALUES (?)");
+    ["New", "In Progress", "Sourced", "Completed"].forEach((status) => {
+      insert.run(status);
     });
-  } catch {
-    return new Response("Not Found", { status: 404 });
   }
+
+  dbInstance = db;
+  return dbInstance;
 }
 
-function getContentType(pathname) {
-  const extension = extname(pathname).toLowerCase();
-
-  const types = {
-    ".html": "text/html; charset=utf-8",
-    ".css": "text/css; charset=utf-8",
-    ".js": "text/javascript; charset=utf-8",
-    ".png": "image/png",
-    ".jpg": "image/jpeg",
-    ".jpeg": "image/jpeg",
-    ".svg": "image/svg+xml",
-    ".webp": "image/webp",
-  };
-
-  return types[extension] || "application/octet-stream";
+export function getDbPath() {
+  return DB_PATH;
 }
 
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-    },
-  });
-}
+export function getStatusIdByName(statusName) {
+  const db = getDb();
+  const row = db.prepare(
+    "SELECT status_id FROM statuses WHERE status_name = ?",
+  ).get(statusName);
 
-async function safeJson(req) {
-  try {
-    return await req.json();
-  } catch {
-    return {};
+  if (!row) {
+    throw new Error(`Unknown status: ${statusName}`);
   }
+
+  return row.status_id;
+}
+
+export function listRequests() {
+  const db = getDb();
+
+  return db.prepare(`
+    SELECT
+      r.request_id,
+      r.customer_name,
+      r.customer_email,
+      r.item_name,
+      r.brand,
+      r.budget_gbp,
+      r.size,
+      r.colour,
+      s.status_name,
+      r.created_at,
+      r.updated_at
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    ORDER BY r.request_id DESC
+  `).all();
+}
+
+export function createRequest(payload) {
+  const db = getDb();
+
+  const now = new Date().toISOString();
+  const statusId = getStatusIdByName("New");
+
+  const stmt = db.prepare(`
+    INSERT INTO requests (
+      customer_name,
+      customer_email,
+      item_name,
+      brand,
+      budget_gbp,
+      size,
+      colour,
+      status_id,
+      created_at,
+      updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const result = stmt.run(
+    payload.customer_name,
+    payload.customer_email,
+    payload.item_name,
+    payload.brand,
+    payload.budget_gbp,
+    payload.size,
+    payload.colour,
+    statusId,
+    now,
+    now,
+  );
+
+  return db.prepare(`
+    SELECT
+      r.request_id,
+      r.customer_name,
+      r.customer_email,
+      r.item_name,
+      r.brand,
+      r.budget_gbp,
+      r.size,
+      r.colour,
+      s.status_name,
+      r.created_at,
+      r.updated_at
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    WHERE r.request_id = ?
+  `).get(result.lastInsertRowid);
+}
+
+export function updateRequestStatus(requestId, statusName) {
+  const db = getDb();
+  const statusId = getStatusIdByName(statusName);
+  const now = new Date().toISOString();
+
+  db.prepare(`
+    UPDATE requests
+    SET status_id = ?, updated_at = ?
+    WHERE request_id = ?
+  `).run(statusId, now, requestId);
+}
+
+export function addNote(requestId, noteText) {
+  const db = getDb();
+  const now = new Date().toISOString();
+
+  db.prepare(`
+    INSERT INTO request_notes (request_id, note_text, created_at)
+    VALUES (?, ?, ?)
+  `).run(requestId, noteText, now);
+}
+
+export function listNotesForRequest(requestId) {
+  const db = getDb();
+
+  return db.prepare(`
+    SELECT note_id, note_text, created_at
+    FROM request_notes
+    WHERE request_id = ?
+    ORDER BY note_id DESC
+  `).all(requestId);
 }
