@@ -1,5 +1,13 @@
-import { getDb, getDbPath, getStatusIdByName } from "./src/db.js";
 import { extname } from "@std/path";
+import {
+  addNote,
+  createRequest,
+  getDb,
+  getDbPath,
+  listNotesForRequest,
+  listRequests,
+  updateRequestStatus,
+} from "./src/db.js";
 
 const PORT = 8000;
 const ROOT = new URL(".", import.meta.url);
@@ -10,141 +18,131 @@ console.log(`Listening on http://localhost:${PORT}/`);
 
 Deno.serve({ port: PORT }, async (req) => {
   const url = new URL(req.url);
-  const path = url.pathname;
+  const pathname = url.pathname;
 
-  if (path.startsWith("/api/")) return handleApi(req, url);
-  return serveStatic(path);
+  if (pathname.startsWith("/api/")) {
+    return handleApi(req, pathname);
+  }
+
+  return serveStatic(pathname);
 });
 
-async function handleApi(req, url) {
-  const db = getDb();
-  const path = url.pathname;
-
-  if (req.method === "GET" && path === "/api/health") {
-    return json({ ok: true, db: getDbPath() });
-  }
-
-  if (req.method === "GET" && path === "/api/requests") {
-    const rows = db.prepare(`
-      SELECT
-        r.request_id,
-        r.customer_name,
-        r.customer_email,
-        r.item_name,
-        r.brand,
-        r.budget_gbp,
-        r.size,
-        r.colour,
-        s.status_name,
-        r.created_at,
-        r.updated_at
-      FROM requests r
-      JOIN statuses s ON s.status_id = r.status_id
-      ORDER BY r.request_id DESC
-    `).all();
-
-    return json(rows);
-  }
-
-  if (req.method === "POST" && path === "/api/requests") {
-    const body = await safeJson(req);
-
-    const customer_name = (body.customer_name ?? "").trim();
-    const customer_email = (body.customer_email ?? "").trim() || null;
-    const item_name = (body.item_name ?? "").trim();
-    const brand = (body.brand ?? "").trim() || null;
-    const budget_gbp = body.budget_gbp === "" || body.budget_gbp == null ? null : Number(body.budget_gbp);
-    const size = (body.size ?? "").trim() || null;
-    const colour = (body.colour ?? "").trim() || null;
-
-    if (!customer_name || !item_name) {
-      return json({ error: "customer_name and item_name are required" }, 400);
+async function handleApi(req, pathname) {
+  try {
+    if (req.method === "GET" && pathname === "/api/health") {
+      return json({ ok: true, db: getDbPath() });
     }
 
-    const now = new Date().toISOString();
-    const status_id = getStatusIdByName("New");
+    if (req.method === "GET" && pathname === "/api/requests") {
+      return json({ ok: true, data: listRequests() });
+    }
 
-    db.prepare(`
-      INSERT INTO requests (
-        customer_name, customer_email, item_name, brand, budget_gbp,
-        size, colour, status_id, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(
-      customer_name,
-      customer_email,
-      item_name,
-      brand,
-      budget_gbp,
-      size,
-      colour,
-      status_id,
-      now,
-      now
+    if (req.method === "POST" && pathname === "/api/requests") {
+      const body = await safeJson(req);
+
+      const payload = {
+        customer_name: String(body.customer_name ?? "").trim(),
+        customer_email: String(body.customer_email ?? "").trim() || null,
+        item_name: String(body.item_name ?? "").trim(),
+        brand: String(body.brand ?? "").trim() || null,
+        budget_gbp: body.budget_gbp === "" || body.budget_gbp == null
+          ? null
+          : Number(body.budget_gbp),
+        size: String(body.size ?? "").trim() || null,
+        colour: String(body.colour ?? "").trim() || null,
+      };
+
+      if (!payload.customer_name) {
+        return json({ ok: false, error: "Customer name is required." }, 400);
+      }
+
+      if (!payload.item_name) {
+        return json({ ok: false, error: "Item name is required." }, 400);
+      }
+
+      if (
+        payload.budget_gbp !== null &&
+        (Number.isNaN(payload.budget_gbp) || payload.budget_gbp < 0)
+      ) {
+        return json({ ok: false, error: "Budget must be a valid number." }, 400);
+      }
+
+      const created = createRequest(payload);
+      return json({ ok: true, data: created }, 201);
+    }
+
+    const statusMatch = pathname.match(/^\/api\/requests\/(\d+)\/status$/);
+    if (req.method === "PATCH" && statusMatch) {
+      const requestId = Number(statusMatch[1]);
+      const body = await safeJson(req);
+      const statusName = String(body.status_name ?? "").trim();
+
+      if (!statusName) {
+        return json({ ok: false, error: "status_name is required." }, 400);
+      }
+
+      updateRequestStatus(requestId, statusName);
+      return json({ ok: true });
+    }
+
+    const notesGetMatch = pathname.match(/^\/api\/requests\/(\d+)\/notes$/);
+    if (req.method === "GET" && notesGetMatch) {
+      const requestId = Number(notesGetMatch[1]);
+      return json({ ok: true, data: listNotesForRequest(requestId) });
+    }
+
+    const notesPostMatch = pathname.match(/^\/api\/requests\/(\d+)\/notes$/);
+    if (req.method === "POST" && notesPostMatch) {
+      const requestId = Number(notesPostMatch[1]);
+      const body = await safeJson(req);
+      const noteText = String(body.note_text ?? "").trim();
+
+      if (!noteText) {
+        return json({ ok: false, error: "note_text is required." }, 400);
+      }
+
+      addNote(requestId, noteText);
+      return json({ ok: true });
+    }
+
+    return json({ ok: false, error: "Not found." }, 404);
+  } catch (error) {
+    console.error("API error:", error);
+    return json(
+      {
+        ok: false,
+        error: error?.message || "Internal server error.",
+      },
+      500,
     );
-
-    const created = db.prepare(`
-      SELECT
-        r.request_id,
-        r.customer_name,
-        r.customer_email,
-        r.item_name,
-        r.brand,
-        r.budget_gbp,
-        r.size,
-        r.colour,
-        s.status_name,
-        r.created_at
-      FROM requests r
-      JOIN statuses s ON s.status_id = r.status_id
-      WHERE r.request_id = last_insert_rowid()
-    `).get();
-
-    return json(created, 201);
   }
-
-  const statusMatch = path.match(/^\/api\/requests\/(\d+)\/status$/);
-  if (req.method === "PATCH" && statusMatch) {
-    const request_id = Number(statusMatch[1]);
-    const body = await safeJson(req);
-    const status_name = (body.status_name ?? "").trim();
-    if (!status_name) return json({ error: "status_name is required" }, 400);
-
-    const status_id = getStatusIdByName(status_name);
-    const now = new Date().toISOString();
-
-    db.prepare(`
-      UPDATE requests
-      SET status_id = ?, updated_at = ?
-      WHERE request_id = ?
-    `).run(status_id, now, request_id);
-
-    return json({ ok: true });
-  }
-
-  return json({ error: "Not found" }, 404);
 }
 
 async function serveStatic(pathname) {
-  let rel = pathname;
+  let resolvedPath = pathname;
 
-  if (rel === "/") rel = "/app/index.html";
-  if (rel.includes("..")) return new Response("Bad request", { status: 400 });
+  if (resolvedPath === "/") resolvedPath = "/app/index.html";
+  if (resolvedPath.includes("..")) {
+    return new Response("Bad request", { status: 400 });
+  }
 
-  const fileUrl = new URL("." + rel, ROOT);
+  const fileUrl = new URL("." + resolvedPath, ROOT);
 
   try {
     const data = await Deno.readFile(fileUrl);
     return new Response(data, {
-      headers: { "content-type": contentType(rel) }
+      status: 200,
+      headers: { "content-type": getContentType(resolvedPath) },
     });
   } catch {
     return new Response("Not Found", { status: 404 });
   }
 }
 
-function contentType(path) {
-  const ext = extname(path).toLowerCase();
-  return ({
+function getContentType(pathname) {
+  const extension = extname(pathname).toLowerCase();
+
+  const types = {
     ".html": "text/html; charset=utf-8",
     ".css": "text/css; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
@@ -152,14 +150,18 @@ function contentType(path) {
     ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
     ".svg": "image/svg+xml",
-    ".webp": "image/webp"
-  }[ext] || "application/octet-stream");
+    ".webp": "image/webp",
+  };
+
+  return types[extension] || "application/octet-stream";
 }
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { "content-type": "application/json; charset=utf-8" }
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+    },
   });
 }
 

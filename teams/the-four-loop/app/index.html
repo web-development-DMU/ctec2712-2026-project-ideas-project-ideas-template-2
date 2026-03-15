@@ -8,7 +8,7 @@
 </head>
 <body>
   <header>
-    <nav aria-label="App navigation">
+    <nav aria-label="Application navigation">
       <a href="/teams/index.html">← Back to Teams</a>
       <a href="/app/index.html" aria-current="page">Home</a>
       <a href="/app/requests.html">Requests</a>
@@ -17,17 +17,24 @@
   </header>
 
   <main class="container">
-    <section class="card">
+    <section class="hero">
       <h1>SourceFlow</h1>
-      <p>Personal shopping request system. Customers submit requests. Admin reviews and updates progress.</p>
+      <p>
+        A structured personal shopping request system. Customers submit requests,
+        and administrators review, track, and update request progress.
+      </p>
+    </section>
 
-      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;">
-        <a href="/app/requests.html" style="text-decoration:none;">
-          <button type="button">Customer view</button>
-        </a>
-        <a href="/app/admin.html" style="text-decoration:none;">
-          <button type="button">Admin view</button>
-        </a>
+    <section class="card">
+      <h2 class="section-title">Application overview</h2>
+      <p class="small">
+        This application separates the customer workflow from the administrative workflow.
+        It is designed as a simple, database-backed web application using Deno and SQLite.
+      </p>
+
+      <div class="actions">
+        <a href="/app/requests.html"><button type="button">Customer view</button></a>
+        <a href="/app/admin.html"><button type="button">Admin view</button></a>
       </div>
     </section>
   </main>

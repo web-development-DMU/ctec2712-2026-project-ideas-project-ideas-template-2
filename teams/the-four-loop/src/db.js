@@ -5,13 +5,14 @@ const ROOT = dirname(fromFileUrl(import.meta.url));
 const DATA_DIR = join(ROOT, "..", "data");
 const DB_PATH = join(DATA_DIR, "sourceflow.db");
 
-let db;
+let dbInstance = null;
 
 export function getDb() {
-  if (db) return db;
+  if (dbInstance) return dbInstance;
 
   Deno.mkdirSync(DATA_DIR, { recursive: true });
-  db = new DatabaseSync(DB_PATH);
+
+  const db = new DatabaseSync(DB_PATH);
 
   db.exec(`
     PRAGMA foreign_keys = ON;
@@ -45,21 +46,139 @@ export function getDb() {
     );
   `);
 
-  const count = db.prepare("SELECT COUNT(*) AS c FROM statuses").get().c;
-  if (count === 0) {
-    const stmt = db.prepare("INSERT INTO statuses(status_name) VALUES (?)");
-    ["New", "In Progress", "Sourced", "Completed"].forEach((s) => stmt.run(s));
+  const countRow = db.prepare("SELECT COUNT(*) AS count FROM statuses").get();
+  if ((countRow?.count ?? 0) === 0) {
+    const insert = db.prepare("INSERT INTO statuses (status_name) VALUES (?)");
+    ["New", "In Progress", "Sourced", "Completed"].forEach((status) => {
+      insert.run(status);
+    });
   }
 
-  return db;
+  dbInstance = db;
+  return dbInstance;
 }
 
 export function getDbPath() {
   return DB_PATH;
 }
 
-export function getStatusIdByName(name) {
-  const row = getDb().prepare("SELECT status_id FROM statuses WHERE status_name = ?").get(name);
-  if (!row) throw new Error(`Unknown status: ${name}`);
+export function getStatusIdByName(statusName) {
+  const db = getDb();
+  const row = db.prepare(
+    "SELECT status_id FROM statuses WHERE status_name = ?",
+  ).get(statusName);
+
+  if (!row) {
+    throw new Error(`Unknown status: ${statusName}`);
+  }
+
   return row.status_id;
+}
+
+export function listRequests() {
+  const db = getDb();
+
+  return db.prepare(`
+    SELECT
+      r.request_id,
+      r.customer_name,
+      r.customer_email,
+      r.item_name,
+      r.brand,
+      r.budget_gbp,
+      r.size,
+      r.colour,
+      s.status_name,
+      r.created_at,
+      r.updated_at
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    ORDER BY r.request_id DESC
+  `).all();
+}
+
+export function createRequest(payload) {
+  const db = getDb();
+
+  const now = new Date().toISOString();
+  const statusId = getStatusIdByName("New");
+
+  const stmt = db.prepare(`
+    INSERT INTO requests (
+      customer_name,
+      customer_email,
+      item_name,
+      brand,
+      budget_gbp,
+      size,
+      colour,
+      status_id,
+      created_at,
+      updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const result = stmt.run(
+    payload.customer_name,
+    payload.customer_email,
+    payload.item_name,
+    payload.brand,
+    payload.budget_gbp,
+    payload.size,
+    payload.colour,
+    statusId,
+    now,
+    now,
+  );
+
+  return db.prepare(`
+    SELECT
+      r.request_id,
+      r.customer_name,
+      r.customer_email,
+      r.item_name,
+      r.brand,
+      r.budget_gbp,
+      r.size,
+      r.colour,
+      s.status_name,
+      r.created_at,
+      r.updated_at
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    WHERE r.request_id = ?
+  `).get(result.lastInsertRowid);
+}
+
+export function updateRequestStatus(requestId, statusName) {
+  const db = getDb();
+  const statusId = getStatusIdByName(statusName);
+  const now = new Date().toISOString();
+
+  db.prepare(`
+    UPDATE requests
+    SET status_id = ?, updated_at = ?
+    WHERE request_id = ?
+  `).run(statusId, now, requestId);
+}
+
+export function addNote(requestId, noteText) {
+  const db = getDb();
+  const now = new Date().toISOString();
+
+  db.prepare(`
+    INSERT INTO request_notes (request_id, note_text, created_at)
+    VALUES (?, ?, ?)
+  `).run(requestId, noteText, now);
+}
+
+export function listNotesForRequest(requestId) {
+  const db = getDb();
+
+  return db.prepare(`
+    SELECT note_id, note_text, created_at
+    FROM request_notes
+    WHERE request_id = ?
+    ORDER BY note_id DESC
+  `).all(requestId);
 }
