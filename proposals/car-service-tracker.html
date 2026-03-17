@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Car Service Tracker — Proposal</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/index.html">home</a>
+        <a href="/people/index.html">people</a>
+        <a href="/proposals/index.html">proposals</a>
+        <a href="/teams/index.html">teams</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Car Service Tracker</h1>
+
+      <section>
+        <h2>Description</h2>
+        <p>
+          Car Service Tracker is a web application that allows car owners and 
+          small garages to record and manage vehicle maintenance history. Users 
+          can add their cars, log service events such as oil changes, MOTs and 
+          tyre replacements, and view the full service history for each vehicle.
+        </p>
+        <p>
+          The application is designed to be simple and practical. It solves the 
+          common problem of losing track of when a car was last serviced and 
+          what work was done.
+        </p>
+      </section>
+
+      <section>
+        <h2>Users</h2>
+        <ul>
+          <li>
+            <strong>Car owners</strong> — can add their vehicles and log 
+            service records for each one.
+          </li>
+          <li>
+            <strong>Administrators</strong> — can manage service types 
+            (e.g. oil change, MOT, full service) and oversee all records.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>User stories</h2>
+        <ul>
+          <li>As a car owner, I want to add my car so I can track its service history.</li>
+          <li>As a car owner, I want to log a service record so I know what work has been done.</li>
+          <li>As a car owner, I want to view all past services for my car in one place.</li>
+          <li>As a car owner, I want to edit or delete a service record if I made a mistake.</li>
+          <li>As an admin, I want to manage the list of service types available.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Database structure</h2>
+        <p>The application will use four tables:</p>
+        <ul>
+          <li><strong>owners</strong> — id, name, email, phone</li>
+          <li><strong>cars</strong> — id, owner_id, make, model, year, reg_number</li>
+          <li><strong>service_records</strong> — id, car_id, service_date, service_type_id, mileage, cost, notes</li>
+          <li><strong>service_types</strong> — id, name, description</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Biggest challenges</h2>
+        <ul>
+          <li>Linking service records correctly to the right car using foreign keys.</li>
+          <li>Making sure the admin and user views are clearly separated.</li>
+          <li>Validating form inputs server-side before writing to the database.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Authors</h2>
+        <p>Proposed by <a href="/people/P2858016.html">Your Name</a>.</p>
+      </section>
+    </main>
+  </body>
+</html>
