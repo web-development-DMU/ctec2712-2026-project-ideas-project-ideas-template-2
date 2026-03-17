@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Database Structure</title>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">back to team home</a>
+    </nav>
+
+    <main>
+      <h1>Database structure</h1>
+
+      <section>
+        <h2>owners</h2>
+        <p>Stores details about the car owner.</p>
+        <pre>
+CREATE TABLE owners (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT
+);
+        </pre>
+      </section>
+
+      <section>
+        <h2>cars</h2>
+        <p>Each car belongs to one owner.</p>
+        <pre>
+CREATE TABLE cars (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  owner_id INTEGER NOT NULL,
+  make TEXT NOT NULL,
+  model TEXT NOT NULL,
+  year INTEGER NOT NULL,
+  reg_number TEXT NOT NULL,
+  FOREIGN KEY (owner_id) REFERENCES owners(id)
+);
+        </pre>
+      </section>
+
+      <section>
+        <h2>service_types</h2>
+        <p>A fixed list of service categories (e.g. Oil Change, MOT).</p>
+        <pre>
+CREATE TABLE service_types (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  description TEXT
+);
+        </pre>
+      </section>
+
+      <section>
+        <h2>service_records</h2>
+        <p>Each record logs one service event for one car.</p>
+        <pre>
+CREATE TABLE service_records (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  car_id INTEGER NOT NULL,
+  service_type_id INTEGER NOT NULL,
+  service_date TEXT NOT NULL,
+  mileage INTEGER,
+  cost REAL,
+  notes TEXT,
+  FOREIGN KEY (car_id) REFERENCES cars(id),
+  FOREIGN KEY (service_type_id) REFERENCES service_types(id)
+);
+        </pre>
+      </section>
+    </main>
+  </body>
+</html>
