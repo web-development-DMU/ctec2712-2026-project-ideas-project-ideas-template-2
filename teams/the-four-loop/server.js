@@ -2,8 +2,10 @@ import { extname } from "@std/path";
 import {
   addNote,
   createRequest,
+  getDashboardSummary,
   getDb,
   getDbPath,
+  getRequestById,
   listNotesForRequest,
   listRequests,
   updateRequestStatus,
@@ -33,8 +35,30 @@ async function handleApi(req, pathname) {
       return json({ ok: true, db: getDbPath() });
     }
 
+    if (req.method === "GET" && pathname === "/api/dashboard") {
+      return json({ ok: true, data: getDashboardSummary() });
+    }
+
     if (req.method === "GET" && pathname === "/api/requests") {
       return json({ ok: true, data: listRequests() });
+    }
+
+    const requestGetMatch = pathname.match(/^\/api\/requests\/(\d+)$/);
+    if (req.method === "GET" && requestGetMatch) {
+      const requestId = Number(requestGetMatch[1]);
+      const request = getRequestById(requestId);
+
+      if (!request) {
+        return json({ ok: false, error: "Request not found." }, 404);
+      }
+
+      return json({
+        ok: true,
+        data: {
+          request,
+          notes: listNotesForRequest(requestId),
+        },
+      });
     }
 
     if (req.method === "POST" && pathname === "/api/requests") {
@@ -81,8 +105,8 @@ async function handleApi(req, pathname) {
         return json({ ok: false, error: "status_name is required." }, 400);
       }
 
-      updateRequestStatus(requestId, statusName);
-      return json({ ok: true });
+      const updated = updateRequestStatus(requestId, statusName);
+      return json({ ok: true, data: updated });
     }
 
     const notesGetMatch = pathname.match(/^\/api\/requests\/(\d+)\/notes$/);
@@ -102,17 +126,18 @@ async function handleApi(req, pathname) {
       }
 
       addNote(requestId, noteText);
-      return json({ ok: true });
+
+      return json({
+        ok: true,
+        data: listNotesForRequest(requestId),
+      });
     }
 
     return json({ ok: false, error: "Not found." }, 404);
   } catch (error) {
     console.error("API error:", error);
     return json(
-      {
-        ok: false,
-        error: error?.message || "Internal server error.",
-      },
+      { ok: false, error: error?.message || "Internal server error." },
       500,
     );
   }
@@ -134,7 +159,6 @@ async function serveStatic(pathname) {
   try {
     const data = await Deno.readFile(fileUrl);
     return new Response(data, {
-      status: 200,
       headers: { "content-type": getContentType(resolvedPath) },
     });
   } catch {
@@ -162,9 +186,7 @@ function getContentType(pathname) {
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-    },
+    headers: { "content-type": "application/json; charset=utf-8" },
   });
 }
 

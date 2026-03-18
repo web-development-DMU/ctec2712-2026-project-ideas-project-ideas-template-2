@@ -17,262 +17,410 @@ function formatDate(iso) {
   return Number.isNaN(date.getTime()) ? iso : date.toLocaleString();
 }
 
+function statusClass(status) {
+  const s = String(status || "").toLowerCase();
+  if (s === "new") return "status-new";
+  if (s === "in progress") return "status-in-progress";
+  if (s === "sourced") return "status-sourced";
+  if (s === "completed") return "status-completed";
+  return "";
+}
+
 async function fetchJson(url, options = {}) {
   const response = await fetch(url, options);
-
-  let payload = null;
   const text = await response.text();
 
+  let payload = {};
   try {
-    payload = text ? JSON.parse(text) : null;
+    payload = text ? JSON.parse(text) : {};
   } catch {
-    throw new Error(`Server returned invalid JSON: ${text}`);
+    throw new Error("Invalid server response.");
   }
 
-  if (!response.ok) {
-    throw new Error(payload?.error || `Request failed with status ${response.status}`);
+  if (!response.ok || payload.ok === false) {
+    throw new Error(payload.error || `Request failed (${response.status})`);
   }
 
   return payload;
+}
+
+function requestLink(id) {
+  return `/app/request.html?id=${id}`;
+}
+
+async function loadDashboard() {
+  const totalEl = document.getElementById("statTotal");
+  if (!totalEl) return;
+
+  const result = await fetchJson("/api/dashboard");
+  const data = result.data;
+
+  document.getElementById("statTotal").textContent = data.total;
+  document.getElementById("statNew").textContent = data.newCount;
+  document.getElementById("statProgress").textContent = data.inProgress;
+  document.getElementById("statCompleted").textContent = data.completed;
+
+  const recentList = document.getElementById("recentRequestsList");
+  recentList.innerHTML = "";
+
+  if (!data.recent.length) {
+    recentList.innerHTML = `<p class="empty">No requests yet.</p>`;
+    return;
+  }
+
+  recentList.innerHTML = data.recent.map((row) => `
+    <div class="list-item">
+      <div class="list-item-top">
+        <div>
+          <strong>${escapeHtml(row.item_name)}</strong><br />
+          <span class="small">${escapeHtml(row.customer_name)}</span>
+        </div>
+        <span class="status-pill ${statusClass(row.status_name)}">${escapeHtml(row.status_name)}</span>
+      </div>
+      <div class="actions">
+        <a class="text-link" href="${requestLink(row.request_id)}">Open detail</a>
+      </div>
+    </div>
+  `).join("");
+}
+
+function setupQuickRequestForm() {
+  const form = document.getElementById("quickRequestForm");
+  if (!form) return;
+
+  const statusEl = document.getElementById("quickRequestStatus");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    statusEl.textContent = "Submitting...";
+
+    try {
+      await fetchJson("/api/requests", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          customer_name: "Guest Customer",
+          customer_email: "",
+          item_name: document.getElementById("quick_item_name").value.trim(),
+          brand: document.getElementById("quick_brand").value.trim(),
+          budget_gbp: document.getElementById("quick_budget").value.trim(),
+          size: document.getElementById("quick_size").value.trim(),
+          colour: "",
+        }),
+      });
+
+      form.reset();
+      statusEl.textContent = "Request submitted.";
+      await loadDashboard();
+    } catch (error) {
+      statusEl.textContent = error.message;
+    }
+  });
 }
 
 async function loadRequestsTable() {
   const tbody = document.getElementById("requestsTableBody");
   if (!tbody) return;
 
-  try {
-    const result = await fetchJson("/api/requests");
-    const rows = result.data || [];
+  const result = await fetchJson("/api/requests");
+  const rows = result.data;
 
-    if (rows.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="7" class="empty">No requests have been submitted yet.</td>
-        </tr>
-      `;
-      return;
-    }
-
-    tbody.innerHTML = rows.map((row) => `
-      <tr>
-        <td>${row.request_id}</td>
-        <td>${escapeHtml(row.customer_name)}</td>
-        <td>${escapeHtml(row.item_name)}</td>
-        <td>${escapeHtml(row.brand ?? "")}</td>
-        <td>${row.budget_gbp ?? ""}</td>
-        <td>${escapeHtml(row.status_name)}</td>
-        <td>${formatDate(row.created_at)}</td>
-      </tr>
-    `).join("");
-  } catch (error) {
+  if (!rows.length) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="7" class="empty">Failed to load requests: ${escapeHtml(error.message)}</td>
+        <td colspan="5" class="empty">No requests have been submitted yet.</td>
       </tr>
     `;
+    return;
   }
+
+  tbody.innerHTML = rows.map((row) => `
+    <tr>
+      <td><span class="status-pill ${statusClass(row.status_name)}">${escapeHtml(row.status_name)}</span></td>
+      <td>${escapeHtml(row.item_name)}</td>
+      <td>${row.budget_gbp ?? ""}</td>
+      <td>${formatDate(row.updated_at)}</td>
+      <td><a class="text-link" href="${requestLink(row.request_id)}">View</a></td>
+    </tr>
+  `).join("");
 }
 
-async function setupCustomerPage() {
+function setupRequestForm() {
   const form = document.getElementById("requestForm");
-  const refreshButton = document.getElementById("refreshRequestsBtn");
+  if (!form) return;
+
   const statusEl = document.getElementById("requestStatus");
-
-  if (!form || !refreshButton || !statusEl) return;
-
-  refreshButton.addEventListener("click", async () => {
-    statusEl.className = "status";
-    statusEl.textContent = "Refreshing...";
-    await loadRequestsTable();
-    statusEl.textContent = "";
-  });
+  const refreshBtn = document.getElementById("refreshRequestsBtn");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-
-    statusEl.className = "status";
-    statusEl.textContent = "Creating request...";
-
-    const payload = {
-      customer_name: document.getElementById("customer_name").value.trim(),
-      customer_email: document.getElementById("customer_email").value.trim(),
-      item_name: document.getElementById("item_name").value.trim(),
-      brand: document.getElementById("brand").value.trim(),
-      budget_gbp: document.getElementById("budget_gbp").value.trim(),
-      size: document.getElementById("size").value.trim(),
-      colour: document.getElementById("colour").value.trim(),
-    };
+    statusEl.textContent = "Submitting request...";
 
     try {
       await fetchJson("/api/requests", {
         method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(payload),
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          customer_name: document.getElementById("customer_name").value.trim(),
+          customer_email: document.getElementById("customer_email").value.trim(),
+          item_name: document.getElementById("item_name").value.trim(),
+          brand: document.getElementById("brand").value.trim(),
+          budget_gbp: document.getElementById("budget_gbp").value.trim(),
+          size: document.getElementById("size").value.trim(),
+          colour: document.getElementById("colour").value.trim(),
+        }),
       });
 
       form.reset();
-      statusEl.className = "status success";
-      statusEl.textContent = "Request created successfully.";
+      statusEl.textContent = "Request submitted successfully.";
       await loadRequestsTable();
     } catch (error) {
-      statusEl.className = "status error";
       statusEl.textContent = error.message;
     }
   });
 
-  await loadRequestsTable();
+  refreshBtn?.addEventListener("click", loadRequestsTable);
+}
+
+function showAdminPanel() {
+  document.getElementById("adminLoginCard").hidden = true;
+  document.getElementById("adminPanel").hidden = false;
+}
+
+function showAdminLogin() {
+  document.getElementById("adminLoginCard").hidden = false;
+  document.getElementById("adminPanel").hidden = true;
 }
 
 async function loadAdminTable() {
   const tbody = document.getElementById("adminTableBody");
   if (!tbody) return;
 
-  try {
-    const result = await fetchJson("/api/requests");
-    const rows = result.data || [];
+  const result = await fetchJson("/api/requests");
+  const rows = result.data;
 
-    if (rows.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="6" class="empty">No requests are currently in the queue.</td>
-        </tr>
-      `;
-      return;
-    }
-
-    tbody.innerHTML = rows.map((row) => `
-      <tr>
-        <td>${row.request_id}</td>
-        <td>
-          <strong>${escapeHtml(row.customer_name)}</strong><br />
-          <span class="small">${escapeHtml(row.customer_email ?? "")}</span>
-        </td>
-        <td>
-          <strong>${escapeHtml(row.item_name)}</strong><br />
-          <span class="small">${escapeHtml(row.brand ?? "")}</span>
-        </td>
-        <td>${escapeHtml(row.status_name)}</td>
-        <td>
-          <select data-request-id="${row.request_id}">
-            ${["New", "In Progress", "Sourced", "Completed"].map((status) => `
-              <option value="${status}" ${status === row.status_name ? "selected" : ""}>
-                ${status}
-              </option>
-            `).join("")}
-          </select>
-          <div class="actions">
-            <button type="button" data-save-status="${row.request_id}">Save</button>
-          </div>
-        </td>
-        <td>
-          <div class="small">Internal notes can be added in the next iteration.</div>
-        </td>
-      </tr>
-    `).join("");
-
-    tbody.querySelectorAll("[data-save-status]").forEach((button) => {
-      button.addEventListener("click", async () => {
-        const requestId = button.getAttribute("data-save-status");
-        const select = tbody.querySelector(`select[data-request-id="${requestId}"]`);
-        const statusName = select.value;
-
-        try {
-          await fetchJson(`/api/requests/${requestId}/status`, {
-            method: "PATCH",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({ status_name: statusName }),
-          });
-
-          await loadAdminTable();
-        } catch (error) {
-          alert(`Failed to update status: ${error.message}`);
-        }
-      });
-    });
-  } catch (error) {
+  if (!rows.length) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="6" class="empty">Failed to load admin data: ${escapeHtml(error.message)}</td>
+        <td colspan="6" class="empty">No requests currently in the queue.</td>
       </tr>
     `;
+    return;
   }
+
+  tbody.innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.request_id}</td>
+      <td>
+        <strong>${escapeHtml(row.customer_name)}</strong><br />
+        <span class="small">${escapeHtml(row.customer_email ?? "")}</span>
+      </td>
+      <td>${escapeHtml(row.item_name)}</td>
+      <td><span class="status-pill ${statusClass(row.status_name)}">${escapeHtml(row.status_name)}</span></td>
+      <td>
+        <select data-request-id="${row.request_id}">
+          ${["New", "In Progress", "Sourced", "Completed"].map((status) => `
+            <option value="${status}" ${status === row.status_name ? "selected" : ""}>${status}</option>
+          `).join("")}
+        </select>
+        <div class="actions">
+          <button type="button" data-save-status="${row.request_id}">Save</button>
+        </div>
+      </td>
+      <td><a class="text-link" href="${requestLink(row.request_id)}">Open</a></td>
+    </tr>
+  `).join("");
+
+  tbody.querySelectorAll("[data-save-status]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const requestId = button.getAttribute("data-save-status");
+      const select = tbody.querySelector(`select[data-request-id="${requestId}"]`);
+
+      await fetchJson(`/api/requests/${requestId}/status`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status_name: select.value }),
+      });
+
+      await loadAdminTable();
+    });
+  });
 }
 
-function showAdminPanel() {
-  const loginCard = document.getElementById("adminLoginCard");
-  const panel = document.getElementById("adminPanel");
+function setupAdminPage() {
+  if (!document.getElementById("adminPage")) return;
 
-  if (loginCard) loginCard.hidden = true;
-  if (panel) panel.hidden = false;
-}
-
-function showAdminLogin() {
-  const loginCard = document.getElementById("adminLoginCard");
-  const panel = document.getElementById("adminPanel");
-
-  if (loginCard) loginCard.hidden = false;
-  if (panel) panel.hidden = true;
-}
-
-async function setupAdminPage() {
   const loginForm = document.getElementById("adminLoginForm");
   const loginStatus = document.getElementById("adminLoginStatus");
-  const refreshButton = document.getElementById("refreshAdminBtn");
-  const logoutButton = document.getElementById("logoutAdminBtn");
+  const refreshBtn = document.getElementById("refreshAdminBtn");
+  const logoutBtn = document.getElementById("logoutAdminBtn");
 
   const loggedIn = localStorage.getItem(ADMIN_SESSION_KEY) === "true";
-
   if (loggedIn) {
     showAdminPanel();
-    await loadAdminTable();
+    loadAdminTable();
   } else {
     showAdminLogin();
   }
 
-  if (loginForm) {
-    loginForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
+  loginForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-      const password = document.getElementById("adminPasswordInput").value;
+    const password = document.getElementById("adminPasswordInput").value;
+    if (password !== ADMIN_PASSWORD) {
+      loginStatus.textContent = "Incorrect password.";
+      return;
+    }
 
-      if (password !== ADMIN_PASSWORD) {
-        loginStatus.className = "status error";
-        loginStatus.textContent = "Incorrect password.";
-        return;
-      }
+    localStorage.setItem(ADMIN_SESSION_KEY, "true");
+    loginStatus.textContent = "";
+    showAdminPanel();
+    await loadAdminTable();
+  });
 
-      localStorage.setItem(ADMIN_SESSION_KEY, "true");
-      loginStatus.className = "status success";
-      loginStatus.textContent = "Access granted.";
+  refreshBtn?.addEventListener("click", loadAdminTable);
 
-      showAdminPanel();
-      await loadAdminTable();
-    });
+  logoutBtn?.addEventListener("click", () => {
+    localStorage.removeItem(ADMIN_SESSION_KEY);
+    showAdminLogin();
+  });
+}
+
+function getRequestIdFromQuery() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
+}
+
+async function loadRequestDetail() {
+  const title = document.getElementById("detailTitle");
+  if (!title) return;
+
+  const id = getRequestIdFromQuery();
+  if (!id) {
+    title.textContent = "Request not found";
+    return;
   }
 
-  if (refreshButton) {
-    refreshButton.addEventListener("click", loadAdminTable);
-  }
+  const result = await fetchJson(`/api/requests/${id}`);
+  const { request, notes } = result.data;
 
-  if (logoutButton) {
-    logoutButton.addEventListener("click", () => {
-      localStorage.removeItem(ADMIN_SESSION_KEY);
-      showAdminLogin();
-    });
+  title.textContent = `Request #${request.request_id}`;
+
+  const statusBadge = document.getElementById("detailStatusBadge");
+  statusBadge.textContent = request.status_name;
+  statusBadge.className = `status-pill ${statusClass(request.status_name)}`;
+
+  document.getElementById("detailMeta").innerHTML = `
+    <div class="detail-row"><strong>Item</strong><span>${escapeHtml(request.item_name)}</span></div>
+    <div class="detail-row"><strong>Brand</strong><span>${escapeHtml(request.brand ?? "")}</span></div>
+    <div class="detail-row"><strong>Size</strong><span>${escapeHtml(request.size ?? "")}</span></div>
+    <div class="detail-row"><strong>Budget</strong><span>£${request.budget_gbp ?? ""}</span></div>
+    <div class="detail-row"><strong>Created</strong><span>${formatDate(request.created_at)}</span></div>
+    <div class="detail-row"><strong>Updated</strong><span>${formatDate(request.updated_at)}</span></div>
+  `;
+
+  document.getElementById("customerBlock").innerHTML = `
+    <div class="detail-row"><strong>Name</strong><span>${escapeHtml(request.customer_name)}</span></div>
+    <div class="detail-row"><strong>Email</strong><span>${escapeHtml(request.customer_email ?? "")}</span></div>
+  `;
+
+  const timeline = [
+    { name: "New", active: true },
+    { name: "In Progress", active: ["In Progress", "Sourced", "Completed"].includes(request.status_name) },
+    { name: "Sourced", active: ["Sourced", "Completed"].includes(request.status_name) },
+    { name: "Completed", active: request.status_name === "Completed" },
+  ];
+
+  document.getElementById("timelineList").innerHTML = timeline.map((item) => `
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:${item.active ? "#7ad88d" : "rgba(255,255,255,0.3)"}"></div>
+      <div>
+        <strong>${item.name}</strong>
+      </div>
+    </div>
+  `).join("");
+
+  document.getElementById("detailStatusSelect").value = request.status_name;
+
+  const notesList = document.getElementById("notesList");
+  if (!notes.length) {
+    notesList.innerHTML = `<p class="empty">No notes yet.</p>`;
+  } else {
+    notesList.innerHTML = notes.map((note) => `
+      <div class="note-card">
+        <div><strong>${formatDate(note.created_at)}</strong></div>
+        <div>${escapeHtml(note.note_text)}</div>
+      </div>
+    `).join("");
   }
 }
 
+function setupDetailPage() {
+  const saveBtn = document.getElementById("saveDetailStatusBtn");
+  if (!saveBtn) return;
+
+  const noteForm = document.getElementById("noteForm");
+  const noteStatus = document.getElementById("noteStatus");
+  const detailStatusMessage = document.getElementById("detailStatusMessage");
+  const requestId = getRequestIdFromQuery();
+
+  saveBtn.addEventListener("click", async () => {
+    const statusName = document.getElementById("detailStatusSelect").value;
+    detailStatusMessage.textContent = "Saving...";
+
+    try {
+      await fetchJson(`/api/requests/${requestId}/status`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status_name: statusName }),
+      });
+
+      detailStatusMessage.textContent = "Status updated.";
+      await loadRequestDetail();
+    } catch (error) {
+      detailStatusMessage.textContent = error.message;
+    }
+  });
+
+  noteForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const noteText = document.getElementById("noteText").value.trim();
+    noteStatus.textContent = "Saving...";
+
+    try {
+      await fetchJson(`/api/requests/${requestId}/notes`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ note_text: noteText }),
+      });
+
+      document.getElementById("noteText").value = "";
+      noteStatus.textContent = "Note added.";
+      await loadRequestDetail();
+    } catch (error) {
+      noteStatus.textContent = error.message;
+    }
+  });
+}
+
 async function init() {
+  if (document.getElementById("statTotal")) {
+    await loadDashboard();
+    setupQuickRequestForm();
+  }
+
   if (document.getElementById("requestForm")) {
-    await setupCustomerPage();
+    setupRequestForm();
+    await loadRequestsTable();
   }
 
   if (document.getElementById("adminPage")) {
-    await setupAdminPage();
+    setupAdminPage();
+  }
+
+  if (document.getElementById("detailTitle")) {
+    await loadRequestDetail();
+    setupDetailPage();
   }
 }
 

@@ -7,23 +7,32 @@
   <link rel="stylesheet" href="./app.css" />
 </head>
 <body>
-  <header>
-    <nav aria-label="Application navigation">
-      <a href="/app/index.html">Home</a>
-      <a href="/app/requests.html">Requests</a>
-      <a href="/app/admin.html" aria-current="page">Admin</a>
-    </nav>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">SourceFlow</div>
+      <nav class="topnav" aria-label="Application navigation">
+        <a href="/app/index.html">Dashboard</a>
+        <a href="/app/requests.html">Requests</a>
+        <a href="/app/admin.html" aria-current="page">Admin</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="container" id="adminPage">
-    <section class="hero">
-      <h1>Admin</h1>
-      <p>Administrative view: review requests, update status, and add internal notes.</p>
+  <main class="app-shell" id="adminPage">
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">Concierge View</p>
+        <h1>Admin Queue</h1>
+        <p class="intro">
+          Review requests, update statuses, and open request detail records.
+        </p>
+      </div>
     </section>
 
-    <section class="card" id="adminLoginCard">
-      <h2 class="section-title">Admin access</h2>
-      <p class="small">Enter the demo admin password to continue.</p>
+    <section class="panel" id="adminLoginCard">
+      <div class="panel-header">
+        <h2>Admin access</h2>
+      </div>
 
       <form id="adminLoginForm" novalidate>
         <label>
@@ -32,18 +41,18 @@
         </label>
 
         <div class="actions">
-          <button type="submit">Enter admin</button>
+          <button type="submit">Enter Admin</button>
           <span id="adminLoginStatus" class="status" role="status" aria-live="polite"></span>
         </div>
       </form>
     </section>
 
-    <section class="card" id="adminPanel" hidden>
-      <div class="actions" style="justify-content: space-between;">
-        <h2 class="section-title" style="margin: 0;">Request queue</h2>
-        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <button type="button" id="refreshAdminBtn">Refresh</button>
-          <button type="button" id="logoutAdminBtn">Log out</button>
+    <section class="panel" id="adminPanel" hidden>
+      <div class="panel-header">
+        <h2>Request Queue</h2>
+        <div class="panel-actions">
+          <button type="button" id="refreshAdminBtn" class="secondary-btn">Refresh</button>
+          <button type="button" id="logoutAdminBtn" class="secondary-btn">Log out</button>
         </div>
       </div>
 
@@ -56,7 +65,7 @@
               <th>Item</th>
               <th>Status</th>
               <th>Update</th>
-              <th>Notes</th>
+              <th>Open</th>
             </tr>
           </thead>
           <tbody id="adminTableBody"></tbody>

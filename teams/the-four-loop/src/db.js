@@ -49,9 +49,7 @@ export function getDb() {
   const countRow = db.prepare("SELECT COUNT(*) AS count FROM statuses").get();
   if ((countRow?.count ?? 0) === 0) {
     const insert = db.prepare("INSERT INTO statuses (status_name) VALUES (?)");
-    ["New", "In Progress", "Sourced", "Completed"].forEach((status) => {
-      insert.run(status);
-    });
+    ["New", "In Progress", "Sourced", "Completed"].forEach((status) => insert.run(status));
   }
 
   dbInstance = db;
@@ -68,10 +66,7 @@ export function getStatusIdByName(statusName) {
     "SELECT status_id FROM statuses WHERE status_name = ?",
   ).get(statusName);
 
-  if (!row) {
-    throw new Error(`Unknown status: ${statusName}`);
-  }
-
+  if (!row) throw new Error(`Unknown status: ${statusName}`);
   return row.status_id;
 }
 
@@ -97,39 +92,8 @@ export function listRequests() {
   `).all();
 }
 
-export function createRequest(payload) {
+export function getRequestById(requestId) {
   const db = getDb();
-
-  const now = new Date().toISOString();
-  const statusId = getStatusIdByName("New");
-
-  const stmt = db.prepare(`
-    INSERT INTO requests (
-      customer_name,
-      customer_email,
-      item_name,
-      brand,
-      budget_gbp,
-      size,
-      colour,
-      status_id,
-      created_at,
-      updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  const result = stmt.run(
-    payload.customer_name,
-    payload.customer_email,
-    payload.item_name,
-    payload.brand,
-    payload.budget_gbp,
-    payload.size,
-    payload.colour,
-    statusId,
-    now,
-    now,
-  );
 
   return db.prepare(`
     SELECT
@@ -147,7 +111,41 @@ export function createRequest(payload) {
     FROM requests r
     JOIN statuses s ON s.status_id = r.status_id
     WHERE r.request_id = ?
-  `).get(result.lastInsertRowid);
+  `).get(requestId);
+}
+
+export function createRequest(payload) {
+  const db = getDb();
+  const now = new Date().toISOString();
+  const statusId = getStatusIdByName("New");
+
+  const result = db.prepare(`
+    INSERT INTO requests (
+      customer_name,
+      customer_email,
+      item_name,
+      brand,
+      budget_gbp,
+      size,
+      colour,
+      status_id,
+      created_at,
+      updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    payload.customer_name,
+    payload.customer_email,
+    payload.item_name,
+    payload.brand,
+    payload.budget_gbp,
+    payload.size,
+    payload.colour,
+    statusId,
+    now,
+    now,
+  );
+
+  return getRequestById(result.lastInsertRowid);
 }
 
 export function updateRequestStatus(requestId, statusName) {
@@ -160,6 +158,8 @@ export function updateRequestStatus(requestId, statusName) {
     SET status_id = ?, updated_at = ?
     WHERE request_id = ?
   `).run(statusId, now, requestId);
+
+  return getRequestById(requestId);
 }
 
 export function addNote(requestId, noteText) {
@@ -176,9 +176,59 @@ export function listNotesForRequest(requestId) {
   const db = getDb();
 
   return db.prepare(`
-    SELECT note_id, note_text, created_at
+    SELECT
+      note_id,
+      note_text,
+      created_at
     FROM request_notes
     WHERE request_id = ?
     ORDER BY note_id DESC
   `).all(requestId);
+}
+
+export function getDashboardSummary() {
+  const db = getDb();
+
+  const total = db.prepare(`SELECT COUNT(*) AS count FROM requests`).get()?.count ?? 0;
+  const newCount = db.prepare(`
+    SELECT COUNT(*) AS count
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    WHERE s.status_name = 'New'
+  `).get()?.count ?? 0;
+
+  const inProgress = db.prepare(`
+    SELECT COUNT(*) AS count
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    WHERE s.status_name = 'In Progress'
+  `).get()?.count ?? 0;
+
+  const completed = db.prepare(`
+    SELECT COUNT(*) AS count
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    WHERE s.status_name = 'Completed'
+  `).get()?.count ?? 0;
+
+  const recent = db.prepare(`
+    SELECT
+      r.request_id,
+      r.customer_name,
+      r.item_name,
+      s.status_name,
+      r.created_at
+    FROM requests r
+    JOIN statuses s ON s.status_id = r.status_id
+    ORDER BY r.request_id DESC
+    LIMIT 5
+  `).all();
+
+  return {
+    total,
+    newCount,
+    inProgress,
+    completed,
+    recent,
+  };
 }
