@@ -31,6 +31,7 @@ export function getDb() {
       budget_gbp REAL,
       size TEXT,
       colour TEXT,
+      request_password TEXT NOT NULL,
       status_id INTEGER NOT NULL,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL,
@@ -128,10 +129,11 @@ export function createRequest(payload) {
       budget_gbp,
       size,
       colour,
+      request_password,
       status_id,
       created_at,
       updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     payload.customer_name,
     payload.customer_email,
@@ -140,12 +142,26 @@ export function createRequest(payload) {
     payload.budget_gbp,
     payload.size,
     payload.colour,
+    payload.request_password,
     statusId,
     now,
     now,
   );
 
   return getRequestById(result.lastInsertRowid);
+}
+
+export function verifyRequestPassword(requestId, password) {
+  const db = getDb();
+
+  const row = db.prepare(`
+    SELECT request_password
+    FROM requests
+    WHERE request_id = ?
+  `).get(requestId);
+
+  if (!row) return false;
+  return row.request_password === password;
 }
 
 export function updateRequestStatus(requestId, statusName) {
