@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Catalogue</title>
+
+<link rel="stylesheet" href="./style_colour.css">
+</head>
+
+<body>
+
+<header>
+    <h1>The Grand Archive</h1>
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="dashboard.html">DASHBOARD</a>
+        <a href="booking_history.html">BOOK HISTORY</a>
+    </nav>
+</header>
+
+<div class="container">
+
+<h2>Book Catalogue</h2>
+
+<input type="text" id="searchInput" placeholder="Search books..." onkeyup="searchBooks()">
+
+<table id="catalogueTable">
+<tr>
+    <th>Book</th>
+    <th>Author</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+<tr>
+    <td>Database Systems</td>
+    <td>Thomas Connolly</td>
+    <td class="available">Available</td>
+    <td><button class="reserve-btn" onclick="reserveBook(this)">Reserve</button></td>
+</tr>
+
+<tr>
+    <td>Web Development</td>
+    <td>Jon Duckett</td>
+    <td class="available">Available</td>
+    <td><button class="reserve-btn" onclick="reserveBook(this)">Reserve</button></td>
+</tr>
+
+</table>
+
+</div>
+
+<script>
+function searchBooks() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let rows = document.querySelectorAll("#catalogueTable tr");
+
+    rows.forEach((row, i) => {
+        if (i === 0) return;
+        row.style.display = row.textContent.toLowerCase().includes(input) ? "" : "none";
+    });
+}
+
+function reserveBook(btn) {
+    let row = btn.parentElement.parentElement;
+    row.cells[2].textContent = "Reserved";
+    row.cells[2].className = "reserved";
+
+    btn.textContent = "Reserved";
+    btn.disabled = true;
+}
+</script>
+
+</body>
+</html>
