@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - The Grand Archive</title>
+
+<!-- Your colour theme -->
+<link rel="stylesheet" href="./style_colour.css">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .login-container {
+        width: 300px;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        background: white;
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <h2>Student Login</h2>
+
+    <input type="text" id="studentID" placeholder="Enter Student ID (e.g. P1234567)">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p class="error" id="errorMsg"></p>
+</div>
+
+<script>
+function login() {
+    const studentID = document.getElementById("studentID").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorMsg = document.getElementById("errorMsg");
+
+    // Validate Student ID format
+    if (!studentID.startsWith("P") || studentID.length < 5) {
+        errorMsg.innerText = "Student ID must start with 'P'";
+        return;
+    }
+
+    // Simple password check (you can improve later)
+    if (password === "") {
+        errorMsg.innerText = "Please enter your password";
+        return;
+    }
+
+    // Save login session
+    localStorage.setItem("studentID", studentID);
+
+    // Redirect to dashboard
+    window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>
