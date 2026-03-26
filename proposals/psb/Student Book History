@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Grand Archive - Booking History</title>
+
+<!-- External colour stylesheet -->
+<link rel="stylesheet" href="./style_colour.css">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+    }
+
+    header {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .container {
+        width: 70%;
+        margin: 30px auto;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    nav {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    nav a {
+        text-decoration: none;
+        font-weight: bold;
+        margin: 0 10px;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 15px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+    }
+
+    /* Status colours */
+    .active { color: green; font-weight: bold; }
+    .returned { color: gray; font-weight: bold; }
+    .completed { color: blue; font-weight: bold; }
+    .overdue { color: red; font-weight: bold; }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>The Grand Archive</h1>
+    <p>Student Booking History</p>
+</header>
+
+<div class="container">
+
+<h2>Your Previous Reservations</h2>
+
+<table id="historyTable">
+    <tr>
+        <th>P Number</th>
+        <th>Book Title</th>
+        <th>Borrow Date</th>
+        <th>Due Date</th>
+        <th>Status</th>
+    </tr>
+
+    <tr>
+        <td>P1234567</td>
+        <td>Database Systems</td>
+        <td>10/03/2026</td>
+        <td>24/03/2026</td>
+        <td class="returned">Returned</td>
+    </tr>
+
+    <tr>
+        <td>P1234567</td>
+        <td>Web Development Fundamentals</td>
+        <td>01/03/2026</td>
+        <td>15/03/2026</td>
+        <td class="completed">Completed</td>
+    </tr>
+
+    <tr>
+        <td>P1234567</td>
+        <td>Software Engineering</td>
+        <td>20/02/2026</td>
+        <td>06/03/2026</td>
+        <td class="overdue">Overdue</td>
+    </tr>
+</table>
+
+<!-- Button to simulate booking -->
+<button onclick="addNewBooking()">➕ Simulate New Booking</button>
+
+<nav>
+    <a href="booking.html">📖 Make New Booking</a>
+    <a href="dashboard.html">⬅ Back to Dashboard</a>
+</nav>
+
+</div>
+
+<script>
+function addNewBooking() {
+
+    const table = document.getElementById("historyTable");
+
+    // Create a new row
+    const row = table.insertRow(-1);
+
+    // Example booking data
+    const booking = [
+        "P1234567",
+        "Artificial Intelligence Basics",
+        "27/03/2026",
+        "10/04/2026",
+        "Active"
+    ];
+
+    booking.forEach((data, index) => {
+        const cell = row.insertCell();
+
+        // Apply status styling to last column
+        if(index === 4){
+            cell.textContent = data;
+            cell.classList.add("active");
+        } else {
+            cell.textContent = data;
+        }
+    });
+}
+</script>
+
+</body>
+</html>
