@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 07</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
+            gap: 1rem;
+            background-color: rgb(255, 53, 53);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Group 07</h1>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/services">SERVICES</a>
+            <a href="/properties">PROPERTIES</a>
+            <a href="/contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>K.P's Properties</h2>
+            <p>
+                Proposed by: <a href="/people/ggstuart.html">Param and Kunj</a>
+            </p>
+            <h3>Description</h3>
+            <p>
+                 So, our idea is to design a web application for Real Estate, to 
+               manage viewing properties, filter prices, location and customer bookings etc.
+               This system allows customers to search available properties, view detail information 
+               and submit booking request through this website. Admin can manage propertie listings,
+               update information and monitor customer bookings through a structured management
+               interface. 
+            </p>
+            <p>
+               This application needs admin system so that they can add, 
+               delete and update the properties, prices, details and locations information.
+            </p>
+            <h3>Customers Public Users</h3>
+            <ul>
+                <li>Search Property Listings</li>
+                <li>Filter by Prices, Locations, Type</li>
+                <li>View Property Details</li>
+                <li>Submit Enquiry Form</li>
+                <li>Contact the Agency</li>
+                <li>
+            <h3>Dashboard for Admin</h3>
+            <ul>
+                <li>Add New Property Listings</li>
+                <li>Edit Property Details</li>
+                <li>Delete Properties</li>
+                <li>Mark Property is sold or rented</li>
+                <li>View Enquires for Property</li>
+                <li>Manage Property Images</li>
+            </ul>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>User Requirements-User Stories</h3>
+            <p>As a visitor, I want to browse available tours so that I can choose a destination.
+               As a visitor, I want to view detailed information about a tour so that I can understand the package.
+               As a visitor, I want to submit a booking request so that I can reserve my trip.
+               As a visitor, I want to send an enquiry so that I can ask questions.</p>
+            
+            <h3>Admin User Stories</h3>
+            <p>As an admin, I want to add a new tour so that new travel packages can be offered.
+               As an admin, I want to update tour details so that information stays accurate.
+               As an admin, I want to delete tours so that outdated packages are removed.
+               As an admin, I want to view bookings so that I can manage customer reservations.</p>
+        </section>
+        <section>
+            <h3>Basic Data Requirements Structure</h3>
+            <li>Properties Table: - id(Primary Key), title, description, price, location,property_type,bedrooms, bathroom.</li>
+            <br>
+            <li>Enquiries Table:- Id(Primary Key), Property_id(Foreign Key),name, email, phone,message.</li>
+            <br>
+            <li>Sole Selling Table:- Id(Primary Key), Property_id(Foreign Key), name, phone, final_price, cash, cheque.</li>
+        </section>
+    </main>
+</body>
+
+</html>
