@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Routes</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .route-method {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+        .route-method.get {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        .route-method.post {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        .route-item {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-left: 4px solid #2a8a6a;
+            border-radius: 4px;
+        }
+        .route-path {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #333;
+            margin: 0.5rem 0;
+        }
+        .route-description {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+        .route-details {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .access-required {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+    </nav>
+    
+    <main>
+        <h1>Admin Routes</h1>
+        
+        <section class = "overview">
+            <h2>Overview</h2>
+            <p>
+                Admin routes for Caloryx provide access to administrative functionalities such as user management, food database management, analytics, and system settings. These routes are protected and require admin authentication to ensure that only authorized personnel can access sensitive operations and data.
+            </p>
+            <p><a href="index.html">← Back to Routes Overview</a></p>
+        </section>
+
+        <section class = "admin-dashboard">
+            <h2>Admin Dashboard</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin</div>
+                <div class="route-description">Admin dashboard with management options and system overview</div>
+            </div>
+        </section>
+
+        <section class = "user-management">
+            <h2>User Management</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin/users</div>
+                <div class="route-description">List all users in the system</div>
+                <div class="route-details"><strong>Features:</strong> Supports filtering by username, includes links to user management pages</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin/users/:userId</div>
+                <div class="route-description">Edit or delete a specific user account</div>
+                <div class="route-details"><strong>Shows:</strong> Forms for editing user details and deleting accounts</div>
+            </div>
+        </section>
+
+        <section class = "food-database">
+            <h2>Food Database Management</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin/food-database</div>
+                <div class="route-description">Manage food items in the database</div>
+                <div class="route-details"><strong>Features:</strong> Lists all foods, form for adding new food items with nutritional information</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin/food-database/:foodId</div>
+                <div class="route-description">Edit or delete a specific food item</div>
+                <div class="route-details"><strong>Functions:</strong> Update nutritional values, remove outdated or duplicate entries</div>
+            </div>
+        </section>
+
+        <section class = "analytics">
+            <h2>Analytics & Reporting</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin/analytics</div>
+                <div class="route-description">View application analytics and user statistics</div>
+                <div class="route-details"><strong>Metrics:</strong> User growth trends, popular foods/exercises, system usage patterns, user engagement</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin/reports</div>
+                <div class="route-description">Generate and view system reports</div>
+                <div class="route-details"><strong>Includes:</strong> User activity reports, system health checks, data integrity reports</div>
+            </div>
+        </section>
+
+        <section class = "system-settings">
+            <h2>System Settings</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/admin/settings</div>
+                <div class="route-description">Configure system-wide settings and preferences</div>
+                <div class="route-details"><strong>Options:</strong> Daily intake defaults, macro ratio presets, maintenance mode, backup settings</div>
+            </div>
+        </section>
+
+        <section class="bottom-nav">
+            <p><a href="index.html">back to routes overview</a></p>
+        </section>
+    </main>
+</body>
+</html>

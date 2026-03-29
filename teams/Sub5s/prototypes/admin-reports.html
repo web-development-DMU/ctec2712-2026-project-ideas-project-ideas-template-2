@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Admin: Reports</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #333; border-bottom: 1px solid #111; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #fff; }
+        .admin-badge { font-size: 0.7rem; background: #900; color: #fff; padding: 0.1rem 0.4rem; margin-left: 0.4rem; }
+        .nav-links a { color: #ddd; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .nav-links a.logout { color: #f99; }
+        .page { max-width: 800px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+        .subtitle { font-size: 0.875rem; color: #555; margin-bottom: 1.25rem; }
+        .report { border: 1px solid #ccc; padding: 0.9rem 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+        .report-info h3 { font-size: 0.95rem; font-weight: bold; margin-bottom: 0.2rem; }
+        .report-info p { font-size: 0.85rem; color: #555; }
+        .report-info .last-run { font-size: 0.8rem; color: #777; margin-top: 0.3rem; }
+        .status-ok { color: #2e7d32; }
+        .status-warn { color: #b36b00; }
+        .btn { padding: 0.4rem 0.9rem; background: #333; color: #fff; border: none; font-size: 0.85rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+        .btn:hover { background: #555; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Admin: Reports</div>
+
+    <nav>
+        <div>
+            <a href="home.html" class="logo">Caloryx</a>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="nav-links">
+            <a href="admin.html">Dashboard</a>
+            <a href="admin-users.html">Users</a>
+            <a href="admin-food-database.html">Food DB</a>
+            <a href="admin-analytics.html">Analytics</a>
+            <a href="admin-reports.html" class="active">Reports</a>
+            <a href="admin-settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1>Reports</h1>
+        <p class="subtitle">Generate and view system reports for activity, health, and data integrity.</p>
+
+        <div class="report">
+            <div class="report-info">
+                <h3>User Activity Report</h3>
+                <p>Summary of logins, meals logged, and exercises recorded per user over the past 30 days.</p>
+                <p class="last-run">Last generated: 17 Feb 2026 at 06:00 &mdash; <span class="status-ok">Healthy</span></p>
+            </div>
+            <button class="btn">Generate</button>
+        </div>
+
+        <div class="report">
+            <div class="report-info">
+                <h3>System Health Check</h3>
+                <p>Checks database connectivity, response times, and server resource usage.</p>
+                <p class="last-run">Last run: 17 Feb 2026 at 04:00 &mdash; <span class="status-ok">All systems normal</span></p>
+            </div>
+            <button class="btn">Run check</button>
+        </div>
+
+        <div class="report">
+            <div class="report-info">
+                <h3>Data Integrity Report</h3>
+                <p>Identifies orphaned records, missing nutritional values, and invalid data entries.</p>
+                <p class="last-run">Last generated: 15 Feb 2026 at 12:00 &mdash; <span class="status-warn">3 warnings found</span></p>
+            </div>
+            <button class="btn">Generate</button>
+        </div>
+
+        <div class="report">
+            <div class="report-info">
+                <h3>Growth Report</h3>
+                <p>Monthly user registrations, churn rate, and platform growth trends.</p>
+                <p class="last-run">Last generated: 1 Feb 2026 at 00:00 &mdash; <span class="status-ok">Available</span></p>
+            </div>
+            <button class="btn">Generate</button>
+        </div>
+
+        <div class="report">
+            <div class="report-info">
+                <h3>Backup Status Report</h3>
+                <p>Confirms that automated backups completed successfully and lists recent backup files.</p>
+                <p class="last-run">Last backup: 17 Feb 2026 at 02:00 &mdash; <span class="status-ok">Backup successful</span></p>
+            </div>
+            <button class="btn">View</button>
+        </div>
+    </div>
+</body>
+</html>

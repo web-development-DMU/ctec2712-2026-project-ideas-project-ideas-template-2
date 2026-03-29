@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Meal Detail</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #222; }
+        .nav-links a { color: #222; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { text-decoration: underline; }
+        .nav-links a.logout { color: #900; }
+        .page { max-width: 600px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        .back { font-size: 0.875rem; margin-bottom: 1rem; }
+        .back a { color: #222; }
+        h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+        .meta { font-size: 0.875rem; color: #555; margin-bottom: 1.25rem; }
+        .section { border: 1px solid #ccc; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        td { padding: 0.45rem 0; border-bottom: 1px solid #eee; }
+        td:first-child { color: #555; width: 50%; }
+        td:last-child { font-weight: bold; }
+        tr:last-child td { border-bottom: none; }
+        .actions { display: flex; gap: 0.75rem; }
+        .btn { padding: 0.45rem 1.1rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; text-decoration: none; }
+        .btn:hover { background: #555; }
+        .btn-danger { background: #fff; color: #900; border: 1px solid #900; }
+        .btn-danger:hover { background: #fff0f0; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Meal detail</div>
+
+    <nav>
+        <a href="home.html" class="logo">Caloryx</a>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="meals.html" class="active">Meals</a>
+            <a href="exercises.html">Exercises</a>
+            <a href="settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <p class="back"><a href="meals.html">&#8592; Back to Meals</a></p>
+
+        <h1>Chicken salad wrap</h1>
+        <p class="meta">Logged on 17 February 2026 at 12:30</p>
+
+        <div class="section">
+            <table>
+                <tr><td>Meal name</td><td>Chicken salad wrap</td></tr>
+                <tr><td>Date eaten</td><td>17 February 2026</td></tr>
+                <tr><td>Time eaten</td><td>12:30</td></tr>
+                <tr><td>Calories</td><td>510 kcal</td></tr>
+                <tr><td>Protein</td><td>38 g</td></tr>
+                <tr><td>Carbohydrates</td><td>45 g</td></tr>
+                <tr><td>Fat</td><td>12 g</td></tr>
+            </table>
+        </div>
+
+        <div class="actions">
+            <a href="#" class="btn">Edit meal</a>
+            <button class="btn btn-danger">Delete meal</button>
+        </div>
+    </div>
+</body>
+</html>

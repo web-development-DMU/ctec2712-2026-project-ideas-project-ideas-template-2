@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Log in</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 0.6rem 1.5rem; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #222; }
+        .page { max-width: 400px; margin: 2.5rem auto; padding: 0 1.25rem; }
+        h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+        .subtitle { font-size: 0.9rem; color: #555; margin-bottom: 1.5rem; }
+        .error { background: #fff0f0; border: 1px solid #f5c6cb; padding: 0.6rem 0.8rem; font-size: 0.85rem; color: #c00; margin-bottom: 1rem; display: none; }
+        label { display: block; font-size: 0.875rem; font-weight: bold; margin-bottom: 0.25rem; }
+        input { width: 100%; padding: 0.5rem; border: 1px solid #ccc; font-size: 0.9rem; font-family: inherit; margin-bottom: 1rem; }
+        button { padding: 0.5rem 1.5rem; background: #333; color: #fff; border: none; font-size: 0.9rem; cursor: pointer; font-family: inherit; width: 100%; }
+        button:hover { background: #555; }
+        .footer-link { margin-top: 1rem; font-size: 0.875rem; }
+        .footer-link a { color: #222; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Log in</div>
+
+    <nav>
+        <a href="home.html" class="logo">Caloryx</a>
+    </nav>
+
+    <div class="page">
+        <h1>Log in</h1>
+        <p class="subtitle">Enter your username and password to continue.</p>
+
+        <div class="error">Incorrect username or password. Please try again.</div>
+
+        <form action="dashboard.html" method="get">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="e.g. jane_doe">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="••••••••">
+
+            <button type="submit">Log in</button>
+        </form>
+
+        <p class="footer-link">Don't have an account? <a href="register.html">Create one</a></p>
+    </div>
+</body>
+</html>

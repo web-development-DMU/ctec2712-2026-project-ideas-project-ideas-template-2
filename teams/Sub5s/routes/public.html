@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Routes</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .route-method {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+        .route-method.get {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        .route-method.post {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        .route-item {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-left: 4px solid #2a8a6a;
+            border-radius: 4px;
+        }
+        .route-path {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #333;
+            margin: 0.5rem 0;
+        }
+        .route-description {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+        .route-details {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+    </nav>
+    
+    <main>
+        <h1>Public Routes</h1>
+        
+        <section class = "overview">
+            <h2>Overview</h2>
+            <p>
+                Public routes are user-accessible endpoints for authentication and managing their personal data (meals, exercises, settings, and dashboard).
+            </p>
+            <p><a href="index.html">← Back to Routes Overview</a></p>
+        </section>
+
+        <section class = "authentication">
+            <h2>Authentication</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/</div>
+                <div class="route-description">Home page with login/register options</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/login</div>
+                <div class="route-description">Login page with username/password form</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/register</div>
+                <div class="route-description">Registration page with signup form</div>
+            </div>
+        </section>
+
+        <section class = "dashboard">
+            <h2>Dashboard & Summary</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/dashboard</div>
+                <div class="route-description">User dashboard displaying daily calorie summary</div>
+                <div class="route-details"><strong>Shows:</strong> Total calories consumed, calories burned, net calories, progress toward daily goals</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/settings</div>
+                <div class="route-description">User account settings and preferences</div>
+                <div class="route-details"><strong>Configurable:</strong> Daily calorie goal, macronutrient targets, profile information</div>
+            </div>
+        </section>
+
+        <section class = "data-management">
+            <h2>Meals Management</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/meals</div>
+                <div class="route-description">List all meals for the logged-in user</div>
+                <div class="route-details"><strong>Features:</strong> Supports filtering by date/name, includes links to individual meals</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/meals/:mealId</div>
+                <div class="route-description">View details of a specific meal</div>
+                <div class="route-details"><strong>Shows:</strong> meal name, calories, protein, carbs, fats, date/time eaten</div>
+            </div>
+        </section>
+
+        <section class = "exercise-management">
+            <h2>Exercises Management</h2>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/exercises</div>
+                <div class="route-description">List all exercises for the logged-in user</div>
+                <div class="route-details"><strong>Features:</strong> Supports filtering by date, includes links to individual exercises</div>
+            </div>
+
+            <div class="route-item">
+                <span class="route-method get">GET</span>
+                <div class="route-path">/exercises/:exerciseId</div>
+                <div class="route-description">View details of a specific exercise</div>
+                <div class="route-details"><strong>Shows:</strong> exercise name, calories burned, duration, date/time, intensity</div>
+            </div>
+        </section>
+
+        <section class="bottom-nav">
+            <p><a href="index.html">back to routes overview</a></p>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Admin: Users</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #333; border-bottom: 1px solid #111; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #fff; }
+        .admin-badge { font-size: 0.7rem; background: #900; color: #fff; padding: 0.1rem 0.4rem; margin-left: 0.4rem; }
+        .nav-links a { color: #ddd; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .nav-links a.logout { color: #f99; }
+        .page { max-width: 900px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        h1 { font-size: 1.4rem; margin-bottom: 1rem; }
+        .filter-bar { border: 1px solid #ccc; padding: 0.75rem 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-end; }
+        .filter-bar label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.2rem; }
+        .filter-bar input { padding: 0.4rem; border: 1px solid #ccc; font-size: 0.875rem; font-family: inherit; min-width: 240px; }
+        .filter-bar button { padding: 0.4rem 0.9rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        th { text-align: left; padding: 0.5rem; border-bottom: 2px solid #ccc; background: #f5f5f5; }
+        td { padding: 0.5rem; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+        td a { color: #222; font-size: 0.8rem; }
+        td a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Admin: User management</div>
+
+    <nav>
+        <div>
+            <a href="home.html" class="logo">Caloryx</a>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="nav-links">
+            <a href="admin.html">Dashboard</a>
+            <a href="admin-users.html" class="active">Users</a>
+            <a href="admin-food-database.html">Food DB</a>
+            <a href="admin-analytics.html">Analytics</a>
+            <a href="admin-reports.html">Reports</a>
+            <a href="admin-settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1>User Management</h1>
+
+        <div class="filter-bar">
+            <div>
+                <label for="filter-query">Search by username or email</label>
+                <input type="text" id="filter-query" name="query" placeholder="e.g. jane_doe or jane@example.com">
+            </div>
+            <button>Search</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Joined</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#001</td><td>jane_doe</td><td>jane@example.com</td><td>28</td>
+                    <td>15 Feb 2026</td><td>admin</td>
+                    <td><a href="admin-user-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#002</td><td>mark_t</td><td>mark@example.com</td><td>34</td>
+                    <td>17 Feb 2026</td><td>user</td>
+                    <td><a href="admin-user-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#003</td><td>sara_k</td><td>sara@example.com</td><td>22</td>
+                    <td>16 Feb 2026</td><td>user</td>
+                    <td><a href="admin-user-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#004</td><td>alex_w</td><td>alex@example.com</td><td>41</td>
+                    <td>10 Feb 2026</td><td>user</td>
+                    <td><a href="admin-user-detail.html">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>#005</td><td>priya_m</td><td>priya@example.com</td><td>29</td>
+                    <td>05 Feb 2026</td><td>user</td>
+                    <td><a href="admin-user-detail.html">Edit</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
