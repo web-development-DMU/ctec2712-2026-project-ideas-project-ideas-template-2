@@ -1,0 +1,285 @@
+<h1>Database Design</h1>
+<p><em><strong>This includes the following:</strong></em></p>
+<ul>
+<li><a href="#tables">Tables</a></li>
+<li><a href="#table-fields">Table Fields</a></li>
+<li><a href="#creating-tables-sql">Creating tables in SQL</a></li>
+<li><a href="#relationship-of-tables">Table Relationships</a></li>
+<li><a href="#queries-required">Database Queries</a></li>
+</ul>
+<hr>
+<h3>Tables:</h3>
+<ul>
+<li>Books</li>
+<li>Chapters</li>
+<li>Users</li>
+<li>Bookmarks</li>
+<li>Favourites</li>
+</ul>
+<h3>Table fields:</h3>
+<hr>
+<h3>Books</h3>
+<table>
+<thead>
+<tr>
+<th>BookID</th>
+<th>BookTitle</th>
+<th>ReleaseDate</th>
+<th>BookAbout</th>
+<th>BookAuthor</th>
+<th>BookPublisher</th>
+<th>BookImage</th>
+<th>BookStatus</th>
+<th>BookSource</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PK, Int, auto increment, unique</td>
+<td>varchar(50)</td>
+<td>DateTime</td>
+<td>varchar(255)</td>
+<td>varchar(50)</td>
+<td>varchar(50)</td>
+<td>varchar(50)</td>
+<td>varchar(20)</td>
+<td>varchar(50)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Chapters</h3>
+<table>
+<thead>
+<tr>
+<th>BookCHPID</th>
+<th>BookID</th>
+<th>ChapterName</th>
+<th>ChapterRelease</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PK, Int</td>
+<td>FK, Int</td>
+<td>varchar(50)</td>
+<td>Datetime</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Users</h3>
+<table>
+<thead>
+<tr>
+<th>UserID</th>
+<th>UserName</th>
+<th>UserPass</th>
+<th>DateCreated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PK, Int, Auto increment, Unique</td>
+<td>varchar(50)</td>
+<td>varchar(50)</td>
+<td>Timestamp</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Bookmarks</h3>
+<table>
+<thead>
+<tr>
+<th>UserID</th>
+<th>BookCHPID</th>
+<th>BookID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FK, Int</td>
+<td>FK, Int</td>
+<td>??, Int</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Favourites</h3>
+<table>
+<thead>
+<tr>
+<th>UserID</th>
+<th>BookId</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FK, Int</td>
+<td>FK, Int</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>Creating Tables SQL</h1>
+<pre><code class="language-SQL">-- CREATING THE USERS TABLE
+CREATE TABLE &quot;Users&quot; (
+	&quot;UserId&quot;	INTEGER NOT NULL UNIQUE,
+	&quot;Username&quot;	TEXT NOT NULL UNIQUE,
+	&quot;UserPass&quot;	TEXT,
+	&quot;DateCreated&quot;	TEXT,
+	PRIMARY KEY(&quot;UserId&quot; AUTOINCREMENT)
+);
+</code></pre>
+<h1>Creating Books Table</h1>
+<pre><code class="language-SQL">-- CREATING THE BOOKS TABLE
+CREATE TABLE &quot;Books&quot; (
+	&quot;BookId&quot;	INTEGER NOT NULL UNIQUE,
+	&quot;BookTitle&quot;	TEXT,
+	&quot;ReleaseDate&quot;	TEXT,
+	&quot;BookAbout&quot;	TEXT,
+	&quot;BookAuthor&quot;	TEXT,
+	&quot;BookPublisher&quot;	TEXT,
+	&quot;BookImage&quot;	TEXT,
+	&quot;BookStatus&quot;	TEXT,
+	&quot;BookSource&quot;	TEXT,
+	PRIMARY KEY(&quot;BookId&quot; AUTOINCREMENT)
+);
+</code></pre>
+<h1>Creating Chapters Table</h1>
+<pre><code class="language-SQL">-- CREATING THE CHAPTERS TABLE
+CREATE TABLE &quot;Chapters&quot; (
+	&quot;BookChpId&quot;	INTEGER,
+	&quot;BookId&quot;	INTEGER,
+	&quot;ChapterName&quot;	TEXT,
+	&quot;ChapterRelease&quot;	TEXT,
+	FOREIGN KEY(&quot;BookId&quot;) REFERENCES &quot;Books&quot;(&quot;BookId&quot;)
+);
+</code></pre>
+<h1>Creating Bookmarks Table</h1>
+<pre><code class="language-SQL">--CREATING THE BOOKMARKS TABLE
+CREATE TABLE &quot;Bookmarks&quot; (
+	&quot;UserId&quot;	INTEGER,
+	&quot;BookId&quot;	INTEGER,
+	&quot;BookChpId&quot;	INTEGER,
+	FOREIGN KEY(&quot;UserId&quot;) REFERENCES &quot;Users&quot;(&quot;UserId&quot;)
+);
+</code></pre>
+<h1>Creating Favourites Table</h1>
+<pre><code class="language-SQL">-- CREATING THE FAVOURITES TABLE
+CREATE TABLE &quot;Favourites&quot; (
+	&quot;UserId&quot;	INTEGER,
+	&quot;BookId&quot;	INTEGER,
+	FOREIGN KEY(&quot;UserId&quot;) REFERENCES &quot;Users&quot;(&quot;UserId&quot;),
+	FOREIGN KEY(&quot;BookId&quot;) REFERENCES &quot;Books&quot;(&quot;BookId&quot;)
+);
+</code></pre>
+<hr>
+<h1>Relationship of tables</h1>
+<p><img src="DatabaseDiagram.png" alt="alt text"></p>
+<hr>
+<h1>Queries required:</h1>
+<h2>Route('/'):</h2>
+<h3>Get Recently added</h3>
+<pre><code class="language-SQL">SELECT BookTitle, BookImage
+FROM Books
+ORDER BY BookId DESC
+LIMIT 5;
+</code></pre>
+<h2>Route('/Catalogue')</h2>
+<h3>Get Books to display</h3>
+<pre><code class="language-SQL">SELECT BookTitle, BookImage
+FROM Books;
+</code></pre>
+<h2>Route('/Catalogue/:BookID')</h2>
+<h3>Get Specific book info</h3>
+<pre><code class="language-sql">Select BookTitle, BookImage, BookAuthor, BookPublisher, BookAbout, BookSource
+From Books
+WHERE BookId = (?);
+</code></pre>
+<h3>Get all chapters related to the book</h3>
+<pre><code class="language-sql">SELECT BookTitle, ChapterName, ChapterRelease
+FROM Books B
+JOIN Chapters CHP
+ON B.BookId = CHP.BookId
+WHERE B.BookId = (?);
+</code></pre>
+<h3>Get specific book bookmarks</h3>
+<pre><code class="language-sql">SELECT BookTitle, ChapterName
+FROM Books B
+JOIN Chapters CHP
+ON B.BookID = CHP.BookID
+WHERE B.BookID = (?) AND CHP.BookCHPID = (
+	SELECT BookCHPID
+	FROM Bookmarks
+	WHERE UserID = (?) AND BookID = (?));
+</code></pre>
+<h2>Route('/Profile/:UserID')</h2>
+<h3>Get user info</h3>
+<pre><code class="language-sql">SELECT *
+FROM Users
+WHERE UserId = (?);
+</code></pre>
+<h3>Get user favourites</h3>
+<pre><code class="language-sql">SELECT BookTitle, BookImage
+FROM Books B
+JOIN Favourites F
+ON B.BookId = F.BookId
+WHERE F.UserId = (?);
+</code></pre>
+<h2>Route('/Signup') POST</h2>
+<h3>Get the user data and insert into user table</h3>
+<pre><code class="language-sql">-- CHECKS TO SEE IF USERNAME IS UNIQUE
+SELECT *
+FROM Users
+WHERE Username = (?); 
+
+-- IF username not found then insert
+
+INSERT INTO Users (Username, UserPass)
+VALUES (?, ?);
+</code></pre>
+<h2>Route('/Login') POST</h2>
+<h3>Check to make sure user account exists</h3>
+<pre><code class="language-sql">-- Checks to see if user is in db
+SELECT UserId
+FROM Users
+WHERE Username = (?);
+
+-- If user does exist continue to check pass
+SELECT UserPass
+FROM Users
+WHERE Username = (?);
+
+-- Compare the password with what the user inputted and validate
+</code></pre>
+<h2>Route('/Catalogue/book/:BookId:BookChpId') POST</h2>
+<h3>Insert/update into bookmark</h3>
+<pre><code class="language-sql">-- CHECK FOR EXISTING BOOKMARK
+SELECT BookId
+FROM Bookmarks
+WHERE UserId = (?) AND BookId = (?);
+
+-- IF IT EXISTS 
+UPDATE Bookmarks
+SET BookCHPID = (?)
+WHERE UserId = (?) AND BookId = (?);
+
+-- IF IT DOES NOT EXIST
+INSERT INTO Bookmarks (UserId, BookId, BookChpId)
+VALUES (?, ?, ?);
+</code></pre>
+<h3>Remove bookmark</h3>
+<pre><code class="language-SQL">DELETE FROM Bookmarks
+WHERE UserId = (?) AND BookId = (?);
+</code></pre>
+<h2>Route('/Catalogue/book/:BookId') POST</h2>
+<h3>Add book to favourites</h3>
+<pre><code class="language-sql">INSERT INTO Favourites (UserId, BookId)
+VALUES (?, ?);
+</code></pre>
+<h3>Remove book from favourites</h3>
+<pre><code class="language-sql">DELETE FROM Favourites
+WHERE UserId = (?) AND BookId = (?);
+</code></pre>

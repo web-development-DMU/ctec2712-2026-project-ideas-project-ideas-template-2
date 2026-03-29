@@ -1,0 +1,90 @@
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f9fc;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Main heading */
+h1 {
+    text-align: center;
+    color: #0a74da;
+    margin-bottom: 20px;
+}
+
+/* Subheadings */
+h2 {
+    color: #0a74da;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Paragraph styling */
+p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Link styling */
+a {
+    color: #0a74da;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #054a91;
+}
+
+/* Container box for content */
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+button {
+    background-color: #0a74da;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #054a91;
+}
+
+/* Input fields */
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Simple card design for car wash listings */
+.card {
+    background: #ffffff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #0a74da;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
