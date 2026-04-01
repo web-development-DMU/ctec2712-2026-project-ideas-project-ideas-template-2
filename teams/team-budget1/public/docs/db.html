@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Buddy - Database</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+    }
+
+    nav a:hover {
+      background: #ecf0f1;
+    }
+
+    section {
+      margin-top: 22px;
+    }
+
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 6px;
+    }
+
+    h3 {
+      color: #2c3e50;
+      margin-bottom: 6px;
+    }
+
+    code {
+      background: #eef2f6;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .box {
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        margin: 16px;
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="container">
+    <h1>Database Design</h1>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="/docs/index.html">Home</a></li>
+        <li><a href="/docs/db.html" aria-current="page">Database</a></li>
+        <li><a href="/docs/ui.html">UI Plan</a></li>
+        <li><a href="/docs/routes.html">Routes</a></li>
+        <li><a href="/docs/security.html">Security</a></li>
+        <li><a href="/prototypes/dashboard.html">Dashboard</a></li>
+        <li><a href="/prototypes/transactions.html">Transactions</a></li>
+        <li><a href="/prototypes/new-transaction.html">New Transaction</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="db-title">
+      <h2 id="db-title">Database Structure</h2>
+      <p>
+        Budget Buddy uses a relational database with tables linked using foreign keys to enforce consistency.
+        Tables are designed to support CRUD operations for transactions and budgets.
+      </p>
+    </section>
+
+    <section aria-labelledby="tables-title">
+      <h2 id="tables-title">Tables</h2>
+
+      <div class="box">
+        <h3>1) users</h3>
+        <ul>
+          <li><strong>user_id</strong> (Primary Key)</li>
+          <li>name</li>
+          <li>email (unique)</li>
+          <li>password_hash</li>
+        </ul>
+
+        <h3>2) categories</h3>
+        <ul>
+          <li><strong>category_id</strong> (Primary Key)</li>
+          <li>name (e.g., Food, Rent, Transport)</li>
+        </ul>
+
+        <h3>3) transactions</h3>
+        <ul>
+          <li><strong>transaction_id</strong> (Primary Key)</li>
+          <li><strong>user_id</strong> (Foreign Key → <code>users.user_id</code>)</li>
+          <li><strong>category_id</strong> (Foreign Key → <code>categories.category_id</code>)</li>
+          <li>type (Income / Expense)</li>
+          <li>amount</li>
+          <li>date</li>
+          <li>description</li>
+        </ul>
+
+        <h3>4) budgets</h3>
+        <ul>
+          <li><strong>budget_id</strong> (Primary Key)</li>
+          <li><strong>user_id</strong> (Foreign Key → <code>users.user_id</code>)</li>
+          <li><strong>category_id</strong> (Foreign Key → <code>categories.category_id</code>)</li>
+          <li>month (e.g., 2026-02)</li>
+          <li>monthly_limit</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="rel-title">
+      <h2 id="rel-title">Relationships</h2>
+      <ul>
+        <li>One user can have many transactions.</li>
+        <li>One category can be used by many transactions.</li>
+        <li>One user can set many budgets (usually one per category per month).</li>
+        <li>Each budget belongs to one user and one category.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="notes-title">
+      <h2 id="notes-title">Notes</h2>
+      <ul>
+        <li>Foreign keys help connect data and enforce consistency.</li>
+        <li>Budgets are compared against total expenses in a category for a selected month.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>© 2026 Budget Buddy</p>
+    </footer>
+  </main>
+</body>
+</html>

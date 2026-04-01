@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Budget - Budget Buddy Docs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    header p {
+      margin: 0;
+      text-align: center;
+      color: #555;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+    }
+
+    nav a:hover {
+      background: #ecf0f1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.05rem;
+      color: #2c3e50;
+    }
+
+    .card p {
+      margin: 0 0 10px 0;
+      color: #555;
+    }
+
+    .card a {
+      font-weight: bold;
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        margin: 16px;
+        padding: 18px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="container">
+    <h1>Budget Buddy</h1>
+    <p>Documentation + prototypes for CTEC2712 Web Application Development</p>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="/docs/index.html" aria-current="page">Home</a></li>
+        <li><a href="/docs/db.html">Database</a></li>
+        <li><a href="/docs/ui.html">UI Plan</a></li>
+        <li><a href="/docs/routes.html">Routes</a></li>
+        <li><a href="/docs/security.html">Security</a></li>
+        <li><a href="/prototypes/dashboard.html">Prototype: Dashboard</a></li>
+        <li><a href="/prototypes/transactions.html">Prototype: Transactions</a></li>
+        <li><a href="/prototypes/new-transaction.html">Prototype: New Transaction</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="overview-title">
+      <h2 id="overview-title">Overview</h2>
+      <p>
+        Budget Buddy is a budget tracker web app that helps users record income and expenses,
+        categorise transactions, set monthly budgets, and monitor spending habits.
+      </p>
+      <p>
+        This site contains documentation pages (database, UI plan, routes, security) and clickable prototypes.
+      </p>
+    </section>
+
+    <section aria-labelledby="quick-title">
+      <h2 id="quick-title">Quick Links</h2>
+
+      <div class="grid">
+        <article class="card">
+          <h2>Documentation</h2>
+          <p>Design notes used to explain your web app in the videos.</p>
+          <p>
+            <a href="/docs/db.html">Database</a> ·
+            <a href="/docs/ui.html">UI Plan</a> ·
+            <a href="/docs/routes.html">Routes</a> ·
+            <a href="/docs/security.html">Security</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Prototypes</h2>
+          <p>User-facing pages you can demonstrate for semantics and layout.</p>
+          <p>
+            <a href="/prototypes/dashboard.html">Dashboard</a> ·
+            <a href="/prototypes/transactions.html">Transactions</a> ·
+            <a href="/prototypes/new-transaction.html">New Transaction</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Budget Buddy</p>
+    </footer>
+  </main>
+</body>
+</html>

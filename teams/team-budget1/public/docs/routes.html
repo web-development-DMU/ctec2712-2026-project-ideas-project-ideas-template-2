@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Buddy - Routes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    header h1 {
+      color: #2c3e50;
+      text-align: center;
+      margin: 0 0 10px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+    }
+
+    nav a:hover {
+      background: #ecf0f1;
+    }
+
+    h2 {
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 6px;
+      color: #2c3e50;
+      margin-top: 28px;
+    }
+
+    code {
+      background: #eef2f6;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .route {
+      margin: 14px 0;
+      padding: 12px 14px;
+      background: #f7fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+    }
+
+    .meta {
+      font-size: 0.95rem;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        margin: 16px;
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="container">
+    <h1>HTTP Interactions / Routes</h1>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="/docs/index.html">Home</a></li>
+        <li><a href="/docs/db.html">Database</a></li>
+        <li><a href="/docs/ui.html">UI Plan</a></li>
+        <li><a href="/docs/routes.html" aria-current="page">Routes</a></li>
+        <li><a href="/docs/security.html">Security</a></li>
+        <li><a href="/prototypes/dashboard.html">Dashboard</a></li>
+        <li><a href="/prototypes/transactions.html">Transactions</a></li>
+        <li><a href="/prototypes/new-transaction.html">New Transaction</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <p>
+      This page documents planned application routes for <strong>Budget Buddy</strong>.
+      A route is the combination of a URL and an HTTP method. For each route we describe
+      what the server does, what database operations are required, and what the user receives
+      in the response.
+    </p>
+
+    <section aria-labelledby="tx-title">
+      <h2 id="tx-title">Transactions</h2>
+
+      <div class="route">
+        <div class="meta">
+          <span class="label">GET</span> <code>/transactions</code>
+          (optional: <code>?month=YYYY-MM</code>, <code>?categoryId=1</code>)
+        </div>
+        <p><strong>Purpose:</strong> Show a list of transactions (optionally filtered).</p>
+        <ul>
+          <li><strong>Server actions:</strong> read query params → run <code>SELECT</code> → render HTML list</li>
+          <li><strong>DB:</strong> SELECT from <code>transactions</code> joined to <code>categories</code></li>
+          <li><strong>Response:</strong> HTML page, status <strong>200</strong></li>
+        </ul>
+      </div>
+
+      <div class="route">
+        <div class="meta">
+          <span class="label">GET</span> <code>/transactions/new</code>
+        </div>
+        <p><strong>Purpose:</strong> Show a form to create a new transaction.</p>
+        <ul>
+          <li><strong>Server actions:</strong> fetch categories → render form</li>
+          <li><strong>DB:</strong> SELECT from <code>categories</code></li>
+          <li><strong>Response:</strong> HTML page, status <strong>200</strong></li>
+        </ul>
+      </div>
+
+      <div class="route">
+        <div class="meta">
+          <span class="label">POST</span> <code>/transactions</code>
+        </div>
+        <p><strong>Purpose:</strong> Create a transaction (income or expense) from submitted form data.</p>
+        <ul>
+          <li><strong>Server actions:</strong> validate fields → INSERT → redirect</li>
+          <li><strong>DB:</strong> INSERT into <code>transactions</code></li>
+          <li><strong>On success:</strong> redirect <strong>303</strong> to <code>/transactions</code></li>
+          <li><strong>On validation error:</strong> re-render form with errors, status <strong>400</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="bud-title">
+      <h2 id="bud-title">Budgets (planned)</h2>
+      <p>
+        Budgets routes are planned for the full app. In the prototype stage, budgets are described in documentation only.
+      </p>
+
+      <div class="route">
+        <div class="meta">
+          <span class="label">GET</span> <code>/budgets</code>
+        </div>
+        <p><strong>Purpose:</strong> Show budgets and spend vs limit.</p>
+        <ul>
+          <li><strong>Server actions:</strong> SELECT budgets → compute totals → render</li>
+          <li><strong>Response:</strong> HTML page, status <strong>200</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Budget Buddy</p>
+    </footer>
+  </main>
+</body>
+</html>
