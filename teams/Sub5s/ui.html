@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Interface Design</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class = "topnav">
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+    </section>
+<main class = "documentation">
+    <h1>User Interface Design</h1>
+    <section class = "ui-design">
+        <h2>Design Principles</h2>
+        <p>
+            The user interface of our calorie tracking application will be designed with simplicity and ease of use in mind. We plan to follow the principles of user-centered design, ensuring that the interface is intuitive and accessible for users of all ages and technical abilities.
+        </p>
+        <p>
+            The interface will be clean and uncluttered, with a focus on functionality. We will use a consistent color scheme and typography to create a visually appealing design that is easy to navigate.
+        </p>
+        <p>
+            We will also ensure that the interface is responsive, allowing users to access the application on various devices, including smartphones, tablets, and desktop computers.
+        </p>
+        <h2>Key Features</h2>
+        <p>
+            The user interface will include the following key features:
+        </p>
+        <ul>
+            <li>Simple and intuitive navigation</li>
+            <li>Responsive design for all devices</li>
+            <li>User registration and login functionality</li>
+            <li>Ability to add, view, and delete meals</li>
+            <li>Ability to add, view, and delete exercises</li>
+            <li>Calorie summary display showing net calories consumed</li>
+        </ul>
+        <section class = "user-interface-sketches">
+            <h2>Caloryx - UI Wireframe Sketches</h2>
+            <p>
+                The following are wireframe sketches of the main pages of Caloryx, built with HTML & CSS to give a clear idea of the layout and user flow.
+            </p>
+
+            <style>
+                .sketch-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 30px;
+                    justify-content: center;
+                    margin: 20px 0;
+                }
+                .sketch {
+                    width: 320px;
+                    border: 2px dashed #888;
+                    border-radius: 12px;
+                    background: #fafafa;
+                    padding: 0;
+                    overflow: hidden;
+                    font-family: 'Segoe UI', sans-serif;
+                    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+                }
+                .sketch-label {
+                    text-align: center;
+                    font-weight: bold;
+                    margin-top: 8px;
+                    margin-bottom: 4px;
+                    font-size: 14px;
+                    color: #555;
+                }
+                .sketch-navbar {
+                    background: #2c3e50;
+                    color: #fff;
+                    padding: 10px 15px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 14px;
+                }
+                .sketch-navbar .logo {
+                    font-weight: bold;
+                    font-size: 16px;
+                    letter-spacing: 1px;
+                }
+                .sketch-navbar a {
+                    color: #ecf0f1;
+                    text-decoration: none;
+                    font-size: 12px;
+                    margin-left: 10px;
+                }
+                .sketch-body {
+                    padding: 15px;
+                }
+                .sketch-input {
+                    width: 100%;
+                    padding: 8px;
+                    margin: 5px 0;
+                    border: 1.5px dashed #aaa;
+                    border-radius: 6px;
+                    background: #fff;
+                    font-size: 12px;
+                    color: #999;
+                    box-sizing: border-box;
+                }
+                .sketch-btn {
+                    display: block;
+                    width: 100%;
+                    padding: 9px;
+                    margin: 10px 0 5px;
+                    border: 2px solid #27ae60;
+                    border-radius: 6px;
+                    background: #27ae60;
+                    color: #fff;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    cursor: default;
+                }
+                .sketch-btn.secondary {
+                    background: #fff;
+                    color: #27ae60;
+                }
+                .sketch-btn.danger {
+                    background: #e74c3c;
+                    border-color: #e74c3c;
+                }
+                .sketch-card {
+                    border: 1.5px dashed #ccc;
+                    border-radius: 8px;
+                    padding: 10px;
+                    margin: 8px 0;
+                    background: #fff;
+                }
+                .sketch-card h4 {
+                    margin: 0 0 4px;
+                    font-size: 13px;
+                }
+                .sketch-card p {
+                    margin: 2px 0;
+                    font-size: 11px;
+                    color: #777;
+                }
+                .sketch-stat-row {
+                    display: flex;
+                    gap: 8px;
+                    margin: 10px 0;
+                }
+                .sketch-stat {
+                    flex: 1;
+                    text-align: center;
+                    border: 1.5px dashed #ccc;
+                    border-radius: 8px;
+                    padding: 10px 5px;
+                    background: #fff;
+                }
+                .sketch-stat .num {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #2c3e50;
+                }
+                .sketch-stat .label {
+                    font-size: 10px;
+                    color: #999;
+                    margin-top: 2px;
+                }
+                .sketch-heading {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: 0 0 10px;
+                    color: #2c3e50;
+                }
+                .sketch-subtext {
+                    font-size: 11px;
+                    color: #aaa;
+                    text-align: center;
+                }
+                .sketch-tab-bar {
+                    display: flex;
+                    border-top: 1.5px dashed #ccc;
+                    background: #f5f5f5;
+                }
+                .sketch-tab-bar span {
+                    flex: 1;
+                    text-align: center;
+                    padding: 8px 0;
+                    font-size: 11px;
+                    color: #999;
+                    border-right: 1px dashed #ddd;
+                }
+                .sketch-tab-bar span.active {
+                    color: #27ae60;
+                    font-weight: bold;
+                }
+                .sketch-tab-bar span:last-child {
+                    border-right: none;
+                }
+            </style>
+
+            <!-- Login Page -->
+            <div class="sketch-container">
+                <div>
+                    <p class="sketch-label">Login / Register Page</p>
+                    <div class="sketch">
+                        <div class="sketch-navbar">
+                            <span class="logo">CALORYX</span>
+                        </div>
+                        <div class="sketch-body" style="text-align: center;">
+                            <div style="margin: 15px 0 20px;">
+                                <div style="font-size: 36px;">&#127823;</div>
+                                <p class="sketch-heading">Welcome to Caloryx</p>
+                                <p style="font-size: 11px; color: #999; margin-top: -5px;">Track your calories, fuel your goals.</p>
+                            </div>
+                            <div class="sketch-input">Username</div>
+                            <div class="sketch-input">Password</div>
+                            <div class="sketch-input">Age</div>
+                            <div class="sketch-input">Gender</div>
+                            <div class="sketch-btn">Register</div>
+                            <div class="sketch-btn secondary">Login</div>
+                            <p class="sketch-subtext" style="margin-top: 10px;">Already have an account? Login above.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard -->
+                <div>
+                    <p class="sketch-label">Dashboard</p>
+                    <div class="sketch">
+                        <div class="sketch-navbar">
+                            <span class="logo">CALORYX</span>
+                            <div>
+                                <a href="#">Meals</a>
+                                <a href="#">Exercise</a>
+                                <a href="#">Logout</a>
+                            </div>
+                        </div>
+                        <div class="sketch-body">
+                            <p class="sketch-heading">Hi, John!</p>
+                            <div class="sketch-stat-row">
+                                <div class="sketch-stat">
+                                    <div class="num">1,850</div>
+                                    <div class="label">Consumed</div>
+                                </div>
+                                <div class="sketch-stat">
+                                    <div class="num">620</div>
+                                    <div class="label">Burned</div>
+                                </div>
+                                <div class="sketch-stat">
+                                    <div class="num" style="color: #27ae60;">1,230</div>
+                                    <div class="label">Net Cal</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 12px; font-weight: bold; color: #2c3e50; margin-top: 12px;">Recent Meals</p>
+                            <div class="sketch-card">
+                                <h4>Chicken Salad</h4>
+                                <p>350 kcal &middot; P: 30g &middot; C: 15g &middot; F: 12g</p>
+                            </div>
+                            <div class="sketch-card">
+                                <h4>Protein Shake</h4>
+                                <p>220 kcal &middot; P: 40g &middot; C: 8g &middot; F: 3g</p>
+                            </div>
+                            <p style="font-size: 12px; font-weight: bold; color: #2c3e50; margin-top: 12px;">Recent Exercises</p>
+                            <div class="sketch-card">
+                                <h4>Running</h4>
+                                <p>400 kcal burned</p>
+                            </div>
+                        </div>
+                        <div class="sketch-tab-bar">
+                            <span class="active">Dashboard</span>
+                            <span>Meals</span>
+                            <span>Exercise</span>
+                            <span>Profile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Meal Page -->
+                <div>
+                    <p class="sketch-label">Add Meal Page</p>
+                    <div class="sketch">
+                        <div class="sketch-navbar">
+                            <span class="logo">CALORYX</span>
+                            <div>
+                                <a href="#">Dashboard</a>
+                                <a href="#">Logout</a>
+                            </div>
+                        </div>
+                        <div class="sketch-body">
+                            <p class="sketch-heading">Add a Meal</p>
+                            <div class="sketch-input">Meal Name</div>
+                            <div class="sketch-input">Calories</div>
+                            <div class="sketch-input">Protein (g)</div>
+                            <div class="sketch-input">Carbs (g)</div>
+                            <div class="sketch-input">Fats (g)</div>
+                            <div class="sketch-btn">Add Meal</div>
+
+                            <p style="font-size: 12px; font-weight: bold; color: #2c3e50; margin-top: 15px;">Your Meals</p>
+                            <div class="sketch-card" style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4>Chicken Salad</h4>
+                                    <p>350 kcal</p>
+                                </div>
+                                <span style="color: #e74c3c; font-size: 12px; cursor: default;">Delete</span>
+                            </div>
+                            <div class="sketch-card" style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4>Protein Shake</h4>
+                                    <p>220 kcal</p>
+                                </div>
+                                <span style="color: #e74c3c; font-size: 12px; cursor: default;">Delete</span>
+                            </div>
+                        </div>
+                        <div class="sketch-tab-bar">
+                            <span>Dashboard</span>
+                            <span class="active">Meals</span>
+                            <span>Exercise</span>
+                            <span>Profile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Exercise Page -->
+                <div>
+                    <p class="sketch-label">Add Exercise Page</p>
+                    <div class="sketch">
+                        <div class="sketch-navbar">
+                            <span class="logo">CALORYX</span>
+                            <div>
+                                <a href="#">Dashboard</a>
+                                <a href="#">Logout</a>
+                            </div>
+                        </div>
+                        <div class="sketch-body">
+                            <p class="sketch-heading">Add an Exercise</p>
+                            <div class="sketch-input">Exercise Name</div>
+                            <div class="sketch-input">Calories Burned</div>
+                            <div class="sketch-btn">Add Exercise</div>
+
+                            <p style="font-size: 12px; font-weight: bold; color: #2c3e50; margin-top: 15px;">Your Exercises</p>
+                            <div class="sketch-card" style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4>Running</h4>
+                                    <p>400 kcal burned</p>
+                                </div>
+                                <span style="color: #e74c3c; font-size: 12px; cursor: default;">Delete</span>
+                            </div>
+                            <div class="sketch-card" style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4>Cycling</h4>
+                                    <p>220 kcal burned</p>
+                                </div>
+                                <span style="color: #e74c3c; font-size: 12px; cursor: default;">Delete</span>
+                            </div>
+                        </div>
+                        <div class="sketch-tab-bar">
+                            <span>Dashboard</span>
+                            <span>Meals</span>
+                            <span class="active">Exercise</span>
+                            <span>Profile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class = "user-interactions">
+            <h2>User Interactions</h2>
+            <p>
+                The user interface will allow users to easily interact with the application through forms and buttons. Users will be able to register and log in, add meals and exercises, view their calorie summary, and delete records as needed.
+            </p>
+            <ul>
+                <li>Registration and login forms with validation</li>
+                <li>Forms for adding meals and exercises with input fields for relevant data</li>
+                <li>Buttons for submitting forms and deleting records</li>
+                <li>Interactive dashboard displaying calorie summary and recent activity</li>
+                <li>Responsive design ensuring usability across different devices</li>
+            </ul>
+        </section>
+
+
+
+        <section class = "bottom-nav">
+        <p><a href="/teams/Sub5s/index.html">back</a></p>
+    </section>
+</body>
+</html>

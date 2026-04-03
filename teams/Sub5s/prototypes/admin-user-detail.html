@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Admin: Edit User</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #333; border-bottom: 1px solid #111; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #fff; }
+        .admin-badge { font-size: 0.7rem; background: #900; color: #fff; padding: 0.1rem 0.4rem; margin-left: 0.4rem; }
+        .nav-links a { color: #ddd; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .nav-links a.logout { color: #f99; }
+        .page { max-width: 580px; margin: 1.5rem auto; padding: 0 1.25rem 2rem; }
+        .back { font-size: 0.875rem; margin-bottom: 1rem; }
+        .back a { color: #222; }
+        .section { border: 1px solid #ccc; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+        .section h2 { font-size: 1rem; margin-bottom: 1rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+        label { display: block; font-size: 0.875rem; font-weight: bold; margin-bottom: 0.25rem; }
+        input, select { width: 100%; padding: 0.5rem; border: 1px solid #ccc; font-size: 0.9rem; font-family: inherit; margin-bottom: 1rem; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .btn { padding: 0.5rem 1.2rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
+        .btn:hover { background: #555; }
+        .danger-zone { border: 1px solid #900; padding: 1rem 1.25rem; }
+        .danger-zone h3 { font-size: 0.95rem; color: #900; margin-bottom: 0.5rem; }
+        .danger-zone p { font-size: 0.85rem; color: #555; margin-bottom: 1rem; }
+        .btn-danger { background: #fff; color: #900; border: 1px solid #900; padding: 0.5rem 1.2rem; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
+        .btn-danger:hover { background: #fff0f0; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Admin: Edit user</div>
+
+    <nav>
+        <div>
+            <a href="home.html" class="logo">Caloryx</a>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="nav-links">
+            <a href="admin.html">Dashboard</a>
+            <a href="admin-users.html" class="active">Users</a>
+            <a href="admin-food-database.html">Food DB</a>
+            <a href="admin-analytics.html">Analytics</a>
+            <a href="admin-reports.html">Reports</a>
+            <a href="admin-settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <p class="back"><a href="admin-users.html">&#8592; Back to Users</a></p>
+
+        <div class="section">
+            <h2>Edit User — jane_doe (#001)</h2>
+            <form action="admin-users.html" method="get">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="jane_doe">
+
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" value="jane@example.com">
+
+                <div class="row">
+                    <div>
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" value="28">
+                    </div>
+                    <div>
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="male">Male</option>
+                            <option value="female" selected>Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer_not">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="user_type">Role</label>
+                <select id="user_type" name="user_type">
+                    <option value="user">User</option>
+                    <option value="admin" selected>Admin</option>
+                </select>
+
+                <button type="submit" class="btn">Save changes</button>
+            </form>
+        </div>
+
+        <div class="danger-zone">
+            <h3>Danger zone</h3>
+            <p>Deleting a user account is permanent and cannot be undone. All meals, exercises, and data associated with this account will be removed.</p>
+            <button class="btn-danger">Delete this account</button>
+        </div>
+    </div>
+</body>
+</html>

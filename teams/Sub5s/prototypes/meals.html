@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caloryx – Meals</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fff; font-family: Arial, sans-serif; color: #222; line-height: 1.5; }
+        .proto-banner { background: #fffbe6; border-bottom: 1px solid #ccc; padding: 0.3rem 1rem; text-align: center; font-size: 0.8rem; color: #555; }
+        nav { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        nav .logo { font-weight: bold; font-size: 1.1rem; text-decoration: none; color: #222; }
+        .nav-links a { color: #222; text-decoration: none; margin-left: 0.75rem; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { text-decoration: underline; }
+        .nav-links a.logout { color: #900; }
+        .page { max-width: 860px; margin: 1.5rem auto; padding: 0 1.25rem; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        h1 { font-size: 1.4rem; }
+        .btn { padding: 0.4rem 1rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; text-decoration: none; }
+        .btn:hover { background: #555; }
+        .filter-bar { border: 1px solid #ccc; padding: 0.75rem 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; }
+        .filter-bar label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.2rem; }
+        .filter-bar input { padding: 0.4rem; border: 1px solid #ccc; font-size: 0.875rem; font-family: inherit; }
+        .filter-bar button { padding: 0.4rem 0.9rem; background: #333; color: #fff; border: none; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        th { text-align: left; padding: 0.5rem; border-bottom: 2px solid #ccc; background: #f5f5f5; }
+        td { padding: 0.5rem; border-bottom: 1px solid #eee; }
+        td a { color: #222; text-decoration: none; }
+        td a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="proto-banner">PROTOTYPE — Meals</div>
+
+    <nav>
+        <a href="home.html" class="logo">Caloryx</a>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="meals.html" class="active">Meals</a>
+            <a href="exercises.html">Exercises</a>
+            <a href="settings.html">Settings</a>
+            <a href="login.html" class="logout">Log out</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="page-header">
+            <h1>My Meals</h1>
+            <a href="#" class="btn">+ Log a meal</a>
+        </div>
+
+        <div class="filter-bar">
+            <div>
+                <label for="filter-date">Date</label>
+                <input type="date" id="filter-date" name="date" value="2026-02-17">
+            </div>
+            <div>
+                <label for="filter-query">Search by name</label>
+                <input type="text" id="filter-query" name="query" placeholder="e.g. chicken">
+            </div>
+            <button>Filter</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Meal</th>
+                    <th>Date &amp; time</th>
+                    <th>Protein</th>
+                    <th>Carbs</th>
+                    <th>Fat</th>
+                    <th>Calories</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="meal-detail.html">Porridge with banana</a></td>
+                    <td>17 Feb 2026 &mdash; 08:15</td>
+                    <td>9g</td><td>62g</td><td>5g</td><td>380 kcal</td>
+                </tr>
+                <tr>
+                    <td><a href="meal-detail.html">Chicken salad wrap</a></td>
+                    <td>17 Feb 2026 &mdash; 12:30</td>
+                    <td>38g</td><td>45g</td><td>12g</td><td>510 kcal</td>
+                </tr>
+                <tr>
+                    <td><a href="meal-detail.html">Greek yoghurt</a></td>
+                    <td>17 Feb 2026 &mdash; 15:00</td>
+                    <td>14g</td><td>9g</td><td>3g</td><td>150 kcal</td>
+                </tr>
+                <tr>
+                    <td><a href="meal-detail.html">Pasta bolognese</a></td>
+                    <td>17 Feb 2026 &mdash; 18:45</td>
+                    <td>26g</td><td>58g</td><td>11g</td><td>400 kcal</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

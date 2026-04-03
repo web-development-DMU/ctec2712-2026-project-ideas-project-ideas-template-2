@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes Documentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .routes-nav {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .routes-nav a {
+            padding: 0.75rem 1.5rem;
+            background-color: #e8eef2;
+            border-radius: 4px;
+            color: #1a3a4a;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .routes-nav a:hover {
+            background-color: #d0dce4;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="/">home</a>
+        <a href="/people">people</a>
+        <a href="/proposals">proposals</a>
+        <a href="/teams">teams</a>
+    </nav>
+    
+    <main>
+        <h1>Caloryx Routes Documentation</h1>
+        
+        <section class = "overview">
+            <h2>Overview</h2>
+            <p>
+                This documentation outlines all the routes for the Caloryx application. Routes are organized by category and request method. GET requests are read-only (safe and idempotent) operations for displaying data. POST requests modify server state.
+            </p>
+            <p>
+                Select a category below to view detailed route information:
+            </p>
+            <div class="routes-nav">
+                <a href="public.html">Public Routes</a>
+                <a href="admin.html">Admin Routes</a>
+                <a href="api.html">API Routes</a>
+            </div>
+        </section>
+
+        <section class = "route-categories">
+            <h2>Route Categories</h2>
+            
+            <h3>Public Routes</h3>
+            <p>
+                User-accessible routes for authentication, dashboard, and managing meals and exercises. These routes require user login.
+            </p>
+            <p><a href="public.html">View Public Routes →</a></p>
+
+            <h3>Admin Routes</h3>
+            <p>
+                Administration routes for managing application data, users, and system settings. Requires admin privileges.
+            </p>
+            <p><a href="admin.html">View Admin Routes →</a></p>
+
+            <h3>API Routes</h3>
+            <p>
+                POST and DELETE operations for creating, updating, and deleting resources. Includes query parameter documentation.
+            </p>
+            <p><a href="api.html">View API Routes →</a></p>
+        </section>
+
+        <section class = "prototypes">
+            <h2>Prototypes</h2>
+            <p>
+                Static HTML prototype pages have been created for every GET route listed in this documentation. Each prototype shows a realistic example of what the page will look like, using hardcoded sample data.
+            </p>
+            <p>
+                A narrative user journey document describes the full flow through the interface — from a new visitor arriving at the home page, through registration, daily use, and the admin panel. Each step embeds the relevant prototype page so you can see the screens in context.
+            </p>
+            <p><a href="../prototypes/user-journey.html">View the user journey &amp; all prototypes →</a></p>
+        </section>
+
+        <section class="bottom-nav">
+            <p><a href="../index.html">back to team page</a></p>
+        </section>
+    </main>
+</body>
+</html>
